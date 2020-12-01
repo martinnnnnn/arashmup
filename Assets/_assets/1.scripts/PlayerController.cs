@@ -37,18 +37,27 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         gameManager = GameObject.FindObjectOfType<GameManager>();
 
         rigidBody = GetComponent<Rigidbody2D>();
-        
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        spriteRenderer.color = new Color(Random.Range(0, 255), Random.Range(0, 255), Random.Range(0, 255));
 
         photonView = GetComponent<PhotonView>();
-        if (!photonView.IsMine)
+
+        if (photonView.IsMine)
+        {
+            photonView.RPC("RPC_SetColor", RpcTarget.All, Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+        }
+        else
         {
             Destroy(rigidBody);
         }
 
         bulletPoll = Instantiate(Resources.Load<GameObject>(Path.Combine("Prefabs", "ObjectPool")), Vector3.zero, Quaternion.identity).GetComponent<ObjectPool>();
         bulletPoll.Setup(Resources.Load<GameObject>(Path.Combine("Prefabs", "Bullet")), 20);
+    }
+
+    [PunRPC]
+    void RPC_SetColor(float r, float g, float b)
+    {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer.color = new Color(r, g, b, 1);
     }
 
 
