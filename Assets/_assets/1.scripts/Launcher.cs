@@ -5,10 +5,13 @@ using Photon.Pun;
 using TMPro;
 using Photon.Realtime;
 using System;
-
+using UnityEngine.UI;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
+    [SerializeField] TMP_InputField playerNameField;
+    string playerName;
+
     [SerializeField] TMP_InputField roomNameInputField;
     [SerializeField] TMP_Text errorText;
     [SerializeField] TMP_Text roomNameText;
@@ -25,6 +28,17 @@ public class Launcher : MonoBehaviourPunCallbacks
     #region Server and Lobby
     void Start()
     {
+        playerName = PlayerPrefs.GetString("PlayerName");
+        if (string.IsNullOrEmpty(playerName))
+        {
+            playerName = playerNameField.text;
+        }
+        else
+        {
+            playerNameField.text = playerName;
+        }
+
+
         MenuManager.Instance.OpenMenu(Menu.Type.Loading);
 
         if (TransSceneData.Instance.backFromGameplay)
@@ -71,7 +85,18 @@ public class Launcher : MonoBehaviourPunCallbacks
         MenuManager.Instance.OpenMenu(Menu.Type.Title);
         if (string.IsNullOrEmpty(PhotonNetwork.NickName))
         {
-            PhotonNetwork.NickName = "Player " + UnityEngine.Random.Range(0, 1000).ToString("0000");
+            //PhotonNetwork.NickName = "Player " + UnityEngine.Random.Range(0, 1000).ToString("0000");
+            PhotonNetwork.NickName = playerName;
+        }
+    }
+
+    public void OnValidateNewName()
+    {
+        if (!string.IsNullOrEmpty(playerName))
+        {
+            playerName = playerNameField.text;
+            PhotonNetwork.NickName = playerName;
+            PlayerPrefs.SetString("PlayerName", playerName);
         }
     }
 

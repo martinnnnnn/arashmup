@@ -11,7 +11,7 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
     TMP_Text text;
 
     Player player;
-    public void Setup(Player p)
+    public void Setup   (Player p)
     {
         text = GetComponent<TMP_Text>();
         player = p;

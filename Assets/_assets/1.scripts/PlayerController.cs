@@ -75,30 +75,22 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     }
     void Fire()
     {
-        if (Input.GetMouseButtonDown(0) && fireAllowed)
+        if (Input.GetMouseButtonDown(0) && fireAllowed && !dead)
         {
-            GameObject bullet = bulletPoll.GetNext();
-
-            bullet.transform.position = transform.position;
-
             Vector2 worldPosition = followCamera.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
             Vector2 direction = (worldPosition - new Vector2(transform.position.x, transform.position.y)).normalized;
 
-            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(direction.x * 10, direction.y * 10);
-
-            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
-
-            photonView.RPC("RemoteFire", RpcTarget.Others, transform.position, direction);
+            photonView.RPC("RPC_RemoteFire", RpcTarget.All, transform.position, direction);
         }
     }
 
     [PunRPC]
-    void RemoteFire(Vector3 position, Vector2 velocity)
+    void RPC_RemoteFire(Vector3 position, Vector2 velocity)
     {
         GameObject bullet = bulletPoll.GetNext();
 
         bullet.transform.position = position;
-        bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(velocity.x * 6, velocity.y * 6);
+        bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(velocity.x * 10, velocity.y * 10);
 
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
     }
@@ -117,11 +109,16 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     bool dead = false;
     public void ReceiveDamage(int damage)
     {
+        if (!dead)
+        {
+            SpriteRenderer visual = GetComponentInChildren<SpriteRenderer>();
+            visual.color = new Color(visual.color.r, visual.color.g, visual.color.b, 0.1f);
+            dead = true;
+            Destroy(GetComponent<CircleCollider2D>());
 
-        gameObject.SetActive(false);
-
-        dead = dead ? dead : photonView.IsMine;
-        gameManager.UpdateUI(dead);
+            gameManager.IncreaseDead(photonView.IsMine);
+            gameManager.CheckEnd();
+        }
 
         //if (photonView.IsMine)
         //{
