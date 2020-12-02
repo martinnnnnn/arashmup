@@ -128,15 +128,5 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
             gameManager.IncreaseDead(photonView.IsMine);
             gameManager.CheckEnd();
         }
-
-        //if (photonView.IsMine)
-        //{
-        //    gameManager.uiManager.youDied.gameObject.SetActive(true);
-        //    gameManager.uiManager.leaveRoom.gameObject.SetActive(true);
-        //}
-        //else
-        //{
-        //    gameManager.CheckWin();
-        //}
     }
 }

@@ -19,9 +19,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+
         uiManager = GetComponent<GameUIManager>();
 
-        Debug.Log("hello");
         TransSceneData.Instance.backFromGameplay = true;
         TransSceneData.Instance.stayInRoom = true;
     }

@@ -1466,8 +1466,6 @@ MonoBehaviour:
   youDied: {fileID: 629693371}
   youWon: {fileID: 145530249}
   aliveCount: {fileID: 128194569}
-  stayInRoom: {fileID: 1728182155}
-  leaveRoom: {fileID: 23871000}
 --- !u!1 &1728182154
 GameObject:
   m_ObjectHideFlags: 0
