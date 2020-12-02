@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
     void Start()
     {
+        fireAllowed = true;
+
         gameManager = GameObject.FindObjectOfType<GameManager>();
 
         rigidBody = GetComponent<Rigidbody2D>();
@@ -82,14 +84,22 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         Vector2 moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))/*.normalized*/;
         moveAmount = Vector2.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), ref smoothMoveVelocity, smoothTime);
     }
+
+    [SerializeField] float fireCooldownTime;
+    float timeSinceFire;
     void Fire()
     {
-        if (Input.GetMouseButtonDown(0) && fireAllowed && !dead)
+        timeSinceFire += Time.deltaTime;
+
+        if (Input.GetMouseButton(0) && fireAllowed && !dead && timeSinceFire > fireCooldownTime)
         {
+            timeSinceFire = 0.0f;
             Vector2 worldPosition = followCamera.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
             Vector2 direction = (worldPosition - new Vector2(transform.position.x, transform.position.y)).normalized;
 
-            photonView.RPC("RPC_RemoteFire", RpcTarget.All, transform.position, direction);
+            Vector3 position = transform.position + new Vector3(direction.x, direction.y, transform.position.z) * 0.8f;
+
+            photonView.RPC("RPC_RemoteFire", RpcTarget.All, position, direction);
         }
     }
 
@@ -99,7 +109,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         GameObject bullet = bulletPoll.GetNext();
 
         bullet.transform.position = position;
-        bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(velocity.x * 10, velocity.y * 10);
+        bullet.GetComponent<Rigidbody2D>().velocity = /*velocity * 10;*/new Vector2(velocity.x * 10, velocity.y * 10);
 
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
     }
@@ -130,3 +140,40 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         }
     }
 }
+
+
+//Vector2 networkPosition;
+//Vector2 networkVelocity;
+//float currentSpeed;
+//double lastNetworkDataReceivedTime;
+//public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+//{
+//    if (stream.IsWriting)
+//    {
+//        stream.SendNext(rigidBody.position);
+//        stream.SendNext(rigidBody.velocity);
+//        stream.SendNext(currentSpeed);
+//    }
+//    else
+//    {
+//        networkPosition = (Vector2)stream.ReceiveNext();
+//        networkVelocity = (Vector2)stream.ReceiveNext();
+//        currentSpeed = (float)stream.ReceiveNext();
+//        lastNetworkDataReceivedTime = info.SentServerTime; //timestamp
+
+//        // float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
+//        networkPosition += networkVelocity * Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime)); ;
+//    }
+//}
+
+//private void UpdateNetworkedPosition()
+//{
+//    float pingInSeconds = PhotonNetwork.GetPing() * 0.001f;
+//    float timeSinceLastUpdate = (float)(PhotonNetwork.Time - lastNetworkDataReceivedTime);
+//    float totalTimePassed = pingInSeconds + timeSinceLastUpdate; // lag
+
+//    networkPosition += rigidBody.velocity * totalTimePassed;
+//    networkVelocity += (networkVelocity - rigidBody.velocity) * Time.deltaTime * totalTimePassed * 50;
+
+//    rigidBody.MovePosition(Vector3.MoveTowards(rigidBody.position, networkPosition, Time.deltaTime * currentSpeed));
+//}
