@@ -18,6 +18,7 @@ public class GameUIManager : MonoBehaviour
     public TMP_Text youWon;
     public TMP_Text aliveCount;
     public ProgressBar dashProgressBar;
+    public ProgressBar fireProgressBar;
     [HideInInspector] public Action OnCountDownOver;
 
 

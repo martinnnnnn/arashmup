@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     bool dead = false;
 
     ProgressBar dashProgressBar;
+    ProgressBar fireProgressBar;
 
     void Start()
     {
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         {
             photonView.RPC("RPC_SetColor", RpcTarget.All, Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
             dashProgressBar = gameManager.uiManager.dashProgressBar;
+            fireProgressBar = gameManager.uiManager.fireProgressBar;
         }
         else
         {
@@ -83,10 +85,10 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
         Move();
         Fire();
-        UpdateDashCooldown();
+        UpdateProgressBars();
     }
 
-    void UpdateDashCooldown()
+    void UpdateProgressBars()
     {
         if (dashProgressBar == null)
         {
@@ -95,6 +97,12 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
         dashProgressBar.current = Mathf.Min(timeSinceDash / dashRate * dashProgressBar.maximum, dashProgressBar.maximum);
 
+        if (fireProgressBar == null)
+        {
+            return;
+        }
+
+        fireProgressBar.current = Mathf.Min(timeSinceFire / fireRate * fireProgressBar.maximum, fireProgressBar.maximum);
     }
 
     void Move()
