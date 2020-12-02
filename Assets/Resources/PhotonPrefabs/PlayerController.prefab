@@ -99,7 +99,7 @@ MonoBehaviour:
   followCamera: {fileID: 0}
   moveAllowed: 0
   fireAllowed: 0
-  fireCooldownTime: 0.4
+  fireRate: 0.4
 --- !u!58 &1366239956575232168
 CircleCollider2D:
   m_ObjectHideFlags: 0

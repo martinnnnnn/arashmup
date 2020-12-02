@@ -85,13 +85,13 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         moveAmount = Vector2.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), ref smoothMoveVelocity, smoothTime);
     }
 
-    [SerializeField] float fireCooldownTime;
+    [SerializeField] float fireRate;
     float timeSinceFire;
     void Fire()
     {
         timeSinceFire += Time.deltaTime;
 
-        if (Input.GetMouseButton(0) && fireAllowed && !dead && timeSinceFire > fireCooldownTime)
+        if (Input.GetMouseButton(0) && fireAllowed && !dead && timeSinceFire > fireRate)
         {
             timeSinceFire = 0.0f;
             Vector2 worldPosition = followCamera.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
