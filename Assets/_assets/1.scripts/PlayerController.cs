@@ -12,7 +12,6 @@ using DG.Tweening;
 
 public class PlayerController : MonoBehaviour/*, IPunObservable*/
 {
-    [SerializeField] float sprintSpeed;
     [SerializeField] float walkSpeed;
     [SerializeField] float smoothTime;
 
@@ -32,10 +31,21 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     [HideInInspector] public bool moveAllowed = false;
     [HideInInspector] public bool fireAllowed = false;
 
+    public float dashForce;
+    public float dashRate;
+    float timeSinceDash;
+    Vector2 moveDir;
+    bool dash;
+
+    [SerializeField] float fireRate;
+    float timeSinceFire;
+
+    bool dead = false;
+
+    ProgressBar dashProgressBar;
+
     void Start()
     {
-        fireAllowed = true;
-
         gameManager = GameObject.FindObjectOfType<GameManager>();
 
         rigidBody = GetComponent<Rigidbody2D>();
@@ -45,6 +55,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         if (photonView.IsMine)
         {
             photonView.RPC("RPC_SetColor", RpcTarget.All, Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+            dashProgressBar = gameManager.uiManager.dashProgressBar;
         }
         else
         {
@@ -72,6 +83,18 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
         Move();
         Fire();
+        UpdateDashCooldown();
+    }
+
+    void UpdateDashCooldown()
+    {
+        if (dashProgressBar == null)
+        {
+            return;
+        }
+
+        dashProgressBar.current = Mathf.Min(timeSinceDash / dashRate * dashProgressBar.maximum, dashProgressBar.maximum);
+
     }
 
     void Move()
@@ -81,12 +104,38 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
             return;
         }
 
-        Vector2 moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))/*.normalized*/;
-        moveAmount = Vector2.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), ref smoothMoveVelocity, smoothTime);
+        timeSinceDash += Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Space) && timeSinceDash > dashRate)
+        {
+            dash = true;
+            timeSinceDash = 0f;
+            dashProgressBar.current = 0;
+        }
+
+        moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
-    [SerializeField] float fireRate;
-    float timeSinceFire;
+    void FixedUpdate()
+    {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
+        if (dash)
+        {
+            dash = false;
+            rigidBody.velocity = moveDir * dashForce;
+        }
+        else
+        {
+            moveAmount = Vector2.SmoothDamp(moveAmount, moveDir * walkSpeed, ref smoothMoveVelocity, smoothTime);
+            rigidBody.velocity = moveAmount;
+        }
+
+    }
+
+
     void Fire()
     {
         timeSinceFire += Time.deltaTime;
@@ -109,23 +158,11 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         GameObject bullet = bulletPoll.GetNext();
 
         bullet.transform.position = position;
-        bullet.GetComponent<Rigidbody2D>().velocity = /*velocity * 10;*/new Vector2(velocity.x * 10, velocity.y * 10);
+        bullet.GetComponent<Rigidbody2D>().velocity = velocity * 10;
 
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
     }
 
-    void FixedUpdate()
-    {
-        if (!photonView.IsMine)
-        {
-            return;
-        }
-
-        Vector3 transDir = transform.TransformDirection(moveAmount);
-        rigidBody.MovePosition(rigidBody.position + new Vector2(transDir.x, transDir.y) * Time.deltaTime);
-    }
-
-    bool dead = false;
     public void ReceiveDamage(int damage)
     {
         if (!dead)

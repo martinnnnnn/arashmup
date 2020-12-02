@@ -93,12 +93,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7acb404203fdff940b97e1dc3fbb601d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprintSpeed: 10
   walkSpeed: 5
   smoothTime: 0.01
   followCamera: {fileID: 0}
   moveAllowed: 0
   fireAllowed: 0
+  dashForce: 50
+  dashRate: 3
   fireRate: 0.4
 --- !u!58 &1366239956575232168
 CircleCollider2D:
