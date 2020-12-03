@@ -7,6 +7,7 @@ using TMPro;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.IO;
+using System;
 
 public class ObjectPool : MonoBehaviour
 {
@@ -77,5 +78,10 @@ public class ObjectPool : MonoBehaviour
         pool[nextFree].SetActive(true);
 
         return pool[nextFree];
+    }
+
+    internal void ResetAll()
+    {
+        pool.ForEach(o => o.SetActive(false));
     }
 }

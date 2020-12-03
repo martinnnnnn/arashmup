@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     [SerializeField] float fireRate;
     float timeSinceFire;
 
-    bool dead = false;
+    bool isDead = false;
 
     ProgressBar dashProgressBar;
     ProgressBar fireProgressBar;
@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     {
         timeSinceFire += Time.deltaTime;
 
-        if (Input.GetMouseButton(0) && fireAllowed && !dead && timeSinceFire > fireRate)
+        if (Input.GetMouseButton(0) && fireAllowed && !isDead && timeSinceFire > fireRate)
         {
             timeSinceFire = 0.0f;
             Vector2 worldPosition = followCamera.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
@@ -166,22 +166,36 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         GameObject bullet = bulletPoll.GetNext();
 
         bullet.transform.position = position;
-        bullet.GetComponent<Rigidbody2D>().velocity = velocity * 10;
+        bullet.GetComponent<Rigidbody2D>().velocity = velocity * 7;
 
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
     }
 
     public void ReceiveDamage(int damage)
     {
-        if (!dead)
+        if (photonView.IsMine && !isDead)
         {
-            SpriteRenderer visual = GetComponentInChildren<SpriteRenderer>();
-            visual.color = new Color(visual.color.r, visual.color.g, visual.color.b, 0.1f);
-            dead = true;
-            Destroy(GetComponent<CircleCollider2D>());
+            photonView.RPC("RPC_SetDead", RpcTarget.All, true);
+        }
+    }
 
-            gameManager.IncreaseDead(photonView.IsMine);
-            gameManager.CheckEnd();
+    [PunRPC]
+    void RPC_SetDead(bool value)
+    {
+        isDead = true;
+        SpriteRenderer visual = GetComponentInChildren<SpriteRenderer>();
+        visual.color = new Color(visual.color.r, visual.color.g, visual.color.b, 0.1f);
+        Destroy(GetComponent<CircleCollider2D>());
+
+        gameManager.IncreaseDead(photonView.IsMine);
+        if (gameManager.CheckEnd())
+        {
+            foreach (PlayerController player in FindObjectsOfType<PlayerController>())
+            {
+                player.fireAllowed = false;
+                player.moveAllowed = false;
+                moveDir = Vector2.zero;
+            }
         }
     }
 }

@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void CheckEnd()
+    public bool CheckEnd()
     {
         if (deadPlayerCount == PhotonNetwork.PlayerList.Count() - 1)
         {
@@ -62,7 +62,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 StartCoroutine(EndGame());
             }
+            return true;
         }
+        return false;
     }
 
     IEnumerator EndGame()

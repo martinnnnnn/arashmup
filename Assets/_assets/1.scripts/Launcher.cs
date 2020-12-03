@@ -148,7 +148,6 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        //Instantiate(playerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().Setup(newPlayer);
         AddPlayerToRoom(newPlayer);
     }
 
@@ -174,7 +173,6 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         foreach (Player player in PhotonNetwork.PlayerList)
         {
-            //Instantiate(playerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().Setup(player);
             AddPlayerToRoom(player);
         }
 
@@ -201,15 +199,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        //PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.LoadLevel(1);
-    }
-
-    [PunRPC]
-    public void RemoveLoadScene()
-    {
-
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
