@@ -15,6 +15,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] Weapon sniper;
     [SerializeField] Weapon bounce;
 
+    PhotonView photonView;
     TMP_Text ammoLeftText;
     int ammoLeft;
     int AmmoLeft
@@ -26,13 +27,16 @@ public class WeaponController : MonoBehaviour
         set
         {
             ammoLeft = value;
-            if (ammoLeft >= 0)
+            if (photonView.IsMine)
             {
-                ammoLeftText.text = ammoLeft.ToString();
-            }
-            else
-            {
-                ammoLeftText.text = "\u221E";
+                if (ammoLeft >= 0)
+                {
+                    ammoLeftText.text = ammoLeft.ToString();
+                }
+                else
+                {
+                    ammoLeftText.text = "\u221E";
+                }
             }
         }
     }
@@ -41,13 +45,15 @@ public class WeaponController : MonoBehaviour
 
     void Awake()
     {
+        photonView = GetComponent<PhotonView>();
+
         ammoLeftText = FindObjectOfType<GameUIManager>().ammoLeft;
 
         classic.Init();
         sniper.Init();
         bounce.Init();
 
-        Equip(Weapon.Type.Classic);
+        Equip(Weapon.Type.Bounce);
     }
 
     public void Fire(Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)

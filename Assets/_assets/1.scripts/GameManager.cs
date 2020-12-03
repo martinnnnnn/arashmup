@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public bool CheckEnd()
     {
-        if (deadPlayerCount <= PhotonNetwork.PlayerList.Count() - 1)
+        if (deadPlayerCount >= PhotonNetwork.PlayerList.Count() - 1)
         {
             if (!localDead)
             {
