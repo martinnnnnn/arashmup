@@ -7,6 +7,7 @@ using Photon.Pun;
 using System.IO;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PlayerManager : MonoBehaviour
     PlayerController player;
     GameUIManager uiManager; 
 
-    private void Start()
+    void Start()
     {
         photonView = GetComponent<PhotonView>();
         uiManager = GameObject.FindObjectOfType<GameUIManager>();

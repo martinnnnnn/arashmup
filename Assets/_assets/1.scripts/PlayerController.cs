@@ -8,7 +8,8 @@ using System.IO;
 using TMPro;
 using DG.Tweening;
 
-// add rb
+
+
 
 public class PlayerController : MonoBehaviour/*, IPunObservable*/
 {
@@ -107,6 +108,8 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
     void Move()
     {
+        moveDir = Vector2.zero;
+
         if (!moveAllowed)
         {
             return;
@@ -139,6 +142,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         {
             moveAmount = Vector2.SmoothDamp(moveAmount, moveDir * walkSpeed, ref smoothMoveVelocity, smoothTime);
             rigidBody.velocity = moveAmount;
+            //Debug.Log(rigidBody.velocity);
         }
 
     }
@@ -156,12 +160,12 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
             Vector3 position = transform.position + new Vector3(direction.x, direction.y, transform.position.z) * 0.8f;
 
-            photonView.RPC("RPC_RemoteFire", RpcTarget.All, position, direction);
+            photonView.RPC("RPC_Fire", RpcTarget.All, position, direction);
         }
     }
 
     [PunRPC]
-    void RPC_RemoteFire(Vector3 position, Vector2 velocity)
+    void RPC_Fire(Vector3 position, Vector2 velocity)
     {
         GameObject bullet = bulletPoll.GetNext();
 
@@ -192,9 +196,11 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         {
             foreach (PlayerController player in FindObjectsOfType<PlayerController>())
             {
-                player.fireAllowed = false;
-                player.moveAllowed = false;
-                moveDir = Vector2.zero;
+                if (player.photonView.IsMine)
+                {
+                    player.fireAllowed = false;
+                    player.moveAllowed = false;
+                }
             }
         }
     }

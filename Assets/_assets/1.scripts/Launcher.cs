@@ -52,7 +52,7 @@ public class Launcher : MonoBehaviourPunCallbacks
                 MenuManager.Instance.OpenMenu(Menu.Type.Room);
                 UpdateRoomData();
             }
-            else
+            else if (PhotonNetwork.CurrentRoom != null)
             {
                 Debug.Log("leaving room");
                 LeaveRoom();
