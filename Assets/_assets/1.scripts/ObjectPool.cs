@@ -14,14 +14,14 @@ public class ObjectPool : MonoBehaviour
     GameObject prefab;
     string prefabNetworkPath;
     int amount;
-    public int growAmount = 10;
+    public int growAmount;
 
     List<GameObject> pool = new List<GameObject>();
 
-    public void Setup(GameObject prefab, int amount)
+    public void Setup(GameObject prefab, int amount, int growAmount = 10)
     {
         this.prefab = prefab;
-
+        this.growAmount = growAmount;
         Grow(amount);
     }
 

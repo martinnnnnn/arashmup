@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4554091004803441674}
   - component: {fileID: 1366239956575232168}
   - component: {fileID: 7831679840649677972}
+  - component: {fileID: 1944025945641229359}
   m_Layer: 8
   m_Name: PlayerController
   m_TagString: Untagged
@@ -96,11 +97,11 @@ MonoBehaviour:
   walkSpeed: 5
   smoothTime: 0.01
   followCamera: {fileID: 0}
+  isDead: 0
   moveAllowed: 0
   fireAllowed: 0
   dashForce: 50
   dashRate: 3
-  fireRate: 0.4
 --- !u!58 &1366239956575232168
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -150,6 +151,21 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &1944025945641229359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412149817959887495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 739afd4de8ce7284aa5c9f7c7e51aaff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classic: {fileID: 11400000, guid: 022d80206df631946ade6ca98f8d7729, type: 2}
+  sniper: {fileID: 11400000, guid: 15d9841298d7b8b48a55e1363271a935, type: 2}
+  bounce: {fileID: 11400000, guid: 3aaef26304ac14443b3ee032311c55a2, type: 2}
 --- !u!1 &3584907513773359285
 GameObject:
   m_ObjectHideFlags: 0

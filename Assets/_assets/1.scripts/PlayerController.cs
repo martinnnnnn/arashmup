@@ -27,8 +27,9 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
     [HideInInspector] public Camera followCamera;
 
-    ObjectPool bulletPoll;
+    //ObjectPool bulletPoll;
 
+    [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool moveAllowed = false;
     [HideInInspector] public bool fireAllowed = false;
 
@@ -38,13 +39,13 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     Vector2 moveDir;
     bool dash;
 
-    [SerializeField] float fireRate;
+    //[SerializeField] float fireRate;
     float timeSinceFire;
-
-    bool isDead = false;
 
     ProgressBar dashProgressBar;
     ProgressBar fireProgressBar;
+
+    WeaponController weaponController;
 
     void Start()
     {
@@ -53,6 +54,8 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         rigidBody = GetComponent<Rigidbody2D>();
 
         photonView = GetComponent<PhotonView>();
+
+        weaponController = GetComponent<WeaponController>();
 
         if (photonView.IsMine)
         {
@@ -65,8 +68,8 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
             Destroy(rigidBody);
         }
 
-        bulletPoll = Instantiate(Resources.Load<GameObject>(Path.Combine("Prefabs", "ObjectPool")), Vector3.zero, Quaternion.identity).GetComponent<ObjectPool>();
-        bulletPoll.Setup(Resources.Load<GameObject>(Path.Combine("Prefabs", "Bullet")), 20);
+        //bulletPoll = Instantiate(Resources.Load<GameObject>(Path.Combine("Prefabs", "ObjectPool")), Vector3.zero, Quaternion.identity).GetComponent<ObjectPool>();
+        //bulletPoll.Setup(Resources.Load<GameObject>(Path.Combine("Prefabs", "Bullet")), 20);
     }
 
     [PunRPC]
@@ -103,7 +106,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
             return;
         }
 
-        fireProgressBar.current = Mathf.Min(timeSinceFire / fireRate * fireProgressBar.maximum, fireProgressBar.maximum);
+        fireProgressBar.current = Mathf.Min(timeSinceFire / weaponController.GetFireRate() * fireProgressBar.maximum, fireProgressBar.maximum);
     }
 
     void Move()
@@ -142,9 +145,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         {
             moveAmount = Vector2.SmoothDamp(moveAmount, moveDir * walkSpeed, ref smoothMoveVelocity, smoothTime);
             rigidBody.velocity = moveAmount;
-            //Debug.Log(rigidBody.velocity);
         }
-
     }
 
 
@@ -152,7 +153,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     {
         timeSinceFire += Time.deltaTime;
 
-        if (Input.GetMouseButton(0) && fireAllowed && !isDead && timeSinceFire > fireRate)
+        if (Input.GetMouseButton(0) && fireAllowed && !isDead && timeSinceFire > weaponController.GetFireRate())
         {
             timeSinceFire = 0.0f;
             Vector2 worldPosition = followCamera.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
@@ -165,14 +166,20 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     }
 
     [PunRPC]
-    void RPC_Fire(Vector3 position, Vector2 velocity)
+    void RPC_Fire(Vector3 position, Vector2 direction)
     {
-        GameObject bullet = bulletPoll.GetNext();
+        Collider2D[] toIgnore = new Collider2D[]
+        {
+            GetComponent<Collider2D>(),
+        };
+        weaponController.Fire(position, direction, toIgnore);
 
-        bullet.transform.position = position;
-        bullet.GetComponent<Rigidbody2D>().velocity = velocity * 7;
+        //GameObject bullet = bulletPoll.GetNext();
 
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
+        //bullet.transform.position = position;
+        //bullet.GetComponent<Rigidbody2D>().velocity = direction * 7;
+
+        //Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
     }
 
     public void ReceiveDamage(int damage)
