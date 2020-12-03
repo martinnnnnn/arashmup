@@ -14,8 +14,6 @@ using DG.Tweening;
  * new weapons
  * shield
  * boosters
- * dezoom camera
- * leave room shortcut
  * pad support
  * 
  * */
