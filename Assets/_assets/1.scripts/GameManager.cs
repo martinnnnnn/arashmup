@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
 
         uiManager = GetComponent<GameUIManager>();
 

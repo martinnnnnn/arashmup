@@ -37,7 +37,7 @@ public class PlayerManager : MonoBehaviour
 
     void CreateController()
     {
-        player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), new Vector3(0, 0, -1), Quaternion.identity).GetComponent<PlayerController>();
+        player = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerController"), new Vector3(0, 0, -1), Quaternion.identity).GetComponent<PlayerController>();
 
         string cameraPath = Path.Combine("Prefabs", "PlayerCamera");
         CameraController camera = Instantiate(Resources.Load<GameObject>(cameraPath), Vector3.zero, Quaternion.identity).GetComponent<CameraController>();
