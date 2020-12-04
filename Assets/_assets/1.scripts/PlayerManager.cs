@@ -14,11 +14,14 @@ public class PlayerManager : MonoBehaviour
     PhotonView photonView;
     PlayerController player;
     GameUIManager uiManager; 
+    public ObjectSpawn weaponSpawner;
 
     void Start()
     {
         photonView = GetComponent<PhotonView>();
-        uiManager = GameObject.FindObjectOfType<GameUIManager>();
+
+        uiManager = FindObjectOfType<GameUIManager>();
+        weaponSpawner = FindObjectOfType<ObjectSpawn>();
 
         if (photonView.IsMine)
         {
@@ -26,6 +29,21 @@ public class PlayerManager : MonoBehaviour
             uiManager.OnCountDownOver += OnCountDownOver;
             uiManager.StartCountDown();
         }
+    }
+
+
+    void Update()
+    {
+        if (PhotonNetwork.IsMasterClient && photonView.IsMine)
+        {
+            weaponSpawner.UpdateSpawn(photonView);
+        }
+    }
+
+    [PunRPC]
+    public void PRC_SpawnObject(string prefabName, Vector3 position)
+    {
+        GameObject spawnedObj = Instantiate(Resources.Load<GameObject>(Path.Combine("Prefabs", prefabName)), position, Quaternion.identity);
     }
 
     void OnCountDownOver()

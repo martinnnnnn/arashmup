@@ -11,4 +11,16 @@ using System.IO;
 public class WeaponPickup : MonoBehaviour
 {
     public Weapon.Type weaponType;
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("hello");
+        WeaponController weaponController = other.GetComponent<WeaponController>();
+        if (weaponController != null)
+        {
+            weaponController.Equip(weaponType);
+        }
+        Destroy(gameObject);
+    }
 }

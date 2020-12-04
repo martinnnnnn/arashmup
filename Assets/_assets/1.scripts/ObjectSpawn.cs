@@ -64,37 +64,42 @@ public class ObjectSpawn : MonoBehaviour
         }
     }
 
-    void Update()
+    public void UpdateSpawn(PhotonView photonView)
     {
-        if (PhotonNetwork.IsMasterClient)
+        timeSinceSpawn += Time.deltaTime;
+        if (timeSinceSpawn >= timeNextRespawn)
         {
-            timeSinceSpawn += Time.deltaTime;
-            if (timeSinceSpawn >= timeNextRespawn)
+            int spawnPointIndex = Random.Range(0, spawnPointsIndexes.Count);
+            Transform nextPoint = spawnPoints[spawnPointIndex];
+            spawnPointsIndexes.RemoveAt(spawnPointIndex);
+
+            // spawn object
+            int objectTypeIndex = Random.Range(0, spawnObjectsIndexes.Count);
+            string prefabName = spawnableObjects[spawnObjectsIndexes[objectTypeIndex]].prefabName;
+
+            //PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", prefabName), nextPoint.position, Quaternion.identity);
+            photonView.RPC("PRC_SpawnObject", RpcTarget.All, prefabName, nextPoint.position);
+
+            spawnObjectsIndexes.RemoveAt(objectTypeIndex);
+            if (spawnObjectsIndexes.Count == 0)
             {
-                int spawnPointIndex = Random.Range(0, spawnPointsIndexes.Count);
-                Transform nextPoint = spawnPoints[spawnPointIndex];
-                spawnPointsIndexes.RemoveAt(spawnPointIndex);
-
-                // spawn object
-                int objectTypeIndex = Random.Range(0, spawnObjectsIndexes.Count);
-                string prefabName = spawnableObjects[spawnObjectsIndexes[objectTypeIndex]].prefabName;
-                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", prefabName), nextPoint.position, Quaternion.identity);
-
-                spawnObjectsIndexes.RemoveAt(objectTypeIndex);
-                if (spawnObjectsIndexes.Count == 0)
-                {
-                    AddSpawnObjectsIndexes();
-                }
-
-                if (spawnPointsIndexes.Count == 0)
-                {
-                    AddSpawnPointsIndexes();
-                }
-
-                UpdateNextRespawn();
+                AddSpawnObjectsIndexes();
             }
+
+            if (spawnPointsIndexes.Count == 0)
+            {
+                AddSpawnPointsIndexes();
+            }
+
+            UpdateNextRespawn();
         }
     }
+
+    //[PunRPC]
+    //public void PRC_SpawnObject(string prefabName, Vector3 position)
+    //{
+    //    GameObject spawnedObj = Instantiate(Resources.Load<GameObject>(Path.Combine("Prefabs", prefabName)), position, Quaternion.identity);
+    //}
     
     void UpdateNextRespawn()
     {

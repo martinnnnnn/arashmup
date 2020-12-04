@@ -53,7 +53,7 @@ public class WeaponController : MonoBehaviour
         sniper.Init();
         bounce.Init();
 
-        Equip(Weapon.Type.Bounce);
+        Equip(Weapon.Type.Classic);
     }
 
     public void Fire(Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
