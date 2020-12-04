@@ -9,6 +9,16 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using DG.Tweening;
 
+
+/*
+ * new weapons
+ * shield
+ * boosters
+ * pad support
+ * 
+ * */
+
+
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -19,17 +29,36 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+
         uiManager = GetComponent<GameUIManager>();
 
-        Debug.Log("hello");
         TransSceneData.Instance.backFromGameplay = true;
         TransSceneData.Instance.stayInRoom = true;
     }
 
+    bool hasLeft = false;
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F10) && !hasLeft)
+        {
+            hasLeft = true;
+            PhotonNetwork.LeaveRoom();
+        }
+    }
+
+    public override void OnLeftRoom()
+    {
+        TransSceneData.Instance.backFromGameplay = true;
+        TransSceneData.Instance.stayInRoom = false;
+        SceneManager.LoadScene(0);
+    }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        IncreaseDead(false);
+        int aliveCount = PhotonNetwork.PlayerList.Count() - deadPlayerCount;
+        uiManager.aliveCount.text = aliveCount.ToString();
+
         CheckEnd();
     }
 
@@ -48,9 +77,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void CheckEnd()
+    public bool CheckEnd()
     {
-        if (deadPlayerCount == PhotonNetwork.PlayerList.Count() - 1)
+        if (deadPlayerCount >= PhotonNetwork.PlayerList.Count() - 1)
         {
             if (!localDead)
             {
@@ -61,7 +90,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 StartCoroutine(EndGame());
             }
+            return true;
         }
+        return false;
     }
 
     IEnumerator EndGame()

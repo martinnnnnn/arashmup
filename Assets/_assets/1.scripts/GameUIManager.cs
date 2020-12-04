@@ -17,9 +17,11 @@ public class GameUIManager : MonoBehaviour
     public TMP_Text youDied;
     public TMP_Text youWon;
     public TMP_Text aliveCount;
-    //public Button stayInRoom;
-    //public Button leaveRoom;
+    public TMP_Text ammoLeft;
+    public ProgressBar dashProgressBar;
+    public ProgressBar fireProgressBar;
     [HideInInspector] public Action OnCountDownOver;
+
 
     private void Awake()
     {
@@ -27,8 +29,6 @@ public class GameUIManager : MonoBehaviour
         youDied.gameObject.SetActive(false);
         youWon.gameObject.SetActive(false);
         aliveCount.gameObject.SetActive(false);
-        //stayInRoom.gameObject.SetActive(false);
-        //leaveRoom.gameObject.SetActive(false);
     }
 
     public void StartCountDown()
