@@ -27,8 +27,6 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
     [HideInInspector] public Camera followCamera;
 
-    //ObjectPool bulletPoll;
-
     [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool moveAllowed = false;
     [HideInInspector] public bool fireAllowed = false;
@@ -39,7 +37,6 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     Vector2 moveDir;
     bool dash;
 
-    //[SerializeField] float fireRate;
     float timeSinceFire;
 
     ProgressBar dashProgressBar;
@@ -67,9 +64,6 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         {
             Destroy(rigidBody);
         }
-
-        //bulletPoll = Instantiate(Resources.Load<GameObject>(Path.Combine("Prefabs", "ObjectPool")), Vector3.zero, Quaternion.identity).GetComponent<ObjectPool>();
-        //bulletPoll.Setup(Resources.Load<GameObject>(Path.Combine("Prefabs", "Bullet")), 20);
     }
 
     [PunRPC]
@@ -159,7 +153,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
             Vector2 worldPosition = followCamera.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
             Vector2 direction = (worldPosition - new Vector2(transform.position.x, transform.position.y)).normalized;
 
-            Vector3 position = transform.position + new Vector3(direction.x, direction.y, transform.position.z) * 0.8f;
+            Vector3 position = transform.position + new Vector3(direction.x, direction.y, transform.position.z) * 0.9f;
 
             photonView.RPC("RPC_Fire", RpcTarget.All, position, direction);
         }
@@ -172,14 +166,8 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         {
             GetComponent<Collider2D>(),
         };
+
         weaponController.Fire(position, direction, toIgnore);
-
-        //GameObject bullet = bulletPoll.GetNext();
-
-        //bullet.transform.position = position;
-        //bullet.GetComponent<Rigidbody2D>().velocity = direction * 7;
-
-        //Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
     }
 
     public void ReceiveDamage(int damage)

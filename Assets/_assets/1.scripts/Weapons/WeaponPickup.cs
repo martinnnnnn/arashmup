@@ -12,15 +12,14 @@ public class WeaponPickup : MonoBehaviour
 {
     public Weapon.Type weaponType;
 
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("hello");
+        Debug.Log("mouahahya");
         WeaponController weaponController = other.GetComponent<WeaponController>();
         if (weaponController != null)
         {
             weaponController.Equip(weaponType);
+            GetComponent<SpawnObject>().DestroySelf();
         }
-        Destroy(gameObject);
     }
 }
