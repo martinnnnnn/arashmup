@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8540961440461442262}
   - component: {fileID: 5335842555382565234}
   - component: {fileID: -6800072049639085901}
-  - component: {fileID: -2143770257507459585}
   m_Layer: 0
   m_Name: WeaponPickup_Bounce
   m_TagString: Untagged
@@ -112,18 +111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8a5fa82858e9b439e32bcf4295b110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 2
---- !u!114 &-2143770257507459585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5757075418037949447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4e0cec2a1bb2f643ba130ad288d433e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   spawner: {fileID: 0}
   spawnPointIndex: 0
+  weaponType: 2
