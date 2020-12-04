@@ -10,11 +10,13 @@ using System.IO;
 
 public class BulletController_Classic : MonoBehaviour
 {
-    public float speed;
-    public int damage;
-    public void Setup(Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
+    float speed;
+    int damage;
+    public void Setup(Vector3 position, Vector2 direction, float speed, int damage, Collider2D[] ignoreColliders = null)
     {
         transform.position = position;
+        this.speed = speed;
+        this.damage = damage;
 
         GetComponent<Rigidbody2D>().velocity = direction * speed;
         Collider2D ownCollider = GetComponent<Collider2D>();

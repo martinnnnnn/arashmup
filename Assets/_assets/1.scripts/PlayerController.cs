@@ -13,7 +13,7 @@ using DG.Tweening;
 
 public class PlayerController : MonoBehaviour/*, IPunObservable*/
 {
-    [SerializeField] float walkSpeed;
+    public float walkSpeed;
     [SerializeField] float smoothTime;
 
     Vector2 smoothMoveVelocity;
@@ -44,8 +44,14 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
     WeaponController weaponController;
 
+    [HideInInspector] public float currentWalkSpeed;
+    [HideInInspector] public float currentDashRate;
+
     void Start()
     {
+        currentWalkSpeed = walkSpeed;
+        currentDashRate = dashRate;
+
         gameManager = GameObject.FindObjectOfType<GameManager>();
 
         rigidBody = GetComponent<Rigidbody2D>();
@@ -93,7 +99,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
             return;
         }
 
-        dashProgressBar.current = Mathf.Min(timeSinceDash / dashRate * dashProgressBar.maximum, dashProgressBar.maximum);
+        dashProgressBar.current = Mathf.Min(timeSinceDash / currentDashRate * dashProgressBar.maximum, dashProgressBar.maximum);
 
         if (fireProgressBar == null)
         {
@@ -113,7 +119,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         }
 
         timeSinceDash += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space) && timeSinceDash > dashRate)
+        if (Input.GetKeyDown(KeyCode.Space) && timeSinceDash > currentDashRate)
         {
             dash = true;
             timeSinceDash = 0f;
@@ -137,7 +143,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         }
         else
         {
-            moveAmount = Vector2.SmoothDamp(moveAmount, moveDir * walkSpeed, ref smoothMoveVelocity, smoothTime);
+            moveAmount = Vector2.SmoothDamp(moveAmount, moveDir * currentWalkSpeed, ref smoothMoveVelocity, smoothTime);
             rigidBody.velocity = moveAmount;
         }
     }

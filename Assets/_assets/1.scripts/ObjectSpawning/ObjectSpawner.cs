@@ -114,8 +114,10 @@ public class ObjectSpawner : MonoBehaviour
 
         GameObject spawnedObj = Instantiate(Resources.Load<GameObject>(Path.Combine("Prefabs", prefabName)), spawnPoint.transform);
         spawnedObj.transform.position = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y, spawnPoint.transform.position.z - 1);
-        spawnedObj.GetComponent<SpawnObject>().spawner = this;
-        spawnedObj.GetComponent<SpawnObject>().spawnPointIndex = spawnPointIndex;
+
+        SpawnObject spawned = spawnedObj.GetComponent<SpawnObject>();
+        spawned.spawner = this;
+        spawned.spawnPointIndex = spawnPointIndex;
 
         spawnPoint.spawnedObject = spawnedObj;
     }

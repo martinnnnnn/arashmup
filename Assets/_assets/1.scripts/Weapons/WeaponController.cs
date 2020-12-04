@@ -72,22 +72,6 @@ public class WeaponController : MonoBehaviour
     public void Equip(Weapon.Type newWeaponType)
     {
         photonView.RPC("RPC_Equip", RpcTarget.All, newWeaponType);
-        //switch (newWeaponType)
-        //{
-        //    case Weapon.Type.Classic:
-        //        equiped = classic;
-        //        break;
-
-        //    case Weapon.Type.Sniper:
-        //        equiped = sniper;
-
-        //        break;
-        //    case Weapon.Type.Bounce:
-        //        equiped = bounce;
-        //        break;
-        //}
-
-        //AmmoLeft = equiped.ammo;
     }
 
     [PunRPC]

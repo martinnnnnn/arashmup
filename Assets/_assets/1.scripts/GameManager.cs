@@ -18,9 +18,6 @@ using DG.Tweening;
  * 
  * */
 
-
-using Hashtable = ExitGames.Client.Photon.Hashtable;
-
 public class GameManager : MonoBehaviourPunCallbacks
 {
     [HideInInspector] public GameUIManager uiManager;

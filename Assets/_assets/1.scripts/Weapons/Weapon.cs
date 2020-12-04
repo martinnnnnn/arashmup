@@ -18,7 +18,6 @@ public class Weapon : ScriptableObject
         Classic,
         Sniper,
         Bounce,
-        //Bazooka,
     }
 
     [Header("Bullet")]
@@ -26,6 +25,9 @@ public class Weapon : ScriptableObject
     public GameObject bulletPrefab;
     public int ammo;
     public float fireRate;
+    public float bulletSpeed;
+    public int bulletDamage;
+    public int bulletBounceCount;
 
     [Space(3)]
     [Header("Pool")]
@@ -48,18 +50,16 @@ public class Weapon : ScriptableObject
         {
             case Type.Classic:
                 BulletController_Classic classic = bulletObj.GetComponent<BulletController_Classic>();
-                classic.Setup(position, direction, ignoreColliders);
+                classic.Setup(position, direction, bulletSpeed, bulletDamage, ignoreColliders);
                 break;
             case Type.Sniper:
                 BulletController_Sniper sniper = bulletObj.GetComponent<BulletController_Sniper>();
-                sniper.Setup(position, direction, ignoreColliders);
+                sniper.Setup(position, direction, bulletSpeed, bulletDamage, ignoreColliders);
                 break;
             case Type.Bounce:
                 BulletController_Bounce bounce = bulletObj.GetComponent<BulletController_Bounce>();
-                bounce.Setup(position, direction, ignoreColliders);
+                bounce.Setup(position, direction, bulletSpeed, bulletDamage, bulletBounceCount, ignoreColliders);
                 break;
-            //case Type.Bazooka:
-            //    break;
         }
     }
 }

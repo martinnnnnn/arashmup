@@ -10,9 +10,9 @@ using System.IO;
 
 public class BulletController_Bounce : MonoBehaviour
 {
-    public float speed;
-    public int damage;
-    public int bounceCount;
+    float speed;
+    int damage;
+    int bounceCount;
 
     Vector2 direction;
 
@@ -20,10 +20,12 @@ public class BulletController_Bounce : MonoBehaviour
     Rigidbody2D rigidBody;
     int bounceCountLeft;
 
-    public void Setup(Vector3 position, Vector2 dir, Collider2D[] ignoreColliders = null)
+    public void Setup(Vector3 position, Vector2 direction, float speed, int damage, int bounceCount, Collider2D[] ignoreColliders = null)
     {
         transform.position = position;
-        direction = dir;
+        this.direction = direction;
+        this.speed = speed;
+        this.damage = damage;
 
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.velocity = direction * speed;

@@ -17,6 +17,9 @@ MonoBehaviour:
     type: 3}
   ammo: 10
   fireRate: 0.6
+  bulletSpeed: 7
+  bulletDamage: 10
+  bulletBounceCount: 5
   poolPrefab: {fileID: 7216681613157809091, guid: 0f7c5fe77fafb2d408446200f5e81268,
     type: 3}
   defaultPoolSize: 10
