@@ -10,6 +10,14 @@ using DG.Tweening;
 using System;
 using ExitGames.Client.Photon;
 
+
+internal static class CustomPropertiesKeys
+{
+    public static readonly string VictoryCount = "VictoryCount";
+    public static readonly string KillCount = "KillCount";
+}
+
+
 internal static class CustomTypesSerialization
 {
     internal static void Register()

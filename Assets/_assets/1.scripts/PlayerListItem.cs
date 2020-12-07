@@ -8,14 +8,17 @@ using Photon.Pun;
 
 public class PlayerListItem : MonoBehaviourPunCallbacks
 {
-    TMP_Text text;
+    public TMP_Text playerName;
+    public TMP_Text victoryCount;
+    public TMP_Text killCount;
 
     Player player;
-    public void Setup   (Player p)
+    public void Setup(Player p)
     {
-        text = GetComponent<TMP_Text>();
         player = p;
-        text.text = player.NickName;
+        playerName.text = player.NickName;
+        victoryCount.text = ((int)p.CustomProperties[CustomPropertiesKeys.VictoryCount]).ToString();
+        killCount.text = ((int)p.CustomProperties[CustomPropertiesKeys.VictoryCount]).ToString();
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

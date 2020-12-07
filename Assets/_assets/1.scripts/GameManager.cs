@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using DG.Tweening;
 
-
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 /*
  * new weapons
  * shield
@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [HideInInspector] public GameUIManager uiManager;
 
     int deadPlayerCount = 0;
+    int localPlayerKills;
 
     void Start()
     {
@@ -81,6 +82,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (!localDead)
             {
                 uiManager.youWon.gameObject.SetActive(true);
+                AddWinToLocalPlayer();
             }
 
             if (PhotonNetwork.IsMasterClient)
@@ -98,6 +100,14 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.CurrentRoom.IsOpen = true;
         PhotonNetwork.LoadLevel(0);
+    }
 
+    void AddWinToLocalPlayer()
+    {
+        int victoryCount = (int)PhotonNetwork.LocalPlayer.CustomProperties[CustomPropertiesKeys.VictoryCount];
+
+        Hashtable hash = new Hashtable();
+        hash.Add(CustomPropertiesKeys.VictoryCount, victoryCount);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 }

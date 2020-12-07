@@ -85,7 +85,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         MenuManager.Instance.OpenMenu(Menu.Type.Title);
         if (string.IsNullOrEmpty(PhotonNetwork.NickName))
         {
-            //PhotonNetwork.NickName = "Player " + UnityEngine.Random.Range(0, 1000).ToString("0000");
             PhotonNetwork.NickName = playerName;
         }
     }
@@ -98,6 +97,11 @@ public class Launcher : MonoBehaviourPunCallbacks
             PhotonNetwork.NickName = playerName;
             PlayerPrefs.SetString("PlayerName", playerName);
         }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     #endregion
