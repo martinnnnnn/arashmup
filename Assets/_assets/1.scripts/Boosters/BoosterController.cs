@@ -48,7 +48,6 @@ public class BoosterController : MonoBehaviour
                         case Booster.Type.Invincible:
                             break;
                         case Booster.Type.NoCooldownDash:
-
                             playerController.currentDashRate = playerController.dashRate;
                             break;
                     }
