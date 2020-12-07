@@ -2749,7 +2749,7 @@ PrefabInstance:
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
       propertyPath: spawnableObjects.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
@@ -2766,12 +2766,12 @@ PrefabInstance:
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
       propertyPath: spawnableObjects.Array.data[2].prefabName
-      value: BoosterPickup_NoCooldownDash
+      value: WeaponPickup_Sticky
       objectReference: {fileID: 0}
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
       propertyPath: spawnableObjects.Array.data[2].frequency
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
@@ -2796,7 +2796,7 @@ PrefabInstance:
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
       propertyPath: spawnableObjects.Array.data[5].prefabName
-      value: BoosterPickup_Invincible
+      value: BoosterPickup_NoCooldownDash
       objectReference: {fileID: 0}
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
@@ -2811,6 +2811,16 @@ PrefabInstance:
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
       propertyPath: spawnableObjects.Array.data[1].frequency
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
+        type: 3}
+      propertyPath: spawnableObjects.Array.data[6].prefabName
+      value: BoosterPickup_Invincible
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
+        type: 3}
+      propertyPath: spawnableObjects.Array.data[6].frequency
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6891979415643989745, guid: df9f1811cb90d484c9db10ff9da3fe50,

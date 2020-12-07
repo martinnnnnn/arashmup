@@ -18,6 +18,7 @@ public class Weapon : ScriptableObject
         Classic,
         Sniper,
         Bounce,
+        Sticky,
     }
 
     [Header("Bullet")]
@@ -59,6 +60,10 @@ public class Weapon : ScriptableObject
             case Type.Bounce:
                 BulletController_Bounce bounce = bulletObj.GetComponent<BulletController_Bounce>();
                 bounce.Setup(position, direction, bulletSpeed, bulletDamage, bulletBounceCount, ignoreColliders);
+                break;
+            case Type.Sticky:
+                BulletController_Sticky sticky = bulletObj.GetComponent<BulletController_Sticky>();
+                sticky.Setup(position, direction, bulletSpeed, bulletDamage, ignoreColliders);
                 break;
         }
     }

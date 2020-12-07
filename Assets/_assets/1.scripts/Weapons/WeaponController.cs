@@ -14,6 +14,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] Weapon classic;
     [SerializeField] Weapon sniper;
     [SerializeField] Weapon bounce;
+    [SerializeField] Weapon sticky;
 
     PhotonView photonView;
     TMP_Text ammoLeftText;
@@ -52,8 +53,9 @@ public class WeaponController : MonoBehaviour
         classic.Init();
         sniper.Init();
         bounce.Init();
+        sticky.Init();
 
-        Equip(Weapon.Type.Classic);
+        Equip(Weapon.Type.Sticky);
     }
 
     public void Fire(Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
@@ -89,6 +91,10 @@ public class WeaponController : MonoBehaviour
                 break;
             case Weapon.Type.Bounce:
                 equiped = bounce;
+                break;
+
+            case Weapon.Type.Sticky:
+                equiped = sticky;
                 break;
         }
 
