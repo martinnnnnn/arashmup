@@ -11,42 +11,6 @@ using System;
 using ExitGames.Client.Photon;
 
 
-
-
-//[Serializable]
-//public class Booster 
-//{
-//    public float duration;
-//    [HideInInspector] public float durationLeft;
-//}
-
-//[Serializable]
-//public class Booster_Shield : Booster
-//{
-//    public int count;
-//}
-
-//[Serializable]
-//public class Booster_Invincible : Booster
-//{
-//}
-
-//[Serializable]
-//public class Booster_Speed : Booster
-//{
-//    public int value;
-//}
-
-//[Serializable]
-//public class Booster_NoCooldownDash : Booster
-//{
-//}
-
-
-
-
-
-
 public class BoosterController : MonoBehaviour
 {
     PlayerController playerController;
@@ -55,7 +19,7 @@ public class BoosterController : MonoBehaviour
 
     void Start()
     {
-        ArashmupCustomTypes.Register();
+        CustomTypesSerialization.Register();
 
         currentBoosters = new List<Booster>();
         playerController = GetComponent<PlayerController>();
@@ -68,7 +32,7 @@ public class BoosterController : MonoBehaviour
         {
             bool remove = false;
 
-            if (b.duration > 0)
+            if (b.useDuration)
             {
                 b.durationLeft -= Time.deltaTime;
 
@@ -76,14 +40,14 @@ public class BoosterController : MonoBehaviour
                 {
                     remove = true;
 
-                    switch (b)
+                    switch (b.type)
                     {
-                        case Booster_Speed speed:
+                        case Booster.Type.Speed:
                             playerController.currentWalkSpeed = playerController.walkSpeed;
                             break;
-                        case Booster_Invincible invincible:
+                        case Booster.Type.Invincible:
                             break;
-                        case Booster_NoCooldownDash dash:
+                        case Booster.Type.NoCooldownDash:
 
                             playerController.currentDashRate = playerController.dashRate;
                             break;
@@ -103,18 +67,18 @@ public class BoosterController : MonoBehaviour
         {
             bool remove = false;
 
-            switch (b)
+            switch (b.type)
             {
-                case Booster_Shield shield:
+                case Booster.Type.Shield:
                     damageDone = false;
-                    shield.count--;
-                    if (shield.count <= 0)
+                    b.strength--;
+                    if (b.strength <= 0)
                     {
                         remove = true;
                     }
                     break;
 
-                case Booster_Invincible invincible:
+                case Booster.Type.Invincible:
                     damageDone = false;
                     break;
             }
@@ -137,17 +101,16 @@ public class BoosterController : MonoBehaviour
 
         booster.durationLeft = booster.duration;
 
-        switch (booster)
+        switch (booster.type)
         {
-            case Booster_Shield shield:
+            case Booster.Type.Shield:
                 break;
-            case Booster_Speed speed:
-                playerController.currentWalkSpeed = speed.value;
-                speed.durationLeft = speed.value;
+            case Booster.Type.Speed:
+                playerController.currentWalkSpeed = booster.speed;
                 break;
-            case Booster_Invincible invincible:
+            case Booster.Type.Invincible:
                 break;
-            case Booster_NoCooldownDash dash:
+            case Booster.Type.NoCooldownDash:
                 playerController.currentDashRate = 0;
                 break;
         }

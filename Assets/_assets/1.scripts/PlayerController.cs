@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     ProgressBar fireProgressBar;
 
     WeaponController weaponController;
+    BoosterController boosterController;
 
     [HideInInspector] public float currentWalkSpeed;
     [HideInInspector] public float currentDashRate;
@@ -59,6 +60,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         photonView = GetComponent<PhotonView>();
 
         weaponController = GetComponent<WeaponController>();
+        boosterController = GetComponent<BoosterController>();
 
         if (photonView.IsMine)
         {
@@ -180,7 +182,10 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     {
         if (photonView.IsMine && !isDead)
         {
-            photonView.RPC("RPC_SetDead", RpcTarget.All, true);
+            if (boosterController.IsDamageDone(damage))
+            {
+                photonView.RPC("RPC_SetDead", RpcTarget.All, true);
+            }
         }
     }
 

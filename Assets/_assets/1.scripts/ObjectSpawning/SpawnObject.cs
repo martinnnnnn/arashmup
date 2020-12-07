@@ -15,6 +15,7 @@ public class SpawnObject : MonoBehaviour
 
     public void DestroySelf()
     {
+        Debug.Log("spawner: " + (spawner != null ? "good" : "null") + " this: " + (this != null ? "good" : "null"));
         spawner.DestoySpawnedObject(this);
     }
 }

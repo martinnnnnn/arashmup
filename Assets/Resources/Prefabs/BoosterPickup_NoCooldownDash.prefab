@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawner: {fileID: 0}
   spawnPointIndex: 0
-  booster: {fileID: 11400000, guid: e22a239e82763734a8caf62ac6e5b347, type: 2}
+  booster: {fileID: 11400000, guid: b673a81e12fc94a488b6cf3b53df5cb9, type: 2}
 --- !u!58 &8223276599679880265
 CircleCollider2D:
   m_ObjectHideFlags: 0

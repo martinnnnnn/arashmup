@@ -18,7 +18,7 @@ public class BoosterPickup : SpawnObject
         if (boosterController != null)
         {
             boosterController.Add(booster);
-            //DestroySelf();
+            DestroySelf();
         }
     }
 }

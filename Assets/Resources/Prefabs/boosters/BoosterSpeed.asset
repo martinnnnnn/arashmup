@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Booster_Speed
-  m_EditorClassIdentifier: Assembly-CSharp::Booster_Speed
+  m_Script: {fileID: 11500000, guid: f3ef9a3c76468e04b80b6690b1323682, type: 3}
+  m_Name: BoosterSpeed
+  m_EditorClassIdentifier: Assembly-CSharp::Booster_Invincible
+  type: 2
+  useDuration: 1
   duration: 10
-  durationLeft: -0.0016954616
-  value: 10
+  durationLeft: 0
+  count: 0
+  speed: 10
