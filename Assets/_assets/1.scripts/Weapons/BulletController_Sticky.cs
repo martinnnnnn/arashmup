@@ -28,7 +28,7 @@ public class BulletController_Sticky : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Bullet");
 
         rigidBody = GetComponent<Rigidbody2D>();
-        rigidBody.bodyType = RigidbodyType2D.Kinematic;
+        rigidBody.bodyType = RigidbodyType2D.Dynamic;
         rigidBody.velocity = direction * speed;
         ownCollider = GetComponent<Collider2D>();
 

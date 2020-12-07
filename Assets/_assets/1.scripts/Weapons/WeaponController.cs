@@ -55,7 +55,7 @@ public class WeaponController : MonoBehaviour
         bounce.Init();
         sticky.Init();
 
-        Equip(Weapon.Type.Sticky);
+        Equip(Weapon.Type.Classic);
     }
 
     public void Fire(Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)

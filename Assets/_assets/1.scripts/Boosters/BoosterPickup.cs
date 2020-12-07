@@ -14,6 +14,8 @@ public class BoosterPickup : SpawnObject
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("hello");
+
         BoosterController boosterController = other.GetComponent<BoosterController>();
         if (boosterController != null)
         {

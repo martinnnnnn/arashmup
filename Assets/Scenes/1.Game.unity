@@ -2771,7 +2771,7 @@ PrefabInstance:
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
       propertyPath: spawnableObjects.Array.data[2].frequency
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}

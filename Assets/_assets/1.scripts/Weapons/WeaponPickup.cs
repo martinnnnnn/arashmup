@@ -14,6 +14,7 @@ public class WeaponPickup : SpawnObject
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("hello");
         WeaponController weaponController = other.GetComponent<WeaponController>();
         if (weaponController != null)
         {
