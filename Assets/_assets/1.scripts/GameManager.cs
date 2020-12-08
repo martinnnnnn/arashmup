@@ -104,10 +104,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void AddWinToLocalPlayer()
     {
-        int victoryCount = (int)PhotonNetwork.LocalPlayer.CustomProperties[CustomPropertiesKeys.VictoryCount];
-
+        int victoryCount = 0;
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(CustomPropertiesKeys.VictoryCount))
+        {
+            victoryCount = (int)PhotonNetwork.LocalPlayer.CustomProperties[CustomPropertiesKeys.VictoryCount];
+        }
         Hashtable hash = new Hashtable();
-        hash.Add(CustomPropertiesKeys.VictoryCount, victoryCount);
+        hash.Add(CustomPropertiesKeys.VictoryCount, ++victoryCount);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 }

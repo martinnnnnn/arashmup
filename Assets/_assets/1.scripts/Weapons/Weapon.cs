@@ -43,7 +43,7 @@ public class Weapon : ScriptableObject
         bulletPool.Setup(bulletPrefab, defaultPoolSize);
     }
 
-    public void Fire(Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
+    public void Fire(int actorNumber, Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
     {
         GameObject bulletObj = bulletPool.GetNext();
 
@@ -51,19 +51,19 @@ public class Weapon : ScriptableObject
         {
             case Type.Classic:
                 BulletController_Classic classic = bulletObj.GetComponent<BulletController_Classic>();
-                classic.Setup(position, direction, bulletSpeed, bulletDamage, ignoreColliders);
+                classic.Setup(actorNumber, position, direction, bulletSpeed, bulletDamage, ignoreColliders);
                 break;
             case Type.Sniper:
                 BulletController_Sniper sniper = bulletObj.GetComponent<BulletController_Sniper>();
-                sniper.Setup(position, direction, bulletSpeed, bulletDamage, ignoreColliders);
+                sniper.Setup(actorNumber, position, direction, bulletSpeed, bulletDamage, ignoreColliders);
                 break;
             case Type.Bounce:
                 BulletController_Bounce bounce = bulletObj.GetComponent<BulletController_Bounce>();
-                bounce.Setup(position, direction, bulletSpeed, bulletDamage, bulletBounceCount, ignoreColliders);
+                bounce.Setup(actorNumber, position, direction, bulletSpeed, bulletDamage, bulletBounceCount, ignoreColliders);
                 break;
             case Type.Sticky:
                 BulletController_Sticky sticky = bulletObj.GetComponent<BulletController_Sticky>();
-                sticky.Setup(position, direction, bulletSpeed, bulletDamage, ignoreColliders);
+                sticky.Setup(actorNumber, position, direction, bulletSpeed, bulletDamage, ignoreColliders);
                 break;
         }
     }

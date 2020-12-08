@@ -12,14 +12,16 @@ public class BulletController_Sticky : MonoBehaviour
 {
     float speed;
     int damage;
+    int actorNumber;
 
     Rigidbody2D rigidBody;
     bool hasStopped = false;
     Collider2D ownCollider;
     Collider2D[] ignoreColliders;
 
-    public void Setup(Vector3 position, Vector2 direction, float speed, int damage, Collider2D[] toIgnore = null)
+    public void Setup(int actorNumber, Vector3 position, Vector2 direction, float speed, int damage, Collider2D[] toIgnore = null)
     {
+        this.actorNumber = actorNumber;
         transform.position = position;
         this.speed = speed;
         this.damage = damage;
@@ -49,7 +51,7 @@ public class BulletController_Sticky : MonoBehaviour
             PlayerController player = collision.collider.GetComponent<PlayerController>();
             if (player != null)
             {
-                player.ReceiveDamage(damage);
+                player.ReceiveDamage(actorNumber, damage);
                 gameObject.SetActive(false);
             }
             else

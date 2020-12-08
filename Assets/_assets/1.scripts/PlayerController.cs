@@ -8,7 +8,7 @@ using System.IO;
 using TMPro;
 using DG.Tweening;
 
-
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 
 public class PlayerController : MonoBehaviour/*, IPunObservable*/
@@ -163,27 +163,28 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
             Vector3 position = transform.position + new Vector3(direction.x, direction.y, transform.position.z) * 0.9f;
 
-            photonView.RPC("RPC_Fire", RpcTarget.All, position, direction);
+            photonView.RPC("RPC_Fire", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, position, direction);
         }
     }
 
     [PunRPC]
-    void RPC_Fire(Vector3 position, Vector2 direction)
+    void RPC_Fire(int actorNumber, Vector3 position, Vector2 direction)
     {
         Collider2D[] toIgnore = new Collider2D[]
         {
             GetComponent<Collider2D>(),
         };
 
-        weaponController.Fire(position, direction, toIgnore);
+        weaponController.Fire(actorNumber, position, direction, toIgnore);
     }
 
-    public void ReceiveDamage(int damage)
+    public void ReceiveDamage(int actorNumber, int damage)
     {
         if (photonView.IsMine && !isDead)
         {
             if (boosterController.IsDamageDone(damage))
             {
+                IncreaseKillFeed(actorNumber);
                 photonView.RPC("RPC_SetDead", RpcTarget.All, true);
             }
         }
@@ -207,6 +208,25 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
                     player.fireAllowed = false;
                     player.moveAllowed = false;
                 }
+            }
+        }
+    }
+
+    void IncreaseKillFeed(int actorNumber)
+    {
+        for (int i = 0; i < PhotonNetwork.PlayerList.Count(); ++i)
+        {
+            if (PhotonNetwork.PlayerList[i].ActorNumber == actorNumber)
+            {
+                int killCount = 0;
+                if (PhotonNetwork.PlayerList[i].CustomProperties.ContainsKey(CustomPropertiesKeys.KillCount))
+                {
+                    killCount = (int)PhotonNetwork.PlayerList[i].CustomProperties[CustomPropertiesKeys.KillCount];
+                }
+                Hashtable hash = new Hashtable();
+                hash.Add(CustomPropertiesKeys.KillCount, ++killCount);
+                PhotonNetwork.PlayerList[i].SetCustomProperties(hash);
+                break;
             }
         }
     }

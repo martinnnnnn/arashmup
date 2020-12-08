@@ -58,9 +58,9 @@ public class WeaponController : MonoBehaviour
         Equip(Weapon.Type.Classic);
     }
 
-    public void Fire(Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
+    public void Fire(int actorNumber, Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
     {
-        equiped.Fire(position, direction, ignoreColliders);
+        equiped.Fire(actorNumber, position, direction, ignoreColliders);
         if (equiped != classic)
         {
             AmmoLeft--;

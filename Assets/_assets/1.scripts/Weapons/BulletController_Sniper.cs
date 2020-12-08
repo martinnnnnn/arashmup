@@ -10,11 +10,13 @@ using System.IO;
 
 public class BulletController_Sniper : MonoBehaviour
 {
+    int actorNumber;
     float speed;
     int damage;
 
-    public void Setup(Vector3 position, Vector2 direction, float speed, int damage, Collider2D[] ignoreColliders = null)
+    public void Setup(int actorNumber, Vector3 position, Vector2 direction, float speed, int damage, Collider2D[] ignoreColliders = null)
     {
+        this.actorNumber = actorNumber;
         transform.position = position;
         this.speed = speed;
         this.damage = damage;
@@ -36,7 +38,7 @@ public class BulletController_Sniper : MonoBehaviour
         PlayerController player = collision.collider.GetComponent<PlayerController>();
         if (player != null)
         {
-            player.ReceiveDamage(damage);
+            player.ReceiveDamage(actorNumber, damage);
         }
         gameObject.SetActive(false);
     }

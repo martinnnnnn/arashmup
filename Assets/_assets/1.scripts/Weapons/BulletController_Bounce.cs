@@ -13,6 +13,7 @@ public class BulletController_Bounce : MonoBehaviour
     float speed;
     int damage;
     int bounceCount;
+    int actorNumber;
 
     Vector2 direction;
 
@@ -21,8 +22,9 @@ public class BulletController_Bounce : MonoBehaviour
     Rigidbody2D rigidBody;
     int bounceCountLeft;
 
-    public void Setup(Vector3 position, Vector2 direction, float speed, int damage, int bounceCount, Collider2D[] toIgnore = null)
+    public void Setup(int actorNumber, Vector3 position, Vector2 direction, float speed, int damage, int bounceCount, Collider2D[] toIgnore = null)
     {
+        this.actorNumber = actorNumber;
         transform.position = position;
         this.direction = direction;
         this.speed = speed;
@@ -51,7 +53,7 @@ public class BulletController_Bounce : MonoBehaviour
         PlayerController player = collision.collider.GetComponent<PlayerController>();
         if (player != null)
         {
-            player.ReceiveDamage(damage);
+            player.ReceiveDamage(actorNumber, damage);
         }
 
         if (bounceCountLeft == bounceCount)

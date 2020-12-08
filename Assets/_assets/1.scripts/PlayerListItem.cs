@@ -17,8 +17,36 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
     {
         player = p;
         playerName.text = player.NickName;
-        victoryCount.text = ((int)p.CustomProperties[CustomPropertiesKeys.VictoryCount]).ToString();
-        killCount.text = ((int)p.CustomProperties[CustomPropertiesKeys.VictoryCount]).ToString();
+
+        victoryCount.text = "0";
+        if (player.CustomProperties.ContainsKey(CustomPropertiesKeys.VictoryCount))
+        {
+            victoryCount.text = ((int)player.CustomProperties[CustomPropertiesKeys.VictoryCount]).ToString();
+        }
+
+        killCount.text = "0";
+        if (player.CustomProperties.ContainsKey(CustomPropertiesKeys.KillCount))
+        {
+            killCount.text = ((int)player.CustomProperties[CustomPropertiesKeys.KillCount]).ToString();
+        }
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        if (targetPlayer == player)
+        {
+            victoryCount.text = "0";
+            if (player.CustomProperties.ContainsKey(CustomPropertiesKeys.VictoryCount))
+            {
+                victoryCount.text = ((int)player.CustomProperties[CustomPropertiesKeys.VictoryCount]).ToString();
+            }
+
+            killCount.text = "0";
+            if (player.CustomProperties.ContainsKey(CustomPropertiesKeys.KillCount))
+            {
+                killCount.text = ((int)player.CustomProperties[CustomPropertiesKeys.KillCount]).ToString();
+            }
+        }
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -34,3 +62,4 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
         Destroy(gameObject);
     }
 }
+//OnPlayerPropertiesUpdate
