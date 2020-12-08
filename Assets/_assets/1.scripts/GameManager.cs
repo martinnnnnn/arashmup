@@ -79,6 +79,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (deadPlayerCount >= PhotonNetwork.PlayerList.Count() - 1)
         {
+            FindObjectsOfType<PlayerController>().ToList().ForEach(p =>
+            {
+                p.weaponController.ResetBulletPools();
+            });
+
             if (!localDead)
             {
                 uiManager.youWon.gameObject.SetActive(true);

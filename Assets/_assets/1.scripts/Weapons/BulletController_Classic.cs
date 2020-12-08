@@ -39,6 +39,7 @@ public class BulletController_Classic : MonoBehaviour
         {
             player.ReceiveDamage(actorNumber, damage);
         }
+
         gameObject.SetActive(false);
     }
 }

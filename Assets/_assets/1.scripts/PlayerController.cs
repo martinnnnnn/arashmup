@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     ProgressBar dashProgressBar;
     ProgressBar fireProgressBar;
 
-    WeaponController weaponController;
+    [HideInInspector] public WeaponController weaponController;
     BoosterController boosterController;
 
     [HideInInspector] public float currentWalkSpeed;

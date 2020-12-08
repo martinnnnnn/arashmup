@@ -56,7 +56,7 @@ public class BulletController_Bounce : MonoBehaviour
             player.ReceiveDamage(actorNumber, damage);
         }
 
-        if (bounceCountLeft == bounceCount)
+        if (bounceCountLeft == bounceCount) // we remove sender immunity at first bounce
         {
             if (ignoreColliders != null)
             {

@@ -40,6 +40,7 @@ public class BulletController_Sniper : MonoBehaviour
         {
             player.ReceiveDamage(actorNumber, damage);
         }
+
         gameObject.SetActive(false);
     }
 }

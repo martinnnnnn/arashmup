@@ -19,6 +19,7 @@ public class Weapon : ScriptableObject
         Sniper,
         Bounce,
         Sticky,
+        Fragmentation,
     }
 
     [Header("Bullet")]
@@ -65,6 +66,15 @@ public class Weapon : ScriptableObject
                 BulletController_Sticky sticky = bulletObj.GetComponent<BulletController_Sticky>();
                 sticky.Setup(actorNumber, position, direction, bulletSpeed, bulletDamage, ignoreColliders);
                 break;
+            case Type.Fragmentation:
+                BulletController_Fragmentation fragmentation = bulletObj.GetComponent<BulletController_Fragmentation>();
+                fragmentation.Setup(actorNumber, position, direction, bulletSpeed, 1.0f, 5, bulletDamage, ignoreColliders);
+                break;
         }
+    }
+
+    public void ResetBulletPools()
+    {
+        bulletPool.ResetAll();
     }
 }

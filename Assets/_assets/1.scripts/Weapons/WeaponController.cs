@@ -15,6 +15,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] Weapon sniper;
     [SerializeField] Weapon bounce;
     [SerializeField] Weapon sticky;
+    [SerializeField] Weapon fragmentation;
 
     PhotonView photonView;
     TMP_Text ammoLeftText;
@@ -54,6 +55,7 @@ public class WeaponController : MonoBehaviour
         sniper.Init();
         bounce.Init();
         sticky.Init();
+        fragmentation.Init();
 
         Equip(Weapon.Type.Classic);
     }
@@ -96,6 +98,9 @@ public class WeaponController : MonoBehaviour
             case Weapon.Type.Sticky:
                 equiped = sticky;
                 break;
+            case Weapon.Type.Fragmentation:
+                equiped = fragmentation;
+                break;
         }
 
         AmmoLeft = equiped.ammo;
@@ -104,5 +109,14 @@ public class WeaponController : MonoBehaviour
     public float GetFireRate()
     {
         return equiped.fireRate;
+    }
+
+    public void ResetBulletPools()
+    {
+        classic.ResetBulletPools();
+        sniper.ResetBulletPools();
+        bounce.ResetBulletPools();
+        sticky.ResetBulletPools();
+        fragmentation.ResetBulletPools();
     }
 }

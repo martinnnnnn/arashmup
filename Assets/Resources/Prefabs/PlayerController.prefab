@@ -103,6 +103,7 @@ MonoBehaviour:
   fireAllowed: 0
   dashForce: 50
   dashRate: 3
+  weaponController: {fileID: 0}
   currentWalkSpeed: 0
   currentDashRate: 0
 --- !u!58 &1366239956575232168
@@ -170,6 +171,7 @@ MonoBehaviour:
   sniper: {fileID: 11400000, guid: 15d9841298d7b8b48a55e1363271a935, type: 2}
   bounce: {fileID: 11400000, guid: 3aaef26304ac14443b3ee032311c55a2, type: 2}
   sticky: {fileID: 11400000, guid: e996b939d2ce7d74a8bbf2d6a18ac9ed, type: 2}
+  fragmentation: {fileID: 11400000, guid: 644687c9dfe64c14ba4ba72375289e37, type: 2}
 --- !u!114 &-8646137014248547851
 MonoBehaviour:
   m_ObjectHideFlags: 0
