@@ -11,7 +11,7 @@ using DG.Tweening;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 
-public class PlayerController : MonoBehaviour/*, IPunObservable*/
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     public float walkSpeed;
     [SerializeField] float smoothTime;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
     Rigidbody2D rigidBody;
     SpriteRenderer spriteRenderer;
-    PhotonView photonView;
+    PhotonView PV;
 
     [HideInInspector] public Camera followCamera;
 
@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     [HideInInspector] public float currentWalkSpeed;
     [HideInInspector] public float currentDashRate;
 
+
     void Start()
     {
         currentWalkSpeed = walkSpeed;
@@ -57,14 +58,16 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
         rigidBody = GetComponent<Rigidbody2D>();
 
-        photonView = GetComponent<PhotonView>();
+        PV = GetComponent<PhotonView>();
 
         weaponController = GetComponent<WeaponController>();
         boosterController = GetComponent<BoosterController>();
 
-        if (photonView.IsMine)
+        GetComponentInChildren<TMP_Text>().text = PV.Owner.NickName;
+
+        if (PV.IsMine)
         {
-            photonView.RPC("RPC_SetColor", RpcTarget.All, Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+            PV.RPC("RPC_SetColor", RpcTarget.All, Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
             dashProgressBar = gameManager.uiManager.dashProgressBar;
             fireProgressBar = gameManager.uiManager.fireProgressBar;
         }
@@ -82,9 +85,14 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
     }
 
 
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+    }
+
+
     void Update()
     {
-        if (!photonView.IsMine)
+        if (!PV.IsMine)
         {
             return;
         }
@@ -133,7 +141,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
     void FixedUpdate()
     {
-        if (!photonView.IsMine)
+        if (!PV.IsMine)
         {
             return;
         }
@@ -163,7 +171,7 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
             Vector3 position = transform.position + new Vector3(direction.x, direction.y, transform.position.z) * 0.9f;
 
-            photonView.RPC("RPC_Fire", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, position, direction);
+            PV.RPC("RPC_Fire", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, position, direction);
         }
     }
 
@@ -180,12 +188,12 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
 
     public void ReceiveDamage(int actorNumber, int damage)
     {
-        if (photonView.IsMine && !isDead)
+        if (PV.IsMine && !isDead)
         {
             if (boosterController.IsDamageDone(damage))
             {
                 IncreaseKillFeed(actorNumber);
-                photonView.RPC("RPC_SetDead", RpcTarget.All, true);
+                PV.RPC("RPC_SetDead", RpcTarget.All, true);
             }
         }
     }
@@ -198,12 +206,12 @@ public class PlayerController : MonoBehaviour/*, IPunObservable*/
         visual.color = new Color(visual.color.r, visual.color.g, visual.color.b, 0.1f);
         Destroy(GetComponent<CircleCollider2D>());
 
-        gameManager.IncreaseDead(photonView.IsMine);
+        gameManager.IncreaseDead(PV.IsMine);
         if (gameManager.CheckEnd())
         {
             foreach (PlayerController player in FindObjectsOfType<PlayerController>())
             {
-                if (player.photonView.IsMine)
+                if (player.PV.IsMine)
                 {
                     player.fireAllowed = false;
                     player.moveAllowed = false;
