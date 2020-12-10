@@ -1918,13 +1918,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024471abfccda754bbb0c864b67c2fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countDown: {fileID: 2037439161}
-  youDied: {fileID: 629693371}
   aliveCount: {fileID: 128194569}
   ammoLeft: {fileID: 1363197001}
-  dashProgressBar: {fileID: 1709075971846724618}
-  fireProgressBar: {fileID: 9142531915427163364}
-  CountdownOver: {fileID: 11400000, guid: 592955ceacbe5c747804e3504ae18941, type: 2}
 --- !u!114 &1635134387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2466,13 +2461,15 @@ GameObject:
   - component: {fileID: 2037439163}
   - component: {fileID: 2037439162}
   - component: {fileID: 2037439161}
+  - component: {fileID: 2037439165}
+  - component: {fileID: 2037439164}
   m_Layer: 5
   m_Name: Countdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2037439161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2588,6 +2585,46 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2037439164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037439160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7feb1e8f29a352c4a90af192a426d492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: ca3b28d830222bf42ac9e13267427bdd, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2037439165}
+        m_MethodName: OnGameInitialized
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2037439165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037439160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ae045b03764144fb021e447d14714a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CountdownOver: {fileID: 11400000, guid: 592955ceacbe5c747804e3504ae18941, type: 2}
 --- !u!1 &2119015413
 GameObject:
   m_ObjectHideFlags: 0
@@ -2850,18 +2887,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1709075971846724616}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1709075971846724618 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3361716813187595805, guid: 66ff19ffc0ba0034cb076e89c94cd7ea,
-    type: 3}
-  m_PrefabInstance: {fileID: 1709075971846724616}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a78b525ff3ae0e47b2f15c7f67fa1d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1709075971846724619 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7352772845027800426, guid: 66ff19ffc0ba0034cb076e89c94cd7ea,
@@ -3245,18 +3270,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 9142531915427163362}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9142531915427163364 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7514701975891249077, guid: 01fe36aed3604294282eb98766f2e434,
-    type: 3}
-  m_PrefabInstance: {fileID: 9142531915427163362}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a78b525ff3ae0e47b2f15c7f67fa1d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9142531915427163365 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5817291075420490534, guid: 01fe36aed3604294282eb98766f2e434,
