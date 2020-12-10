@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Variable: {fileID: 11400000, guid: 0691dcee37745ed42bfc117a40ba1da9, type: 2}
-  AlwaysUpdate: 0
+  AlwaysUpdate: 1
 --- !u!1 &1648417341987867426
 GameObject:
   m_ObjectHideFlags: 0

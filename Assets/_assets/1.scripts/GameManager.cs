@@ -31,12 +31,14 @@ namespace Arashmup
         //PlayerCharacterRuntimeSet 
         public GameEvent GameInitialized;
 
+        public SceneFlowData SceneFlow;
+
         void Start()
         {
             uiManager = GetComponent<GameUIManager>();
 
-            TransSceneData.Instance.backFromGameplay = true;
-            TransSceneData.Instance.stayInRoom = true;
+            SceneFlow.backFromGameplay = true;
+            SceneFlow.stayInRoom = true;
 
             CreateController();
             GameInitialized.Raise();
@@ -66,8 +68,8 @@ namespace Arashmup
 
         public override void OnLeftRoom()
         {
-            TransSceneData.Instance.backFromGameplay = true;
-            TransSceneData.Instance.stayInRoom = false;
+            SceneFlow.backFromGameplay = true;
+            SceneFlow.stayInRoom = false;
             SceneManager.LoadScene(0);
         }
 

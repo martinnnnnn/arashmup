@@ -1803,6 +1803,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 0}
   GameInitialized: {fileID: 11400000, guid: ca3b28d830222bf42ac9e13267427bdd, type: 2}
+  SceneFlow: {fileID: 11400000, guid: 12ab9988d3febeb4b80953fd656c7b75, type: 2}
 --- !u!4 &1635134385
 Transform:
   m_ObjectHideFlags: 0

@@ -92,6 +92,8 @@ namespace Arashmup
             {
                 Destroy(rigidBody);
                 Destroy(FollowCamera.gameObject);
+                Name = ScriptableObject.CreateInstance<StringVariable>();
+                Name.Value = PV.Owner.NickName;
             }
 
             moveAllowed = true;

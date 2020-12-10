@@ -27,6 +27,7 @@ namespace Arashmup
 
         public StringVariable PlayerName;
 
+        public SceneFlowData SceneFlow;
 
         #region Server and Lobby
         void Start()
@@ -44,11 +45,11 @@ namespace Arashmup
 
             MenuManager.Instance.OpenMenu(Menu.Type.Loading);
 
-            if (TransSceneData.Instance.backFromGameplay)
+            if (SceneFlow.backFromGameplay)
             {
                 Debug.Log("back from gameplay");
 
-                if (TransSceneData.Instance.stayInRoom)
+                if (SceneFlow.stayInRoom)
                 {
                     Debug.Log("stay in room");
 
@@ -60,7 +61,7 @@ namespace Arashmup
                     Debug.Log("leaving room");
                     LeaveRoom();
                 }
-                TransSceneData.Instance.ResetState();
+                SceneFlow.Reset();
             }
             else
             {
