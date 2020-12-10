@@ -554,6 +554,8 @@ GameObject:
   - component: {fileID: 1648417343034334950}
   - component: {fileID: 1648417343034334949}
   - component: {fileID: 1648417343034334948}
+  - component: {fileID: 8433970555647514118}
+  - component: {fileID: 5510754309719952289}
   m_Layer: 8
   m_Name: PlayerController
   m_TagString: Untagged
@@ -589,8 +591,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7acb404203fdff940b97e1dc3fbb601d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveAllowed: 0
-  fireAllowed: 0
   Name: {fileID: 11400000, guid: 0691dcee37745ed42bfc117a40ba1da9, type: 2}
   FollowCamera: {fileID: 814140527672796266}
   PlayerPosition: {fileID: 11400000, guid: 538a4ce04659e4d4e837cb2ff7efaa10, type: 2}
@@ -752,3 +752,57 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &8433970555647514118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648417343034334974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7feb1e8f29a352c4a90af192a426d492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: ca3b28d830222bf42ac9e13267427bdd, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1648417343034334971}
+        m_MethodName: OnGameInitialized
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5510754309719952289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648417343034334974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7feb1e8f29a352c4a90af192a426d492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 592955ceacbe5c747804e3504ae18941, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1648417343034334971}
+        m_MethodName: OnCountdownOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

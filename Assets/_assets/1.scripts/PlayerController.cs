@@ -28,15 +28,6 @@ namespace Arashmup
 {
     public class PlayerController : MonoBehaviour/*, IPunObservable*/
     {
-        GameManager gameManager;
-
-        Rigidbody2D rigidBody;
-        PhotonView PV;
-
-
-        bool isDead = false;
-        [HideInInspector] public bool moveAllowed = false;
-        [HideInInspector] public bool fireAllowed = false;
 
         public StringVariable Name;
 
@@ -60,14 +51,28 @@ namespace Arashmup
         public FloatVariable FireElaspedTime;
         public FloatReference FireRate;
 
+
+        GameManager gameManager;
+
+        Rigidbody2D rigidBody;
+        PhotonView PV;
+
         WeaponController weaponController;
         BoosterController boosterController;
 
+        bool isDead;
         bool mustDash;
+        bool moveAllowed;
+        bool fireAllowed;
 
         void Awake()
         {
             rigidBody = GetComponent<Rigidbody2D>();
+
+            isDead = false;
+            mustDash = false;
+            moveAllowed = false;
+            fireAllowed = false;
         }
 
         void Start()
@@ -92,8 +97,15 @@ namespace Arashmup
                 Name = ScriptableObject.CreateInstance<StringVariable>();
                 Name.Value = PV.Owner.NickName;
             }
+        }
 
+        public void OnGameInitialized()
+        {
             moveAllowed = true;
+        }
+
+        public void OnCountdownOver()
+        {
             fireAllowed = true;
         }
 

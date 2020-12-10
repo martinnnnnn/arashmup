@@ -52,14 +52,7 @@ namespace Arashmup
         void CreateController()
         {
             PhotonNetwork.Instantiate(RuntimePrefabsPaths.PlayerCharacter, Vector3.zero, Quaternion.identity);
-            //player.moveAllowed = true;
         }
-
-        public void OnCountdownOver()
-        {
-            //player.fireAllowed = true;
-        }
-
 
         bool hasLeft = false;
         void Update()
