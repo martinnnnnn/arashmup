@@ -12,18 +12,27 @@ namespace Arashmup
 {
     public class CameraController : MonoBehaviour
     {
-        PlayerController playerController;
+        public FloatReference CameraDepth;
+        public Vector3Reference PlayerPosition;
 
-        public void Setup(PlayerController player)
+        Camera cam;
+
+        void Start()
         {
-            playerController = player;
+            cam = GetComponent<Camera>();
+        }
+
+        public Vector2 GetWorldPoint()
+        {
+            return cam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+
         }
 
         void FixedUpdate()
         {
-            Vector3 newPosition = transform.position * 0.9f + playerController.transform.position * 0.1f;
+            Vector3 newPosition = transform.position * 0.9f + PlayerPosition.Value * 0.1f;
 
-            transform.position = new Vector3(newPosition.x, newPosition.y, -10);
+            transform.position = new Vector3(newPosition.x, newPosition.y, CameraDepth);
         }
     }
 }

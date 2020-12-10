@@ -33,11 +33,16 @@ namespace Arashmup
         Rigidbody2D rigidBody;
         PhotonView PV;
 
-        [HideInInspector] public Camera followCamera;
 
         bool isDead = false;
         [HideInInspector] public bool moveAllowed = false;
         [HideInInspector] public bool fireAllowed = false;
+
+        public StringVariable Name;
+
+        [Header("Camera")]
+        public CameraController FollowCamera;
+        public Vector3Variable PlayerPosition;
 
         [Header("Walking")]
         public FloatReference WalkSpeedStandard;
@@ -77,7 +82,7 @@ namespace Arashmup
             weaponController = GetComponent<WeaponController>();
             boosterController = GetComponent<BoosterController>();
 
-            GetComponentInChildren<TMP_Text>().text = PV.Owner.NickName;
+            Name.Value = PV.Owner.NickName;
 
             if (PV.IsMine)
             {
@@ -85,8 +90,12 @@ namespace Arashmup
             }
             else
             {
-                //Destroy(rigidBody);
+                Destroy(rigidBody);
+                Destroy(FollowCamera.gameObject);
             }
+
+            moveAllowed = true;
+            fireAllowed = true;
         }
 
         void Update()
@@ -141,6 +150,7 @@ namespace Arashmup
             }
 
             rigidBody.velocity = moveDir;
+            PlayerPosition.SetValue(transform.position);
         }
 
 
@@ -151,17 +161,14 @@ namespace Arashmup
             if (Input.GetMouseButton(0) && fireAllowed && !isDead && timeSinceFire > weaponController.GetFireRate())
             {
                 timeSinceFire = 0.0f;
-                Vector2 worldPosition = followCamera.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-                Vector2 direction = (worldPosition - new Vector2(transform.position.x, transform.position.y)).normalized;
 
+                Vector2 direction = (FollowCamera.GetWorldPoint() - new Vector2(transform.position.x, transform.position.y)).normalized;
                 Vector3 position = transform.position + new Vector3(direction.x, direction.y, transform.position.z) * 0.9f;
 
-                PV.RPC(RPC_Fire_Name, RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, position, direction);
+                PV.RPC(RPC_Functions.Fire, RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, position, direction);
             }
         }
 
-
-        static string RPC_Fire_Name = "RPC_Fire";
         [PunRPC]
         void RPC_Fire(int actorNumber, Vector3 position, Vector2 direction)
         {
@@ -180,12 +187,11 @@ namespace Arashmup
                 if (boosterController.IsDamageDone(damage))
                 {
                     IncreaseKillFeed(actorNumber);
-                    PV.RPC(RPC_SetDead_Name, RpcTarget.All, true);
+                    PV.RPC(RPC_Functions.SetDead, RpcTarget.All, true);
                 }
             }
         }
 
-        static string RPC_SetDead_Name = "RPC_SetDead";
         [PunRPC]
         void RPC_SetDead(bool value)
         {

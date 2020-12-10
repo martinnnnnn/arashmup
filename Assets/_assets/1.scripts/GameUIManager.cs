@@ -23,8 +23,8 @@ namespace Arashmup
         public TMP_Text ammoLeft;
         public ProgressBar dashProgressBar;
         public ProgressBar fireProgressBar;
-        [HideInInspector] public Action OnCountDownOver;
 
+        public GameEvent CountdownOver;
 
         private void Awake()
         {
@@ -34,7 +34,7 @@ namespace Arashmup
             aliveCount.gameObject.SetActive(false);
         }
 
-        public void StartCountDown()
+        public void OnGameInitialized()
         {
             StartCoroutine(StartCountDownRoutine());
         }
@@ -84,7 +84,7 @@ namespace Arashmup
                                                         aliveCount.gameObject.SetActive(true);
                                                         aliveCount.GetComponent<TMP_Text>().text = PhotonNetwork.PlayerList.Count().ToString();
 
-                                                        OnCountDownOver();
+                                                        CountdownOver.Raise();
                                                     });
                                                 });
                                             });

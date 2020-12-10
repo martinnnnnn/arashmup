@@ -119,10 +119,9 @@ namespace Arashmup
 
         public void Add(Booster booster)
         {
-            photonView.RPC(RPC_Add_Name, RpcTarget.All, booster);
+            photonView.RPC(RPC_Functions.Add, RpcTarget.All, booster);
         }
 
-        static string RPC_Add_Name = "RPC_Add";
         [PunRPC]
         void RPC_Add(Booster booster)
         {

@@ -27,17 +27,32 @@ namespace Arashmup
         [HideInInspector] public GameUIManager uiManager;
 
         int deadPlayerCount = 0;
-        int localPlayerKills;
+
+        //PlayerCharacterRuntimeSet 
+        public GameEvent GameInitialized;
 
         void Start()
         {
-            PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
-
             uiManager = GetComponent<GameUIManager>();
 
             TransSceneData.Instance.backFromGameplay = true;
             TransSceneData.Instance.stayInRoom = true;
+
+            CreateController();
+            GameInitialized.Raise();
         }
+
+        void CreateController()
+        {
+            PhotonNetwork.Instantiate(RuntimePrefabsPaths.PlayerCharacter, Vector3.zero, Quaternion.identity);
+            //player.moveAllowed = true;
+        }
+
+        public void OnCountdownOver()
+        {
+            //player.fireAllowed = true;
+        }
+
 
         bool hasLeft = false;
         void Update()

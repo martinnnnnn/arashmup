@@ -96,9 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7acb404203fdff940b97e1dc3fbb601d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followCamera: {fileID: 0}
   moveAllowed: 0
   fireAllowed: 0
+  Name: {fileID: 0}
+  FollowCamera: {fileID: 0}
+  PlayerPosition: {fileID: 0}
   WalkSpeedStandard:
     UseConstant: 0
     ConstantValue: 0

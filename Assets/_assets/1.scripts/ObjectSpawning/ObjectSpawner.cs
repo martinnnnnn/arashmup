@@ -126,10 +126,9 @@ namespace Arashmup
 
         public void DestoySpawnedObject(SpawnObject spawnObject)
         {
-            photonView.RPC(RPC_DestroyObject_Name, RpcTarget.All, spawnObject.spawnPointIndex);
+            photonView.RPC(RPC_Functions.DestroyObject, RpcTarget.All, spawnObject.spawnPointIndex);
         }
 
-        static string RPC_DestroyObject_Name = "RPC_DestroyObject";
         [PunRPC]
         void RPC_DestroyObject(int spawnPointIndex)
         {

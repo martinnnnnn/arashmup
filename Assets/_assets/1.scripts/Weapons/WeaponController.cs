@@ -75,10 +75,9 @@ namespace Arashmup
             }
         }
 
-        static string RPC_Equip_Name = "RPC_Equip";
         public void Equip(Arashmup.Weapon.Type newWeaponType)
         {
-            photonView.RPC(RPC_Equip_Name, RpcTarget.All, newWeaponType);
+            photonView.RPC(RPC_Functions.Equip, RpcTarget.All, newWeaponType);
         }
 
         [PunRPC]

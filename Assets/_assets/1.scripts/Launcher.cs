@@ -12,7 +12,6 @@ namespace Arashmup
     public class Launcher : MonoBehaviourPunCallbacks
     {
         [SerializeField] TMP_InputField playerNameField;
-        string playerName;
 
         [SerializeField] TMP_InputField roomNameInputField;
         [SerializeField] TMP_Text errorText;
@@ -26,18 +25,20 @@ namespace Arashmup
 
         [SerializeField] GameObject startGameButton;
 
+        public StringVariable PlayerName;
+
 
         #region Server and Lobby
         void Start()
         {
-            playerName = PlayerPrefs.GetString("PlayerName");
-            if (string.IsNullOrEmpty(playerName))
+            PlayerName.Value = PlayerPrefs.GetString(PlayerPrefsNames.PlayerName);
+            if (string.IsNullOrEmpty(PlayerName.Value))
             {
-                playerName = playerNameField.text;
+                PlayerName.Value = playerNameField.text;
             }
             else
             {
-                playerNameField.text = playerName;
+                playerNameField.text = PlayerName.Value;
             }
 
 
@@ -87,17 +88,17 @@ namespace Arashmup
             MenuManager.Instance.OpenMenu(Menu.Type.Title);
             if (string.IsNullOrEmpty(PhotonNetwork.NickName))
             {
-                PhotonNetwork.NickName = playerName;
+                PhotonNetwork.NickName = PlayerName.Value;
             }
         }
 
         public void OnValidateNewName()
         {
-            if (!string.IsNullOrEmpty(playerName))
+            if (!string.IsNullOrEmpty(PlayerName.Value))
             {
-                playerName = playerNameField.text;
-                PhotonNetwork.NickName = playerName;
-                PlayerPrefs.SetString("PlayerName", playerName);
+                PlayerName.Value = playerNameField.text;
+                PhotonNetwork.NickName = PlayerName.Value;
+                PlayerPrefs.SetString("PlayerName", PlayerName.Value);
             }
         }
 

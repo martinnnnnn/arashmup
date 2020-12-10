@@ -14,13 +14,6 @@ using ExitGames.Client.Photon;
 
 namespace Arashmup
 {
-    internal static class CustomPropertiesKeys
-    {
-        public static readonly string VictoryCount = "VictoryCount";
-        public static readonly string KillCount = "KillCount";
-    }
-
-
     internal static class CustomTypesSerialization
     {
         internal static void Register()

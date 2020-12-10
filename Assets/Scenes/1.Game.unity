@@ -1302,7 +1302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 739591604}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.807316, y: -1.5977485, z: 0}
+  m_LocalPosition: {x: -36.807316, y: -1.5977485, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 353004594}
@@ -1780,6 +1780,8 @@ GameObject:
   - component: {fileID: 1635134385}
   - component: {fileID: 1635134384}
   - component: {fileID: 1635134386}
+  - component: {fileID: 1635134388}
+  - component: {fileID: 1635134387}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1800,6 +1802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 0}
+  GameInitialized: {fileID: 11400000, guid: ca3b28d830222bf42ac9e13267427bdd, type: 2}
 --- !u!4 &1635134385
 Transform:
   m_ObjectHideFlags: 0
@@ -1833,6 +1836,61 @@ MonoBehaviour:
   ammoLeft: {fileID: 1363197001}
   dashProgressBar: {fileID: 1709075971846724618}
   fireProgressBar: {fileID: 9142531915427163364}
+  CountdownOver: {fileID: 11400000, guid: 592955ceacbe5c747804e3504ae18941, type: 2}
+--- !u!114 &1635134387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635134383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7feb1e8f29a352c4a90af192a426d492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: ca3b28d830222bf42ac9e13267427bdd, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1635134386}
+        m_MethodName: OnGameInitialized
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1635134388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635134383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7feb1e8f29a352c4a90af192a426d492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 592955ceacbe5c747804e3504ae18941, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1635134384}
+        m_MethodName: OnCountdownOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1700772803
 GameObject:
   m_ObjectHideFlags: 0
