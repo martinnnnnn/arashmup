@@ -24,23 +24,26 @@ namespace Arashmup
 
     public class GameManager : MonoBehaviourPunCallbacks
     {
-        [HideInInspector] public GameUIManager uiManager;
-
         int deadPlayerCount = 0;
 
         //PlayerCharacterRuntimeSet 
+
+        public SceneFlowData SceneFlow;
+
+        public IntVariable PlayersAliveCount;
+
+        [Header("Game Events")]
         public GameEvent GameInitialized;
         public GameEvent LocalPlayerWon;
         public GameEvent LocalPlayerDied;
 
-        public SceneFlowData SceneFlow;
 
         void Start()
         {
-            uiManager = GetComponent<GameUIManager>();
-
             SceneFlow.backFromGameplay = true;
             SceneFlow.stayInRoom = true;
+
+            PlayersAliveCount.Value = PhotonNetwork.PlayerList.Count();
 
             CreateController();
             GameInitialized.Raise();
@@ -77,8 +80,7 @@ namespace Arashmup
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
-            int aliveCount = PhotonNetwork.PlayerList.Count() - deadPlayerCount;
-            uiManager.aliveCount.text = aliveCount.ToString();
+            PlayersAliveCount.Value = PhotonNetwork.PlayerList.Count() - deadPlayerCount;
 
             CheckEnd();
         }
@@ -88,8 +90,7 @@ namespace Arashmup
         {
             deadPlayerCount++;
 
-            int aliveCount = PhotonNetwork.PlayerList.Count() - deadPlayerCount;
-            uiManager.aliveCount.text = aliveCount.ToString();
+            PlayersAliveCount.Value = PhotonNetwork.PlayerList.Count() - deadPlayerCount;
 
             if (isLocal && !localDead)
             {

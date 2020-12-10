@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 128194571}
   - component: {fileID: 128194570}
   - component: {fileID: 128194569}
+  - component: {fileID: 128194572}
   m_Layer: 5
   m_Name: AliveCount
   m_TagString: Untagged
@@ -449,6 +450,22 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: -50}
   m_SizeDelta: {x: 65, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &128194572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128194568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c07eafe3293fc0428d515abe1a2a52f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Count:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 26152958d05b9cf40a6ee74d408cfd3a, type: 2}
 --- !u!1 &145530247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,11 +1904,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96890f09c5932cc4ab228099994d8f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiManager: {fileID: 0}
+  SceneFlow: {fileID: 11400000, guid: 12ab9988d3febeb4b80953fd656c7b75, type: 2}
+  PlayersAliveCount: {fileID: 11400000, guid: 26152958d05b9cf40a6ee74d408cfd3a, type: 2}
   GameInitialized: {fileID: 11400000, guid: ca3b28d830222bf42ac9e13267427bdd, type: 2}
   LocalPlayerWon: {fileID: 11400000, guid: 4a38252a91b892241998a2d3ebe4404f, type: 2}
   LocalPlayerDied: {fileID: 11400000, guid: 4dc020329a9d1a6449d16053566cef2a, type: 2}
-  SceneFlow: {fileID: 11400000, guid: 12ab9988d3febeb4b80953fd656c7b75, type: 2}
 --- !u!4 &1635134385
 Transform:
   m_ObjectHideFlags: 0
@@ -1918,7 +1935,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024471abfccda754bbb0c864b67c2fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aliveCount: {fileID: 128194569}
   ammoLeft: {fileID: 1363197001}
 --- !u!114 &1635134387
 MonoBehaviour:

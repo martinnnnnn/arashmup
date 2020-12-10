@@ -16,12 +16,6 @@ namespace Arashmup
 {
     public class GameUIManager : MonoBehaviour
     {
-        public TMP_Text aliveCount;
         public TMP_Text ammoLeft;
-
-        private void Awake()
-        {
-            aliveCount.gameObject.SetActive(false);
-        }
     }
 }
