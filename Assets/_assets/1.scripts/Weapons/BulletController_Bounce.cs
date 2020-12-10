@@ -8,75 +8,78 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-public class BulletController_Bounce : MonoBehaviour
+namespace Arashmup
 {
-    float speed;
-    int damage;
-    int bounceCount;
-    int actorNumber;
-
-    Vector2 direction;
-
-    Collider2D ownCollider;
-    Collider2D[] ignoreColliders;
-    Rigidbody2D rigidBody;
-    int bounceCountLeft;
-
-    public void Setup(int actorNumber, Vector3 position, Vector2 direction, float speed, int damage, int bounceCount, Collider2D[] toIgnore = null)
+    public class BulletController_Bounce : MonoBehaviour
     {
-        this.actorNumber = actorNumber;
-        transform.position = position;
-        this.direction = direction;
-        this.speed = speed;
-        this.damage = damage;
-        this.bounceCount = bounceCount;
-        ignoreColliders = toIgnore;
+        float speed;
+        int damage;
+        int bounceCount;
+        int actorNumber;
 
-        rigidBody = GetComponent<Rigidbody2D>();
-        rigidBody.velocity = direction * speed;
+        Vector2 direction;
 
-        ownCollider = GetComponent<Collider2D>();
+        Collider2D ownCollider;
+        Collider2D[] ignoreColliders;
+        Rigidbody2D rigidBody;
+        int bounceCountLeft;
 
-        bounceCountLeft = bounceCount;
-
-        if (ignoreColliders != null)
+        public void Setup(int actorNumber, Vector3 position, Vector2 direction, float speed, int damage, int bounceCount, Collider2D[] toIgnore = null)
         {
-            foreach (Collider2D collider in ignoreColliders)
-            {
-                Physics2D.IgnoreCollision(collider, ownCollider);
-            }
-        }
-    }
+            this.actorNumber = actorNumber;
+            transform.position = position;
+            this.direction = direction;
+            this.speed = speed;
+            this.damage = damage;
+            this.bounceCount = bounceCount;
+            ignoreColliders = toIgnore;
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        PlayerController player = collision.collider.GetComponent<PlayerController>();
-        if (player != null)
-        {
-            player.ReceiveDamage(actorNumber, damage);
-        }
+            rigidBody = GetComponent<Rigidbody2D>();
+            rigidBody.velocity = direction * speed;
 
-        if (bounceCountLeft == bounceCount) // we remove sender immunity at first bounce
-        {
+            ownCollider = GetComponent<Collider2D>();
+
+            bounceCountLeft = bounceCount;
+
             if (ignoreColliders != null)
             {
                 foreach (Collider2D collider in ignoreColliders)
                 {
-                    Physics2D.IgnoreCollision(collider, ownCollider, false);
+                    Physics2D.IgnoreCollision(collider, ownCollider);
                 }
             }
         }
 
-        if (bounceCountLeft > 0)
+        void OnCollisionEnter2D(Collision2D collision)
         {
-            Vector2 newDirection = Vector2.Reflect(direction, collision.GetContact(0).normal);
-            direction = newDirection;
-            rigidBody.velocity = direction * speed;
-            bounceCountLeft--;
-        }
-        else
-        {
-            gameObject.SetActive(false);
+            PlayerController player = collision.collider.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.ReceiveDamage(actorNumber, damage);
+            }
+
+            if (bounceCountLeft == bounceCount) // we remove sender immunity at first bounce
+            {
+                if (ignoreColliders != null)
+                {
+                    foreach (Collider2D collider in ignoreColliders)
+                    {
+                        Physics2D.IgnoreCollision(collider, ownCollider, false);
+                    }
+                }
+            }
+
+            if (bounceCountLeft > 0)
+            {
+                Vector2 newDirection = Vector2.Reflect(direction, collision.GetContact(0).normal);
+                direction = newDirection;
+                rigidBody.velocity = direction * speed;
+                bounceCountLeft--;
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

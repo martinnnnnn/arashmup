@@ -9,40 +9,43 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
-public class PlayerManager : MonoBehaviour
+namespace Arashmup
 {
-    PhotonView photonView;
-    PlayerController player;
-    GameUIManager uiManager; 
-
-    void Start()
+    public class PlayerManager : MonoBehaviour
     {
-        photonView = GetComponent<PhotonView>();
+        PhotonView photonView;
+        PlayerController player;
+        GameUIManager uiManager;
 
-        uiManager = FindObjectOfType<GameUIManager>();
-
-        if (photonView.IsMine)
+        void Start()
         {
-            CreateController();
-            uiManager.OnCountDownOver += OnCountDownOver;
-            uiManager.StartCountDown();
+            photonView = GetComponent<PhotonView>();
+
+            uiManager = FindObjectOfType<GameUIManager>();
+
+            if (photonView.IsMine)
+            {
+                CreateController();
+                uiManager.OnCountDownOver += OnCountDownOver;
+                uiManager.StartCountDown();
+            }
         }
-    }
 
-    void OnCountDownOver()
-    {
-        player.fireAllowed = true;
-        uiManager.OnCountDownOver -= this.OnCountDownOver;
-    }
+        void OnCountDownOver()
+        {
+            player.fireAllowed = true;
+            uiManager.OnCountDownOver -= this.OnCountDownOver;
+        }
 
-    void CreateController()
-    {
-        player = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerController"), new Vector3(0, 0, -1), Quaternion.identity).GetComponent<PlayerController>();
+        void CreateController()
+        {
+            player = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerController"), new Vector3(0, 0, -1), Quaternion.identity).GetComponent<PlayerController>();
 
-        CameraController camera = Instantiate(Resources.Load<GameObject>(Path.Combine("Prefabs", "PlayerCamera")), Vector3.zero, Quaternion.identity).GetComponent<CameraController>();
-        camera.Setup(player);
+            CameraController camera = Instantiate(Resources.Load<GameObject>(Path.Combine("Prefabs", "PlayerCamera")), Vector3.zero, Quaternion.identity).GetComponent<CameraController>();
+            camera.Setup(player);
 
-        player.GetComponent<PlayerController>().followCamera = camera.GetComponent<Camera>();
-        player.moveAllowed = true;
+            player.GetComponent<PlayerController>().followCamera = camera.GetComponent<Camera>();
+            player.moveAllowed = true;
+        }
     }
 }

@@ -3,48 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class MenuManager : MonoBehaviour
+namespace Arashmup
 {
-    public static MenuManager Instance;
-
-    List<Menu> menus = new List<Menu>();
-
-    public void Awake()
+    public class MenuManager : MonoBehaviour
     {
-        Instance = this;
+        public static MenuManager Instance;
 
-        foreach (Transform t in transform)
+        List<Menu> menus = new List<Menu>();
+
+        public void Awake()
         {
-            Menu menu = t.GetComponent<Menu>();
-            if (menu != null)
+            Instance = this;
+
+            foreach (Transform t in transform)
             {
-                menus.Add(menu);
+                Menu menu = t.GetComponent<Menu>();
+                if (menu != null)
+                {
+                    menus.Add(menu);
+                }
             }
         }
-    }
 
-    public void OpenMenu(Menu.Type t)
-    {
-        menus.ForEach(menu =>
+        public void OpenMenu(Menu.Type t)
         {
-            if (menu.type == t)
+            menus.ForEach(menu =>
             {
-                menu.Open();
-            }
-            else
-            {
-                menu.Close();
-            }
-        });
-    }
+                if (menu.type == t)
+                {
+                    menu.Open();
+                }
+                else
+                {
+                    menu.Close();
+                }
+            });
+        }
 
-    public void OpenMenu(Menu menu)
-    {
-        OpenMenu(menu.type);
-    }
+        public void OpenMenu(Menu menu)
+        {
+            OpenMenu(menu.type);
+        }
 
-    public void CloseMenu(Menu menu)
-    {
-        menu.Close();
+        public void CloseMenu(Menu menu)
+        {
+            menu.Close();
+        }
     }
 }

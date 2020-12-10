@@ -18,104 +18,109 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
  * 
  * */
 
-public class GameManager : MonoBehaviourPunCallbacks
+
+namespace Arashmup
 {
-    [HideInInspector] public GameUIManager uiManager;
 
-    int deadPlayerCount = 0;
-    int localPlayerKills;
-
-    void Start()
+    public class GameManager : MonoBehaviourPunCallbacks
     {
-        PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+        [HideInInspector] public GameUIManager uiManager;
 
-        uiManager = GetComponent<GameUIManager>();
+        int deadPlayerCount = 0;
+        int localPlayerKills;
 
-        TransSceneData.Instance.backFromGameplay = true;
-        TransSceneData.Instance.stayInRoom = true;
-    }
-
-    bool hasLeft = false;
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F10) && !hasLeft)
+        void Start()
         {
-            hasLeft = true;
-            PhotonNetwork.LeaveRoom();
+            PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+
+            uiManager = GetComponent<GameUIManager>();
+
+            TransSceneData.Instance.backFromGameplay = true;
+            TransSceneData.Instance.stayInRoom = true;
         }
-    }
 
-    public override void OnLeftRoom()
-    {
-        TransSceneData.Instance.backFromGameplay = true;
-        TransSceneData.Instance.stayInRoom = false;
-        SceneManager.LoadScene(0);
-    }
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        int aliveCount = PhotonNetwork.PlayerList.Count() - deadPlayerCount;
-        uiManager.aliveCount.text = aliveCount.ToString();
-
-        CheckEnd();
-    }
-
-    bool localDead = false;
-    public void IncreaseDead(bool isLocal)
-    {
-        deadPlayerCount++;
-
-        int aliveCount = PhotonNetwork.PlayerList.Count() - deadPlayerCount;
-        uiManager.aliveCount.text = aliveCount.ToString();
-
-        if (isLocal && !localDead)
+        bool hasLeft = false;
+        void Update()
         {
-            localDead = true;
-            uiManager.youDied.gameObject.SetActive(true);
-        }
-    }
-
-    public bool CheckEnd()
-    {
-        if (deadPlayerCount >= PhotonNetwork.PlayerList.Count() - 1)
-        {
-            FindObjectsOfType<PlayerController>().ToList().ForEach(p =>
+            if (Input.GetKeyDown(KeyCode.F10) && !hasLeft)
             {
-                p.weaponController.ResetBulletPools();
-            });
-
-            if (!localDead)
-            {
-                uiManager.youWon.gameObject.SetActive(true);
-                AddWinToLocalPlayer();
+                hasLeft = true;
+                PhotonNetwork.LeaveRoom();
             }
-
-            if (PhotonNetwork.IsMasterClient)
-            {
-                StartCoroutine(EndGame());
-            }
-            return true;
         }
-        return false;
-    }
 
-    IEnumerator EndGame()
-    {
-        yield return new WaitForSeconds(2);
-
-        PhotonNetwork.CurrentRoom.IsOpen = true;
-        PhotonNetwork.LoadLevel(0);
-    }
-
-    void AddWinToLocalPlayer()
-    {
-        int victoryCount = 0;
-        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(CustomPropertiesKeys.VictoryCount))
+        public override void OnLeftRoom()
         {
-            victoryCount = (int)PhotonNetwork.LocalPlayer.CustomProperties[CustomPropertiesKeys.VictoryCount];
+            TransSceneData.Instance.backFromGameplay = true;
+            TransSceneData.Instance.stayInRoom = false;
+            SceneManager.LoadScene(0);
         }
-        Hashtable hash = new Hashtable();
-        hash.Add(CustomPropertiesKeys.VictoryCount, ++victoryCount);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+
+        public override void OnPlayerLeftRoom(Player otherPlayer)
+        {
+            int aliveCount = PhotonNetwork.PlayerList.Count() - deadPlayerCount;
+            uiManager.aliveCount.text = aliveCount.ToString();
+
+            CheckEnd();
+        }
+
+        bool localDead = false;
+        public void IncreaseDead(bool isLocal)
+        {
+            deadPlayerCount++;
+
+            int aliveCount = PhotonNetwork.PlayerList.Count() - deadPlayerCount;
+            uiManager.aliveCount.text = aliveCount.ToString();
+
+            if (isLocal && !localDead)
+            {
+                localDead = true;
+                uiManager.youDied.gameObject.SetActive(true);
+            }
+        }
+
+        public bool CheckEnd()
+        {
+            if (deadPlayerCount >= PhotonNetwork.PlayerList.Count() - 1)
+            {
+                FindObjectsOfType<WeaponController>().ToList().ForEach(wc =>
+                {
+                    wc.ResetBulletPools();
+                });
+
+                if (!localDead)
+                {
+                    uiManager.youWon.gameObject.SetActive(true);
+                    AddWinToLocalPlayer();
+                }
+
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    StartCoroutine(EndGame());
+                }
+                return true;
+            }
+            return false;
+        }
+
+        IEnumerator EndGame()
+        {
+            yield return new WaitForSeconds(2);
+
+            PhotonNetwork.CurrentRoom.IsOpen = true;
+            PhotonNetwork.LoadLevel(0);
+        }
+
+        void AddWinToLocalPlayer()
+        {
+            int victoryCount = 0;
+            if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(CustomPropertiesKeys.VictoryCount))
+            {
+                victoryCount = (int)PhotonNetwork.LocalPlayer.CustomProperties[CustomPropertiesKeys.VictoryCount];
+            }
+            Hashtable hash = new Hashtable();
+            hash.Add(CustomPropertiesKeys.VictoryCount, ++victoryCount);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        }
     }
 }

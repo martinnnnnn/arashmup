@@ -8,43 +8,46 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-public class TransSceneData : MonoBehaviour
+namespace Arashmup
 {
-    public static TransSceneData Instance;
-
-    public bool backFromGameplay;
-    public bool stayInRoom;
-
-    //[PunRPC]
-    //bool BackFromGameplay
-    //{
-    //    get { return backFromGameplay; }
-    //    set 
-    //    {
-    //        backFromGameplay = value;
-    //        var hash = new ExitGames.Client.Photon.Hashtable();
-    //        hash.Add("backFromGameplay", backFromGameplay);
-    //        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-    //    }
-    //}
-
-
-    private void Awake()
+    public class TransSceneData : MonoBehaviour
     {
-        if (Instance)
+        public static TransSceneData Instance;
+
+        public bool backFromGameplay;
+        public bool stayInRoom;
+
+        //[PunRPC]
+        //bool BackFromGameplay
+        //{
+        //    get { return backFromGameplay; }
+        //    set 
+        //    {
+        //        backFromGameplay = value;
+        //        var hash = new ExitGames.Client.Photon.Hashtable();
+        //        hash.Add("backFromGameplay", backFromGameplay);
+        //        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        //    }
+        //}
+
+
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (Instance)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+
+            ResetState();
         }
-        DontDestroyOnLoad(gameObject);
-        Instance = this;
 
-        ResetState();
-    }
-
-    public void ResetState()
-    {
-        backFromGameplay = false;
-        stayInRoom = false;
+        public void ResetState()
+        {
+            backFromGameplay = false;
+            stayInRoom = false;
+        }
     }
 }

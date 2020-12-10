@@ -8,19 +8,22 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-public class CameraController : MonoBehaviour
+namespace Arashmup
 {
-    PlayerController playerController;
-
-    public void Setup(PlayerController player)
+    public class CameraController : MonoBehaviour
     {
-        playerController = player;
-    }
+        PlayerController playerController;
 
-    void FixedUpdate()
-    {
-        Vector3 newPosition = transform.position * 0.9f + playerController.transform.position * 0.1f;
+        public void Setup(PlayerController player)
+        {
+            playerController = player;
+        }
 
-        transform.position = new Vector3(newPosition.x, newPosition.y, -10);
+        void FixedUpdate()
+        {
+            Vector3 newPosition = transform.position * 0.9f + playerController.transform.position * 0.1f;
+
+            transform.position = new Vector3(newPosition.x, newPosition.y, -10);
+        }
     }
 }

@@ -8,17 +8,20 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-public class WeaponPickup : SpawnObject
+namespace Arashmup
 {
-    public Weapon.Type weaponType;
-
-    private void OnTriggerEnter2D(Collider2D other)
+    public class WeaponPickup : SpawnObject
     {
-        WeaponController weaponController = other.GetComponent<WeaponController>();
-        if (weaponController != null)
+        public Arashmup.Weapon.Type weaponType;
+
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            weaponController.Equip(weaponType);
-            DestroySelf();
+            WeaponController weaponController = other.GetComponent<WeaponController>();
+            if (weaponController != null)
+            {
+                weaponController.Equip(weaponType);
+                DestroySelf();
+            }
         }
     }
 }

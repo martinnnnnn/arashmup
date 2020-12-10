@@ -11,77 +11,81 @@ using DG.Tweening;
 using System;
 using UnityEngine.UI;
 
-public class GameUIManager : MonoBehaviour
+
+namespace Arashmup
 {
-    public TMP_Text countDown;
-    public TMP_Text youDied;
-    public TMP_Text youWon;
-    public TMP_Text aliveCount;
-    public TMP_Text ammoLeft;
-    public ProgressBar dashProgressBar;
-    public ProgressBar fireProgressBar;
-    [HideInInspector] public Action OnCountDownOver;
-
-
-    private void Awake()
+    public class GameUIManager : MonoBehaviour
     {
-        countDown.gameObject.SetActive(false);
-        youDied.gameObject.SetActive(false);
-        youWon.gameObject.SetActive(false);
-        aliveCount.gameObject.SetActive(false);
-    }
+        public TMP_Text countDown;
+        public TMP_Text youDied;
+        public TMP_Text youWon;
+        public TMP_Text aliveCount;
+        public TMP_Text ammoLeft;
+        public ProgressBar dashProgressBar;
+        public ProgressBar fireProgressBar;
+        [HideInInspector] public Action OnCountDownOver;
 
-    public void StartCountDown()
-    {
-        StartCoroutine(StartCountDownRoutine());
-    }
 
-    public IEnumerator StartCountDownRoutine()
-    {
-        countDown.gameObject.SetActive(true);
+        private void Awake()
+        {
+            countDown.gameObject.SetActive(false);
+            youDied.gameObject.SetActive(false);
+            youWon.gameObject.SetActive(false);
+            aliveCount.gameObject.SetActive(false);
+        }
 
-        countDown.text = "5";
-        countDown.transform.localScale = Vector3.zero;
+        public void StartCountDown()
+        {
+            StartCoroutine(StartCountDownRoutine());
+        }
 
-        countDown.transform.DOScale(Vector3.one, 0.5f)
-            .OnComplete(() =>
-            {
-                countDown.transform.DOScale(Vector3.zero, 0.1f)
+        public IEnumerator StartCountDownRoutine()
+        {
+            countDown.gameObject.SetActive(true);
+
+            countDown.text = "5";
+            countDown.transform.localScale = Vector3.zero;
+
+            countDown.transform.DOScale(Vector3.one, 0.5f)
                 .OnComplete(() =>
                 {
-                    countDown.text = "4";
-                    countDown.transform.DOScale(Vector3.one, 0.5f)
+                    countDown.transform.DOScale(Vector3.zero, 0.1f)
                     .OnComplete(() =>
                     {
-                        countDown.transform.DOScale(Vector3.zero, 0.1f)
+                        countDown.text = "4";
+                        countDown.transform.DOScale(Vector3.one, 0.5f)
                         .OnComplete(() =>
                         {
-                            countDown.text = "3";
-                            countDown.transform.DOScale(Vector3.one, 0.5f)
+                            countDown.transform.DOScale(Vector3.zero, 0.1f)
                             .OnComplete(() =>
                             {
-                                countDown.transform.DOScale(Vector3.zero, 0.1f)
+                                countDown.text = "3";
+                                countDown.transform.DOScale(Vector3.one, 0.5f)
                                 .OnComplete(() =>
                                 {
-                                    countDown.text = "2";
-                                    countDown.transform.DOScale(Vector3.one, 0.5f)
+                                    countDown.transform.DOScale(Vector3.zero, 0.1f)
                                     .OnComplete(() =>
                                     {
-                                        countDown.transform.DOScale(Vector3.zero, 0.1f)
+                                        countDown.text = "2";
+                                        countDown.transform.DOScale(Vector3.one, 0.5f)
                                         .OnComplete(() =>
                                         {
-                                            countDown.text = "1";
-                                            countDown.transform.DOScale(Vector3.one, 0.5f)
+                                            countDown.transform.DOScale(Vector3.zero, 0.1f)
                                             .OnComplete(() =>
                                             {
-                                                countDown.transform.DOScale(Vector3.zero, 0.1f).
-                                                OnComplete(() =>
+                                                countDown.text = "1";
+                                                countDown.transform.DOScale(Vector3.one, 0.5f)
+                                                .OnComplete(() =>
                                                 {
-                                                    countDown.gameObject.SetActive(false);
-                                                    aliveCount.gameObject.SetActive(true);
-                                                    aliveCount.GetComponent<TMP_Text>().text = PhotonNetwork.PlayerList.Count().ToString();
+                                                    countDown.transform.DOScale(Vector3.zero, 0.1f).
+                                                    OnComplete(() =>
+                                                    {
+                                                        countDown.gameObject.SetActive(false);
+                                                        aliveCount.gameObject.SetActive(true);
+                                                        aliveCount.GetComponent<TMP_Text>().text = PhotonNetwork.PlayerList.Count().ToString();
 
-                                                    OnCountDownOver();
+                                                        OnCountDownOver();
+                                                    });
                                                 });
                                             });
                                         });
@@ -91,7 +95,7 @@ public class GameUIManager : MonoBehaviour
                         });
                     });
                 });
-            });
-        yield return null;
+            yield return null;
+        }
     }
 }

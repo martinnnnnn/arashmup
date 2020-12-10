@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ExecuteInEditMode()]
-public class ProgressBar : MonoBehaviour
+namespace Arashmup
 {
-    public float maximum;
-    public float current;
-    public Image image;
-
-    void Update()
+    [ExecuteInEditMode()]
+    public class ProgressBar : MonoBehaviour
     {
-        image.fillAmount = current / maximum;
+        public float maximum;
+        public float current;
+        public Image image;
+
+        void Update()
+        {
+            image.fillAmount = current / maximum;
+        }
+
+
     }
-
-
 }

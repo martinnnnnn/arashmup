@@ -99,12 +99,10 @@ MonoBehaviour:
   walkSpeed: 5
   smoothTime: 0.01
   followCamera: {fileID: 0}
-  isDead: 0
   moveAllowed: 0
   fireAllowed: 0
   dashForce: 50
   dashRate: 3
-  weaponController: {fileID: 0}
   currentWalkSpeed: 0
   currentDashRate: 0
 --- !u!58 &1366239956575232168

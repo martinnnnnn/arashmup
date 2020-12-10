@@ -10,28 +10,30 @@ using DG.Tweening;
 using System;
 using ExitGames.Client.Photon;
 
-[CreateAssetMenu(fileName = "Booster", menuName = "MyAssets/Booster")]
-public class Booster : ScriptableObject
+namespace Arashmup
 {
-    public enum Type
+    public class Booster : ScriptableObject
     {
-        Shield,
-        Invincible,
-        Speed,
-        NoCooldownDash
+        public enum Type
+        {
+            Shield,
+            Invincible,
+            Speed,
+            NoCooldownDash
+        }
+
+        public Type type;
+        public bool useDuration;
+
+        [ConditionalHide("useDuration", true)]
+        public float duration;
+
+        [HideInInspector] public float durationLeft;
+
+        [Header("Shield")]
+        public int strength;
+
+        [Header("Speed")]
+        public float speed;
     }
-
-    public Type type;
-    public bool useDuration;
-
-    [ConditionalHide("useDuration", true)]
-    public float duration;
-
-    [HideInInspector] public float durationLeft;
-
-    [Header("Shield")]
-    public int strength;
-
-    [Header("Speed")]
-    public float speed;
 }

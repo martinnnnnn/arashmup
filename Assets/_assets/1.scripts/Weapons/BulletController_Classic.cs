@@ -8,38 +8,41 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-public class BulletController_Classic : MonoBehaviour
+namespace Arashmup
 {
-    int actorNumber;
-    float speed;
-    int damage;
-    public void Setup(int actorNumber, Vector3 position, Vector2 direction, float speed, int damage, Collider2D[] ignoreColliders = null)
+    public class BulletController_Classic : MonoBehaviour
     {
-        this.actorNumber = actorNumber;
-        transform.position = position;
-        this.speed = speed;
-        this.damage = damage;
-
-        GetComponent<Rigidbody2D>().velocity = direction * speed;
-        Collider2D ownCollider = GetComponent<Collider2D>();
-
-        if (ignoreColliders != null)
+        int actorNumber;
+        float speed;
+        int damage;
+        public void Setup(int actorNumber, Vector3 position, Vector2 direction, float speed, int damage, Collider2D[] ignoreColliders = null)
         {
-            foreach (Collider2D collider in ignoreColliders)
+            this.actorNumber = actorNumber;
+            transform.position = position;
+            this.speed = speed;
+            this.damage = damage;
+
+            GetComponent<Rigidbody2D>().velocity = direction * speed;
+            Collider2D ownCollider = GetComponent<Collider2D>();
+
+            if (ignoreColliders != null)
             {
-                Physics2D.IgnoreCollision(collider, ownCollider);
+                foreach (Collider2D collider in ignoreColliders)
+                {
+                    Physics2D.IgnoreCollision(collider, ownCollider);
+                }
             }
         }
-    }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        PlayerController player = collision.collider.GetComponent<PlayerController>();
-        if (player != null)
+        void OnCollisionEnter2D(Collision2D collision)
         {
-            player.ReceiveDamage(actorNumber, damage);
-        }
+            PlayerController player = collision.collider.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.ReceiveDamage(actorNumber, damage);
+            }
 
-        gameObject.SetActive(false);
+            gameObject.SetActive(false);
+        }
     }
 }

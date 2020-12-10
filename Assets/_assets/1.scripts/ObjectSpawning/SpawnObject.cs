@@ -8,13 +8,16 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-public class SpawnObject : MonoBehaviour
+namespace Arashmup
 {
-    [HideInInspector] public ObjectSpawner spawner;
-    [HideInInspector] public int spawnPointIndex;
-
-    public void DestroySelf()
+    public class SpawnObject : MonoBehaviour
     {
-        spawner.DestoySpawnedObject(this);
+        [HideInInspector] public ObjectSpawner spawner;
+        [HideInInspector] public int spawnPointIndex;
+
+        public void DestroySelf()
+        {
+            spawner.DestoySpawnedObject(this);
+        }
     }
 }

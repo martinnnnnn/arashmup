@@ -8,17 +8,20 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-public class BoosterPickup : SpawnObject
+namespace Arashmup
 {
-    public Booster booster;
-
-    private void OnTriggerEnter2D(Collider2D other)
+    public class BoosterPickup : SpawnObject
     {
-        BoosterController boosterController = other.GetComponent<BoosterController>();
-        if (boosterController != null)
+        public Booster booster;
+
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            boosterController.Add(booster);
-            DestroySelf();
+            BoosterController boosterController = other.GetComponent<BoosterController>();
+            if (boosterController != null)
+            {
+                boosterController.Add(booster);
+                DestroySelf();
+            }
         }
     }
 }

@@ -2,27 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Menu: MonoBehaviour
+namespace Arashmup
 {
-    public enum Type
+    public class Menu : MonoBehaviour
     {
-        Title,
-        Loading,
-        RoomCreate,
-        Room,
-        RoomFind,
-        Error
-    }
+        public enum Type
+        {
+            Title,
+            Loading,
+            RoomCreate,
+            Room,
+            RoomFind,
+            Error
+        }
 
-    public Type type;
+        public Type type;
 
-    public void Open()
-    {
-        gameObject.SetActive(true);
-    }
+        public void Open()
+        {
+            gameObject.SetActive(true);
+        }
 
-    public void Close()
-    {
-        gameObject.SetActive(false);
+        public void Close()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

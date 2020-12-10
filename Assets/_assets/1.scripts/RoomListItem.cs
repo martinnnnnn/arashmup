@@ -5,19 +5,22 @@ using System.Linq;
 using Photon.Realtime;
 using TMPro;
 
-public class RoomListItem : MonoBehaviour
+namespace Arashmup
 {
-    [SerializeField] TMP_Text text;
-
-    RoomInfo roomInfo;
-    public void Setup(RoomInfo info)
+    public class RoomListItem : MonoBehaviour
     {
-        roomInfo = info;
-        text.text = roomInfo.Name;
-    }
+        [SerializeField] TMP_Text text;
 
-    public void OnClick()
-    {
-        FindObjectOfType<Launcher>().JoinRoom(roomInfo.Name);
+        RoomInfo roomInfo;
+        public void Setup(RoomInfo info)
+        {
+            roomInfo = info;
+            text.text = roomInfo.Name;
+        }
+
+        public void OnClick()
+        {
+            FindObjectOfType<Launcher>().JoinRoom(roomInfo.Name);
+        }
     }
 }
