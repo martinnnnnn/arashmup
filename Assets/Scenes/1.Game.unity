@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c07eafe3293fc0428d515abe1a2a52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Count:
+  Value:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 26152958d05b9cf40a6ee74d408cfd3a, type: 2}
@@ -1627,8 +1627,9 @@ GameObject:
   - component: {fileID: 1363196999}
   - component: {fileID: 1363197000}
   - component: {fileID: 1363197001}
+  - component: {fileID: 1363197002}
   m_Layer: 5
-  m_Name: ammoLeft
+  m_Name: AmmoLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1749,6 +1750,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1363197002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363196998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9afb725db336241b5c00589e5c5ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Variable: {fileID: 11400000, guid: f7eee82c8dd030949a4ea4dbd00b6b1b, type: 2}
+  AlwaysUpdate: 1
 --- !u!1 &1451817997
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,7 +1897,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1635134385}
   - component: {fileID: 1635134384}
-  - component: {fileID: 1635134386}
   - component: {fileID: 1635134388}
   - component: {fileID: 1635134387}
   m_Layer: 0
@@ -1923,19 +1937,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1635134386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635134383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 024471abfccda754bbb0c864b67c2fc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammoLeft: {fileID: 1363197001}
 --- !u!114 &1635134387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1952,7 +1953,7 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1635134386}
+      - m_Target: {fileID: 0}
         m_MethodName: OnGameInitialized
         m_Mode: 1
         m_Arguments:

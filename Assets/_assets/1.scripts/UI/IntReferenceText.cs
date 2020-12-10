@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace Arashmup
 {
-    public class PlayersAliveCount : MonoBehaviour
+    public class IntReferenceText : MonoBehaviour
     {
-        public IntReference Count;
+        public IntReference Value;
 
         TMP_Text text;
 
@@ -19,7 +19,7 @@ namespace Arashmup
 
         void Update()
         {
-            text.text = Count.Value.ToString();
+            text.text = Value.Value.ToString();
         }
 
     }

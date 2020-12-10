@@ -19,10 +19,14 @@ namespace Arashmup
         [SerializeField] Arashmup.Weapon sticky;
         [SerializeField] Arashmup.Weapon fragmentation;
 
+
         public FloatVariable FireRate;
 
         PhotonView photonView;
-        TMP_Text ammoLeftText;
+        Arashmup.Weapon equiped;
+
+        public StringVariable AmmoLeftText;
+
         int ammoLeft;
         int AmmoLeft
         {
@@ -37,23 +41,19 @@ namespace Arashmup
                 {
                     if (ammoLeft >= 0)
                     {
-                        ammoLeftText.text = ammoLeft.ToString();
+                        AmmoLeftText.Value = ammoLeft.ToString();
                     }
                     else
                     {
-                        ammoLeftText.text = "\u221E";
+                        AmmoLeftText.Value = "\u221E";
                     }
                 }
             }
         }
 
-        Arashmup.Weapon equiped;
-
         void Awake()
         {
             photonView = GetComponent<PhotonView>();
-
-            ammoLeftText = FindObjectOfType<GameUIManager>().ammoLeft;
 
             classic.Init();
             sniper.Init();
