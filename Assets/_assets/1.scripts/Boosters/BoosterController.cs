@@ -41,57 +41,16 @@ namespace Arashmup
 
         void Update()
         {
-            currentBoosters.ForEach(booster =>
-            {
-                if (booster.useDuration)
-                {
-                    switch (booster.type)
-                    {
-                        case Booster.Type.Invincible:
-
-                            float r = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 1.0f / 3.0f))) + 1.0f) / 2.0f;
-                            float g = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 2.0f / 3.0f))) + 1.0f) / 2.0f;
-                            float b = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 3.0f / 3.0f))) + 1.0f) / 2.0f;
-
-                            spriteRenderer.color = new Color(r, g, b);
-
-                            break;
-                    }
-
-                    if (booster.durationLeft <= 0)
-                    {
-                        // On end
-                        switch (booster.type)
-                        {
-                            case Booster.Type.Speed:
-                                WalkSpeed.SetValue(WalkSpeedStandard);
-                                break;
-                            case Booster.Type.Invincible:
-                                spriteRenderer.color = Color.white;
-                                break;
-                            case Booster.Type.NoCooldownDash:
-                                DashRate.SetValue(DashRateStandard);
-                                break;
-                        }
-                    }
-
-                    booster.durationLeft -= Time.deltaTime;
-                }
-            });
-
             currentBoosters.RemoveAll(booster =>
             {
                 bool remove = false;
 
                 if (booster.useDuration)
                 {
-                    booster.durationLeft -= Time.deltaTime;
-
-                    // On update
                     switch (booster.type)
                     {
                         case Booster.Type.Invincible:
-                            
+
                             float r = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 1.0f / 3.0f))) + 1.0f) / 2.0f;
                             float g = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 2.0f / 3.0f))) + 1.0f) / 2.0f;
                             float b = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 3.0f / 3.0f))) + 1.0f) / 2.0f;
@@ -101,23 +60,12 @@ namespace Arashmup
                             break;
                     }
 
+                    booster.durationLeft -= Time.deltaTime;
+
                     if (booster.durationLeft <= 0)
                     {
+                        OnRemove(booster.type);
                         remove = true;
-
-                        // On end
-                        switch (booster.type)
-                        {
-                            case Booster.Type.Speed:
-                                WalkSpeed.SetValue(WalkSpeedStandard);
-                                break;
-                            case Booster.Type.Invincible:
-                                spriteRenderer.color = Color.white;
-                                break;
-                            case Booster.Type.NoCooldownDash:
-                                DashRate.SetValue(DashRateStandard);
-                                break;
-                        }
                     }
                 }
 
@@ -163,7 +111,17 @@ namespace Arashmup
         [PunRPC]
         void RPC_Add(Booster booster)
         {
-            currentBoosters.RemoveAll(b => b.GetType() == booster.GetType());
+            currentBoosters.RemoveAll(b =>
+            {
+                if (b.type == booster.type)
+                {
+                    OnRemove(b.type);
+                    return true;
+                }
+
+                return false;
+            });
+
 
             booster.durationLeft = booster.duration;
 
@@ -182,6 +140,22 @@ namespace Arashmup
             }
 
             currentBoosters.Add(booster);
+        }
+
+        void OnRemove(Booster.Type boosterType)
+        {
+            switch (boosterType)
+            {
+                case Booster.Type.Speed:
+                    WalkSpeed.SetValue(WalkSpeedStandard);
+                    break;
+                case Booster.Type.Invincible:
+                    spriteRenderer.color = Color.white;
+                    break;
+                case Booster.Type.NoCooldownDash:
+                    DashRate.SetValue(DashRateStandard);
+                    break;
+            }
         }
     }
 }

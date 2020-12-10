@@ -63,6 +63,7 @@ namespace Arashmup
         WeaponController weaponController;
         BoosterController boosterController;
 
+        bool mustDash;
 
         void Awake()
         {
@@ -118,17 +119,16 @@ namespace Arashmup
                 return;
             }
 
+
             DashElaspedTime.ApplyChange(Time.deltaTime);
             if (Input.GetKeyDown(KeyCode.Space) && DashElaspedTime.Value > DashRate.Value)
             {
+                mustDash = true;
                 DashElaspedTime.SetValue(0);
-                moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * DashForce;
-            }
-            else
-            {
-                moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * WalkSpeed.Value;
+                
             }
 
+            moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
 
         void FixedUpdate()
@@ -138,7 +138,16 @@ namespace Arashmup
                 return;
             }
 
-            rigidBody.velocity = moveDir;
+            if (mustDash)
+            {
+                mustDash = false;
+                rigidBody.velocity = moveDir * DashForce;
+            }
+            else
+            {
+                rigidBody.velocity = moveDir * WalkSpeed.Value;
+            }
+
             PlayerPosition.SetValue(transform.position);
         }
 
