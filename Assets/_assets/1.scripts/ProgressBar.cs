@@ -8,15 +8,17 @@ namespace Arashmup
     [ExecuteInEditMode()]
     public class ProgressBar : MonoBehaviour
     {
-        public float maximum;
-        public float current;
-        public Image image;
+        public FloatReference Variable;
+        public FloatReference Min;
+        public FloatReference Max;
 
-        void Update()
+        public Image Image;
+
+        private void Update()
         {
-            image.fillAmount = current / maximum;
+            Image.fillAmount = Mathf.Clamp01(
+                Mathf.InverseLerp(Min, Max, Variable));
         }
-
 
     }
 }

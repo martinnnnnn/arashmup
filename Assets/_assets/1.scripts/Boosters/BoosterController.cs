@@ -20,6 +20,10 @@ namespace Arashmup
 
         SpriteRenderer spriteRenderer;
 
+        public FloatReference DashRateStandard;
+        public FloatReference DashRateBooster;
+        public FloatVariable DashRate;
+
         void Start()
         {
             CustomTypesSerialization.Register();
@@ -68,7 +72,7 @@ namespace Arashmup
                                 spriteRenderer.color = Color.white;
                                 break;
                             case Booster.Type.NoCooldownDash:
-                                playerController.currentDashRate = playerController.dashRate;
+                                DashRate.SetValue(DashRateStandard);
                                 break;
                         }
                     }
@@ -131,7 +135,7 @@ namespace Arashmup
                 case Booster.Type.Invincible:
                     break;
                 case Booster.Type.NoCooldownDash:
-                    playerController.currentDashRate = 0;
+                    DashRate.SetValue(DashRateBooster);
                     break;
             }
 

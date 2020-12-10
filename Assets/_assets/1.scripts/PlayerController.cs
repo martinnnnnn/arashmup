@@ -43,22 +43,24 @@ namespace Arashmup
         [HideInInspector] public bool moveAllowed = false;
         [HideInInspector] public bool fireAllowed = false;
 
-        public float dashForce;
-        public float dashRate;
-        float timeSinceDash;
+        public FloatReference DashRateStandard;
+        public FloatReference DashForce;
+        public FloatVariable DashRate;
+        public FloatVariable DashElaspedTime;
+
+
         Vector2 moveDir;
-        bool dash;
+        bool mustDash;
+
 
         float timeSinceFire;
 
-        ProgressBar dashProgressBar;
-        ProgressBar fireProgressBar;
+        //ProgressBar fireProgressBar;
 
         WeaponController weaponController;
         BoosterController boosterController;
 
         [HideInInspector] public float currentWalkSpeed;
-        [HideInInspector] public float currentDashRate;
 
 
         void Awake()
@@ -69,7 +71,7 @@ namespace Arashmup
         void Start()
         {
             currentWalkSpeed = walkSpeed;
-            currentDashRate = dashRate;
+            DashRate.SetValue(DashRateStandard);
 
             gameManager = FindObjectOfType<GameManager>();
 
@@ -83,8 +85,7 @@ namespace Arashmup
 
             if (PV.IsMine)
             {
-                dashProgressBar = gameManager.uiManager.dashProgressBar;
-                fireProgressBar = gameManager.uiManager.fireProgressBar;
+                //fireProgressBar = gameManager.uiManager.fireProgressBar;
             }
             else
             {
@@ -108,19 +109,10 @@ namespace Arashmup
 
         void UpdateProgressBars()
         {
-            if (dashProgressBar == null)
-            {
-                return;
-            }
-
-            dashProgressBar.current = Mathf.Min(timeSinceDash / currentDashRate * dashProgressBar.maximum, dashProgressBar.maximum);
-
-            if (fireProgressBar == null)
-            {
-                return;
-            }
-
-            fireProgressBar.current = Mathf.Min(timeSinceFire / weaponController.GetFireRate() * fireProgressBar.maximum, fireProgressBar.maximum);
+            //if (fireProgressBar != null)
+            //{
+            //    fireProgressBar.current = Mathf.Min(timeSinceFire / weaponController.GetFireRate() * fireProgressBar.maximum, fireProgressBar.maximum);
+            //}
         }
 
         void Move()
@@ -132,12 +124,11 @@ namespace Arashmup
                 return;
             }
 
-            timeSinceDash += Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.Space) && timeSinceDash > currentDashRate)
+            DashElaspedTime.ApplyChange(Time.deltaTime);
+            if (Input.GetKeyDown(KeyCode.Space) && DashElaspedTime.Value > DashRate.Value)
             {
-                dash = true;
-                timeSinceDash = 0f;
-                dashProgressBar.current = 0;
+                mustDash = true;
+                DashElaspedTime.SetValue(0);
             }
 
             moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -150,10 +141,10 @@ namespace Arashmup
                 return;
             }
 
-            if (dash)
+            if (mustDash)
             {
-                dash = false;
-                rigidBody.velocity = moveDir * dashForce;
+                mustDash = false;
+                rigidBody.velocity = moveDir * DashForce;
             }
             else
             {
@@ -244,8 +235,6 @@ namespace Arashmup
                 }
             }
         }
-
-
     }
 }
 //Vector2 networkPosition;
