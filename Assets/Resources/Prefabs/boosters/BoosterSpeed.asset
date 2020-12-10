@@ -16,5 +16,8 @@ MonoBehaviour:
   useDuration: 1
   duration: 10
   durationLeft: 0
-  count: 0
-  speed: 10
+  strength: 0
+  WalkSpeedBooster:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: ba6462e5c0ff5884591b29e7a2fa6f09, type: 2}

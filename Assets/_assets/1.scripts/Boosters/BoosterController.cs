@@ -20,6 +20,11 @@ namespace Arashmup
 
         SpriteRenderer spriteRenderer;
 
+        [Header("Walking")]
+        public FloatReference WalkSpeedStandard;
+        public FloatVariable WalkSpeed;
+
+        [Header("Dashing")]
         public FloatReference DashRateStandard;
         public FloatReference DashRateBooster;
         public FloatVariable DashRate;
@@ -66,7 +71,7 @@ namespace Arashmup
                         switch (booster.type)
                         {
                             case Booster.Type.Speed:
-                                playerController.currentWalkSpeed = playerController.walkSpeed;
+                                WalkSpeed.SetValue(WalkSpeedStandard);
                                 break;
                             case Booster.Type.Invincible:
                                 spriteRenderer.color = Color.white;
@@ -130,7 +135,7 @@ namespace Arashmup
                 case Booster.Type.Shield:
                     break;
                 case Booster.Type.Speed:
-                    playerController.currentWalkSpeed = booster.speed;
+                    WalkSpeed.SetValue(booster.WalkSpeedBooster);
                     break;
                 case Booster.Type.Invincible:
                     break;

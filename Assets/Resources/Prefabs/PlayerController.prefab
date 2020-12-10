@@ -96,11 +96,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7acb404203fdff940b97e1dc3fbb601d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  smoothTime: 0.01
   followCamera: {fileID: 0}
   moveAllowed: 0
   fireAllowed: 0
+  WalkSpeedStandard:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 74fbdee63d1f75147aa663838896a70d, type: 2}
+  WalkSpeed: {fileID: 11400000, guid: 7c4bae73ff5308b44a2a2da54604a73c, type: 2}
   DashRateStandard:
     UseConstant: 0
     ConstantValue: 0
@@ -111,7 +114,6 @@ MonoBehaviour:
     Variable: {fileID: 11400000, guid: 52c25e453a8a8f24e8d77240dcccd478, type: 2}
   DashRate: {fileID: 11400000, guid: b48fd52d55de6154fa6fca144c42a55a, type: 2}
   DashElaspedTime: {fileID: 11400000, guid: 527815d25175eac4f983084fc2828e35, type: 2}
-  currentWalkSpeed: 0
 --- !u!58 &1366239956575232168
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -190,6 +192,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9fd03c1ca68c043810c6baf774d307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WalkSpeedStandard:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 74fbdee63d1f75147aa663838896a70d, type: 2}
+  WalkSpeed: {fileID: 11400000, guid: 7c4bae73ff5308b44a2a2da54604a73c, type: 2}
   DashRateStandard:
     UseConstant: 0
     ConstantValue: 0

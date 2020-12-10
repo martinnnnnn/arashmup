@@ -14,7 +14,6 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 /*
  * switch to variable refs :
  *      - walk speed
- *      - dash speed
  *      - fire cd
  * 
  * nouvelle architecture : 
@@ -29,9 +28,6 @@ namespace Arashmup
 {
     public class PlayerController : MonoBehaviour/*, IPunObservable*/
     {
-        public float walkSpeed;
-        [SerializeField] float smoothTime;
-
         GameManager gameManager;
 
         Rigidbody2D rigidBody;
@@ -43,15 +39,17 @@ namespace Arashmup
         [HideInInspector] public bool moveAllowed = false;
         [HideInInspector] public bool fireAllowed = false;
 
+        [Header("Walking")]
+        public FloatReference WalkSpeedStandard;
+        public FloatVariable WalkSpeed;
+
+        [Header("Dashing")]
         public FloatReference DashRateStandard;
         public FloatReference DashForce;
         public FloatVariable DashRate;
         public FloatVariable DashElaspedTime;
 
-
         Vector2 moveDir;
-        bool mustDash;
-
 
         float timeSinceFire;
 
@@ -59,8 +57,6 @@ namespace Arashmup
 
         WeaponController weaponController;
         BoosterController boosterController;
-
-        [HideInInspector] public float currentWalkSpeed;
 
 
         void Awake()
@@ -70,7 +66,7 @@ namespace Arashmup
 
         void Start()
         {
-            currentWalkSpeed = walkSpeed;
+            WalkSpeed.SetValue(WalkSpeedStandard);
             DashRate.SetValue(DashRateStandard);
 
             gameManager = FindObjectOfType<GameManager>();
@@ -127,11 +123,14 @@ namespace Arashmup
             DashElaspedTime.ApplyChange(Time.deltaTime);
             if (Input.GetKeyDown(KeyCode.Space) && DashElaspedTime.Value > DashRate.Value)
             {
-                mustDash = true;
                 DashElaspedTime.SetValue(0);
+                moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * DashForce;
+            }
+            else
+            {
+                moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * WalkSpeed.Value;
             }
 
-            moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
 
         void FixedUpdate()
@@ -141,15 +140,7 @@ namespace Arashmup
                 return;
             }
 
-            if (mustDash)
-            {
-                mustDash = false;
-                rigidBody.velocity = moveDir * DashForce;
-            }
-            else
-            {
-                rigidBody.velocity = moveDir * currentWalkSpeed;
-            }
+            rigidBody.velocity = moveDir;
         }
 
 
