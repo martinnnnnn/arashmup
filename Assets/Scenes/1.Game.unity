@@ -460,13 +460,15 @@ GameObject:
   - component: {fileID: 145530248}
   - component: {fileID: 145530250}
   - component: {fileID: 145530249}
+  - component: {fileID: 145530251}
+  - component: {fileID: 145530252}
   m_Layer: 5
   m_Name: YouWon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &145530248
 RectTransform:
   m_ObjectHideFlags: 0
@@ -582,6 +584,47 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145530247}
   m_CullTransparentMesh: 0
+--- !u!114 &145530251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145530247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7feb1e8f29a352c4a90af192a426d492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 4a38252a91b892241998a2d3ebe4404f, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 145530252}
+        m_MethodName: Activate
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &145530252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145530247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f091ed0611744954d9cb7ec5033495b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  component: {fileID: 145530249}
+  defaultValue: 0
 --- !u!1 &353004593
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,13 +774,15 @@ GameObject:
   - component: {fileID: 629693370}
   - component: {fileID: 629693372}
   - component: {fileID: 629693371}
+  - component: {fileID: 629693373}
+  - component: {fileID: 629693374}
   m_Layer: 5
   m_Name: YouDied
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &629693370
 RectTransform:
   m_ObjectHideFlags: 0
@@ -853,6 +898,47 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629693369}
   m_CullTransparentMesh: 0
+--- !u!114 &629693373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629693369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7feb1e8f29a352c4a90af192a426d492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 4dc020329a9d1a6449d16053566cef2a, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 629693374}
+        m_MethodName: Activate
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &629693374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629693369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f091ed0611744954d9cb7ec5033495b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  component: {fileID: 629693371}
+  defaultValue: 0
 --- !u!1 &673566906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1803,6 +1889,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 0}
   GameInitialized: {fileID: 11400000, guid: ca3b28d830222bf42ac9e13267427bdd, type: 2}
+  LocalPlayerWon: {fileID: 11400000, guid: 4a38252a91b892241998a2d3ebe4404f, type: 2}
+  LocalPlayerDied: {fileID: 11400000, guid: 4dc020329a9d1a6449d16053566cef2a, type: 2}
   SceneFlow: {fileID: 11400000, guid: 12ab9988d3febeb4b80953fd656c7b75, type: 2}
 --- !u!4 &1635134385
 Transform:
@@ -1832,7 +1920,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countDown: {fileID: 2037439161}
   youDied: {fileID: 629693371}
-  youWon: {fileID: 145530249}
   aliveCount: {fileID: 128194569}
   ammoLeft: {fileID: 1363197001}
   dashProgressBar: {fileID: 1709075971846724618}

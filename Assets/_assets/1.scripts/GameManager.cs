@@ -30,6 +30,8 @@ namespace Arashmup
 
         //PlayerCharacterRuntimeSet 
         public GameEvent GameInitialized;
+        public GameEvent LocalPlayerWon;
+        public GameEvent LocalPlayerDied;
 
         public SceneFlowData SceneFlow;
 
@@ -92,7 +94,7 @@ namespace Arashmup
             if (isLocal && !localDead)
             {
                 localDead = true;
-                uiManager.youDied.gameObject.SetActive(true);
+                LocalPlayerDied.Raise();
             }
         }
 
@@ -107,7 +109,7 @@ namespace Arashmup
 
                 if (!localDead)
                 {
-                    uiManager.youWon.gameObject.SetActive(true);
+                    LocalPlayerWon.Raise();
                     AddWinToLocalPlayer();
                 }
 

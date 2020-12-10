@@ -17,7 +17,6 @@ namespace Arashmup
 
         public StringVariable Variable;
 
-
         private void OnEnable()
         {
             inputField = GetComponent<TMP_InputField>();

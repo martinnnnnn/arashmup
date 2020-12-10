@@ -16,6 +16,11 @@ namespace Arashmup
         public bool backFromGameplay = false;
         public bool stayInRoom = false;
 
+        void OnEnable()
+        {
+            Reset();
+        }
+
         public void Reset()
         {
             backFromGameplay = false;

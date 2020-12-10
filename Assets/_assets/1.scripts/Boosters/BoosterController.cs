@@ -41,6 +41,44 @@ namespace Arashmup
 
         void Update()
         {
+            currentBoosters.ForEach(booster =>
+            {
+                if (booster.useDuration)
+                {
+                    switch (booster.type)
+                    {
+                        case Booster.Type.Invincible:
+
+                            float r = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 1.0f / 3.0f))) + 1.0f) / 2.0f;
+                            float g = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 2.0f / 3.0f))) + 1.0f) / 2.0f;
+                            float b = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 3.0f / 3.0f))) + 1.0f) / 2.0f;
+
+                            spriteRenderer.color = new Color(r, g, b);
+
+                            break;
+                    }
+
+                    if (booster.durationLeft <= 0)
+                    {
+                        // On end
+                        switch (booster.type)
+                        {
+                            case Booster.Type.Speed:
+                                WalkSpeed.SetValue(WalkSpeedStandard);
+                                break;
+                            case Booster.Type.Invincible:
+                                spriteRenderer.color = Color.white;
+                                break;
+                            case Booster.Type.NoCooldownDash:
+                                DashRate.SetValue(DashRateStandard);
+                                break;
+                        }
+                    }
+
+                    booster.durationLeft -= Time.deltaTime;
+                }
+            });
+
             currentBoosters.RemoveAll(booster =>
             {
                 bool remove = false;
