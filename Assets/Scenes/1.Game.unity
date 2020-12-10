@@ -2904,7 +2904,7 @@ PrefabInstance:
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
       propertyPath: spawnableObjects.Array.data[4].frequency
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
@@ -3106,7 +3106,7 @@ PrefabInstance:
     - target: {fileID: 6368920652295427022, guid: 01fe36aed3604294282eb98766f2e434,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7514701975891249077, guid: 01fe36aed3604294282eb98766f2e434,
         type: 3}
@@ -3128,6 +3128,28 @@ PrefabInstance:
       propertyPath: Max.ConstantValue
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7514701975891249077, guid: 01fe36aed3604294282eb98766f2e434,
+        type: 3}
+      propertyPath: Variable.UseConstant
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514701975891249077, guid: 01fe36aed3604294282eb98766f2e434,
+        type: 3}
+      propertyPath: Variable.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 7d09ff597dbc5c54d8df4859a6dcd36d,
+        type: 2}
+    - target: {fileID: 7514701975891249077, guid: 01fe36aed3604294282eb98766f2e434,
+        type: 3}
+      propertyPath: Max.UseConstant
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514701975891249077, guid: 01fe36aed3604294282eb98766f2e434,
+        type: 3}
+      propertyPath: Max.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: a4434ae9fb1acf34e8633f73594cd5b9,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01fe36aed3604294282eb98766f2e434, type: 3}
 --- !u!224 &9142531915427163363 stripped

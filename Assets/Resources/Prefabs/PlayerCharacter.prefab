@@ -609,6 +609,11 @@ MonoBehaviour:
     Variable: {fileID: 11400000, guid: 52c25e453a8a8f24e8d77240dcccd478, type: 2}
   DashRate: {fileID: 11400000, guid: b48fd52d55de6154fa6fca144c42a55a, type: 2}
   DashElaspedTime: {fileID: 11400000, guid: 527815d25175eac4f983084fc2828e35, type: 2}
+  FireElaspedTime: {fileID: 11400000, guid: 7d09ff597dbc5c54d8df4859a6dcd36d, type: 2}
+  FireRate:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: a4434ae9fb1acf34e8633f73594cd5b9, type: 2}
 --- !u!114 &1648417343034334970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,6 +631,7 @@ MonoBehaviour:
   bounce: {fileID: 11400000, guid: 3aaef26304ac14443b3ee032311c55a2, type: 2}
   sticky: {fileID: 11400000, guid: e996b939d2ce7d74a8bbf2d6a18ac9ed, type: 2}
   fragmentation: {fileID: 11400000, guid: 644687c9dfe64c14ba4ba72375289e37, type: 2}
+  FireRate: {fileID: 11400000, guid: a4434ae9fb1acf34e8633f73594cd5b9, type: 2}
 --- !u!114 &1648417343034334969
 MonoBehaviour:
   m_ObjectHideFlags: 0

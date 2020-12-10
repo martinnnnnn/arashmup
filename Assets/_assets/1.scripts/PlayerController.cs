@@ -56,9 +56,9 @@ namespace Arashmup
 
         Vector2 moveDir;
 
-        float timeSinceFire;
-
-        //ProgressBar fireProgressBar;
+        [Header("Firing")]
+        public FloatVariable FireElaspedTime;
+        public FloatReference FireRate;
 
         WeaponController weaponController;
         BoosterController boosterController;
@@ -84,11 +84,7 @@ namespace Arashmup
 
             Name.Value = PV.Owner.NickName;
 
-            if (PV.IsMine)
-            {
-                //fireProgressBar = gameManager.uiManager.fireProgressBar;
-            }
-            else
+            if (!PV.IsMine)
             {
                 Destroy(rigidBody);
                 Destroy(FollowCamera.gameObject);
@@ -106,20 +102,11 @@ namespace Arashmup
             {
                 Move();
                 Fire();
-                UpdateProgressBars();
             }
             else
             {
                 //UpdateNetworkedPosition();
             }
-        }
-
-        void UpdateProgressBars()
-        {
-            //if (fireProgressBar != null)
-            //{
-            //    fireProgressBar.current = Mathf.Min(timeSinceFire / weaponController.GetFireRate() * fireProgressBar.maximum, fireProgressBar.maximum);
-            //}
         }
 
         void Move()
@@ -158,11 +145,11 @@ namespace Arashmup
 
         void Fire()
         {
-            timeSinceFire += Time.deltaTime;
+            FireElaspedTime.ApplyChange(Time.deltaTime);
 
-            if (Input.GetMouseButton(0) && fireAllowed && !isDead && timeSinceFire > weaponController.GetFireRate())
+            if (Input.GetMouseButton(0) && fireAllowed && !isDead && FireElaspedTime.Value > FireRate)
             {
-                timeSinceFire = 0.0f;
+                FireElaspedTime.Value = 0.0f;
 
                 Vector2 direction = (FollowCamera.GetWorldPoint() - new Vector2(transform.position.x, transform.position.y)).normalized;
                 Vector3 position = transform.position + new Vector3(direction.x, direction.y, transform.position.z) * 0.9f;

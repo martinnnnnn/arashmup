@@ -19,6 +19,8 @@ namespace Arashmup
         [SerializeField] Arashmup.Weapon sticky;
         [SerializeField] Arashmup.Weapon fragmentation;
 
+        public FloatVariable FireRate;
+
         PhotonView photonView;
         TMP_Text ammoLeftText;
         int ammoLeft;
@@ -106,11 +108,7 @@ namespace Arashmup
             }
 
             AmmoLeft = equiped.ammo;
-        }
-
-        public float GetFireRate()
-        {
-            return equiped.fireRate;
+            FireRate.Value = equiped.fireRate;
         }
 
         public void ResetBulletPools()
