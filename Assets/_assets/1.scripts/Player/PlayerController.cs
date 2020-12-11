@@ -11,19 +11,6 @@ using DG.Tweening;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 
-/*
- * switch to variable refs :
- *      - walk speed
- *      - fire cd
- * 
- * nouvelle architecture : 
- *  - Player
- *      - PlayerController
- *      - Player CameraController
- * 
- * 
- * */
-
 namespace Arashmup
 {
     public class PlayerController : MonoBehaviour/*, IPunObservable*/
@@ -111,15 +98,13 @@ namespace Arashmup
 
         void Update()
         {
-            if (PV.IsMine)
+            if (!PV.IsMine)
             {
-                Move();
-                Fire();
+                return;
             }
-            else
-            {
-                //UpdateNetworkedPosition();
-            }
+
+            Move();
+            Fire();
         }
 
         void Move()
