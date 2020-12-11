@@ -15,7 +15,7 @@ namespace Arashmup
     {
         public MonoBehaviour component;
         public bool defaultValue;
-
+        public float automaticDeactivationTime;
 
         private void OnEnable()
         {
@@ -25,6 +25,16 @@ namespace Arashmup
         public void Activate(bool value)
         {
             component.enabled = value;
+            if (automaticDeactivationTime > 0)
+            {
+                StartCoroutine(Deactivation());
+            }
+        }
+
+        IEnumerator Deactivation()
+        {
+            yield return new WaitForSeconds(automaticDeactivationTime);
+            component.enabled = false;
         }
     }
 }

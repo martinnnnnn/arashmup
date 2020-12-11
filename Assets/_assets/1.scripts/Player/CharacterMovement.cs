@@ -10,17 +10,14 @@ using DG.Tweening;
 
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
+// FSM for dashing / walking
 
 namespace Arashmup
 {
-    public class PlayerController : MonoBehaviour/*, IPunObservable*/
+    public class CharacterMovement : MonoBehaviour
     {
-
-        public StringVariable Name;
-
-        [Header("Camera")]
-        public CameraController FollowCamera;
-        public Vector3Variable PlayerPosition;
+        public Vector3Variable Position;
+        public BoolVariable MoveAllowed;
 
         [Header("Walking")]
         public FloatReference WalkSpeedStandard;
@@ -33,94 +30,48 @@ namespace Arashmup
         public FloatVariable DashElaspedTime;
 
         Vector2 moveDir;
-
-        [Header("Firing")]
-        public FloatVariable FireElaspedTime;
-        public FloatReference FireRate;
-
-
-        GameManager gameManager;
-
         Rigidbody2D rigidBody;
-        PhotonView PV;
-
-        WeaponController weaponController;
-        BoosterController boosterController;
-
-        bool isDead;
         bool mustDash;
-        bool moveAllowed;
-        bool fireAllowed;
-
-        void Awake()
-        {
-            rigidBody = GetComponent<Rigidbody2D>();
-
-            isDead = false;
-            mustDash = false;
-            moveAllowed = false;
-            fireAllowed = false;
-        }
 
         void Start()
         {
+            rigidBody = GetComponent<Rigidbody2D>();
+
+            mustDash = false;
+
             WalkSpeed.SetValue(WalkSpeedStandard);
             DashRate.SetValue(DashRateStandard);
-
-            gameManager = FindObjectOfType<GameManager>();
-
-
-            PV = GetComponent<PhotonView>();
-
-            weaponController = GetComponent<WeaponController>();
-            boosterController = GetComponent<BoosterController>();
-
-            Name.Value = PV.Owner.NickName;
-
-            if (!PV.IsMine)
-            {
-                Destroy(rigidBody);
-                Destroy(FollowCamera.gameObject);
-            }
         }
 
         public void OnGameInitialized()
         {
-            moveAllowed = true;
+            MoveAllowed.SetValue(true);
         }
 
-        public void OnCountdownOver()
+        public void OnGameEnd()
         {
-            fireAllowed = true;
+            MoveAllowed.SetValue(false);
         }
 
         void Update()
         {
-            if (!PV.IsMine)
-            {
-                return;
-            }
-
             Move();
-            Fire();
         }
 
         void Move()
         {
             moveDir = Vector2.zero;
 
-            if (!moveAllowed)
+            if (!MoveAllowed.Value)
             {
                 return;
             }
-
 
             DashElaspedTime.ApplyChange(Time.deltaTime);
             if (Input.GetKeyDown(KeyCode.Space) && DashElaspedTime.Value > DashRate.Value)
             {
                 mustDash = true;
                 DashElaspedTime.SetValue(0);
-                
             }
 
             moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -128,11 +79,6 @@ namespace Arashmup
 
         void FixedUpdate()
         {
-            if (!PV.IsMine)
-            {
-                return;
-            }
-
             if (mustDash)
             {
                 mustDash = false;
@@ -143,90 +89,13 @@ namespace Arashmup
                 rigidBody.velocity = moveDir * WalkSpeed.Value;
             }
 
-            PlayerPosition.SetValue(transform.position);
-        }
-
-
-        void Fire()
-        {
-            FireElaspedTime.ApplyChange(Time.deltaTime);
-
-            if (Input.GetMouseButton(0) && fireAllowed && !isDead && FireElaspedTime.Value > FireRate)
-            {
-                FireElaspedTime.SetValue(0.0f);
-
-                Vector2 direction = (FollowCamera.GetWorldPoint() - new Vector2(transform.position.x, transform.position.y)).normalized;
-                Vector3 position = transform.position + new Vector3(direction.x, direction.y, transform.position.z) * 0.9f;
-
-                PV.RPC(RPC_Functions.Fire, RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, position, direction);
-            }
-        }
-
-        [PunRPC]
-        void RPC_Fire(int actorNumber, Vector3 position, Vector2 direction)
-        {
-            Collider2D[] toIgnore = new Collider2D[]
-            {
-            GetComponent<Collider2D>(),
-            };
-
-            weaponController.Fire(actorNumber, position, direction, toIgnore);
-        }
-
-        public void ReceiveDamage(int actorNumber, int damage)
-        {
-            if (PV.IsMine && !isDead)
-            {
-                if (boosterController.IsDamageDone(damage))
-                {
-                    IncreaseKillFeed(actorNumber);
-                    PV.RPC(RPC_Functions.SetDead, RpcTarget.All, true);
-                }
-            }
-        }
-
-        [PunRPC]
-        void RPC_SetDead(bool value)
-        {
-            isDead = true;
-            SpriteRenderer visual = GetComponentInChildren<SpriteRenderer>();
-            visual.color = new Color(visual.color.r, visual.color.g, visual.color.b, 0.1f);
-            Destroy(GetComponent<CircleCollider2D>());
-
-            gameManager.IncreaseDead(PV.IsMine);
-            if (gameManager.CheckEnd())
-            {
-                foreach (PlayerController player in FindObjectsOfType<PlayerController>())
-                {
-                    if (player.PV.IsMine)
-                    {
-                        player.fireAllowed = false;
-                        player.moveAllowed = false;
-                    }
-                }
-            }
-        }
-
-        void IncreaseKillFeed(int actorNumber)
-        {
-            for (int i = 0; i < PhotonNetwork.PlayerList.Count(); ++i)
-            {
-                if (PhotonNetwork.PlayerList[i].ActorNumber == actorNumber)
-                {
-                    int killCount = 0;
-                    if (PhotonNetwork.PlayerList[i].CustomProperties.ContainsKey(CustomPropertiesKeys.KillCount))
-                    {
-                        killCount = (int)PhotonNetwork.PlayerList[i].CustomProperties[CustomPropertiesKeys.KillCount];
-                    }
-                    Hashtable hash = new Hashtable();
-                    hash.Add(CustomPropertiesKeys.KillCount, ++killCount);
-                    PhotonNetwork.PlayerList[i].SetCustomProperties(hash);
-                    break;
-                }
-            }
+            Position.SetValue(transform.position);
         }
     }
 }
+
+
+
 //Vector2 networkPosition;
 //Vector2 networkVelocity;
 //float currentSpeed;

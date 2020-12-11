@@ -9,12 +9,16 @@ namespace Arashmup
         [Multiline]
         public string DeveloperDescription = "";
 #endif
-        private bool value = false;
+        public bool Value;
 
-        public bool Value
+        public void SetValue(bool value)
         {
-            get { return value; }
-            set { this.value = value; }
+            Value = value;
+        }
+
+        public void SetValue(BoolVariable value)
+        {
+            Value = value.Value;
         }
     }
 }

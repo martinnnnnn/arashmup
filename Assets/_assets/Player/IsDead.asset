@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 976b9150b44d50449add8fb00bac6486, type: 3}
-  m_Name: New Player Character Runtime Set
+  m_Script: {fileID: 11500000, guid: 9dc7a507675a00046b65588056bcab99, type: 3}
+  m_Name: IsDead
   m_EditorClassIdentifier: 
-  Items: []
+  DeveloperDescription: 
+  Value: 0

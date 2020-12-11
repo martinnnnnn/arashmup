@@ -42,6 +42,12 @@ namespace Arashmup
                 player.ReceiveDamage(actorNumber, damage);
             }
 
+            CharacterDamage character = collision.collider.GetComponent<CharacterDamage>();
+            if (character != null)
+            {
+                character.ReceiveDamage(actorNumber, damage);
+            }
+
             gameObject.SetActive(false);
         }
     }

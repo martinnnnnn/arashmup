@@ -26,7 +26,7 @@ namespace Arashmup
     {
         int deadPlayerCount = 0;
 
-        //PlayerCharacterRuntimeSet 
+        public PlayerCharacterRuntimeSet PlayerCharacters;
 
         public SceneFlowData SceneFlow;
 
@@ -43,7 +43,7 @@ namespace Arashmup
             SceneFlow.backFromGameplay = true;
             SceneFlow.stayInRoom = true;
 
-            PlayersAliveCount.Value = PhotonNetwork.PlayerList.Count();
+            PlayersAliveCount.SetValue(PhotonNetwork.PlayerList.Count());
 
             CreateController();
             GameInitialized.Raise();
@@ -73,7 +73,8 @@ namespace Arashmup
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
-            PlayersAliveCount.Value = PhotonNetwork.PlayerList.Count() - deadPlayerCount;
+            
+            PlayersAliveCount.SetValue(PhotonNetwork.PlayerList.Count() - deadPlayerCount);
 
             CheckEnd();
         }
@@ -83,7 +84,7 @@ namespace Arashmup
         {
             deadPlayerCount++;
 
-            PlayersAliveCount.Value = PhotonNetwork.PlayerList.Count() - deadPlayerCount;
+            PlayersAliveCount.SetValue(PhotonNetwork.PlayerList.Count() - deadPlayerCount);
 
             if (isLocal && !localDead)
             {

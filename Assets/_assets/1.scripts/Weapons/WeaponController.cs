@@ -108,7 +108,7 @@ namespace Arashmup
             }
 
             AmmoLeft = equiped.ammo;
-            FireRate.Value = equiped.fireRate;
+            FireRate.SetValue(equiped.fireRate);
         }
 
         public void ResetBulletPools()

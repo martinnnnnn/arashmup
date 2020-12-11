@@ -31,5 +31,10 @@ namespace Arashmup
                 Text.text = Variable.Value;
             }
         }
+
+        public void UpdateOnce()
+        {
+            Text.text = Variable.Value;
+        }
     }
 }
