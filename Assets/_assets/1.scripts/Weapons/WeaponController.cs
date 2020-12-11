@@ -64,9 +64,9 @@ namespace Arashmup
             Equip(Arashmup.Weapon.Type.Classic);
         }
 
-        public void Fire(int actorNumber, Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
+        public void Fire(int actorNumber, int bulletID, Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
         {
-            equiped.Fire(actorNumber, position, direction, ignoreColliders);
+            equiped.Fire(actorNumber, bulletID, position, direction, ignoreColliders);
             if (equiped != classic)
             {
                 AmmoLeft--;

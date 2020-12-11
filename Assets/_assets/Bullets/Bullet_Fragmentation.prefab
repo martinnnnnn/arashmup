@@ -83,6 +83,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bda21cdd64142a4b972c3ff038e9f98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
+  RuntimeSet: {fileID: 11400000, guid: 1bba3b15bd83dbc489b7a0a7f4baa197, type: 2}
   fragmentation: {fileID: 3593551131223569233, guid: eddea4636c74fab40b8349b31400e8e8,
     type: 3}
 --- !u!1 &3593551131710776666

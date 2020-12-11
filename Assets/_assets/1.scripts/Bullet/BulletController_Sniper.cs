@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Arashmup
 {
-    public class BulletController_Sniper : MonoBehaviour
+    public class BulletController_Sniper : Bullet
     {
         int actorNumber;
         float speed;

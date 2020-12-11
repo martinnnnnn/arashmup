@@ -27,17 +27,16 @@ namespace Arashmup
             Grow(amount);
         }
 
-        void Grow(int amount)
+        void Grow(int addedAmount)
         {
-            this.amount += amount;
-
-            for (int i = 0; i < amount; ++i)
+            for (int i = amount; i < amount + addedAmount; ++i)
             {
                 GameObject obj = Instantiate(prefab, transform);
                 obj.SetActive(false);
 
                 pool.Add(obj);
             }
+            amount += addedAmount;
         }
 
         public void SetupNetworked(string path, int amount)

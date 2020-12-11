@@ -10,14 +10,15 @@ using System.IO;
 
 namespace Arashmup
 {
-    public class BulletController_Classic : MonoBehaviour
+    public class BulletController_Classic : Bullet
     {
         int actorNumber;
         float speed;
         int damage;
-        public void Setup(int actorNumber, Vector3 position, Vector2 direction, float speed, int damage, Collider2D[] ignoreColliders = null)
+        public void Setup(int actorNumber, int bulletID, Vector3 position, Vector2 direction, float speed, int damage, Collider2D[] ignoreColliders = null)
         {
             this.actorNumber = actorNumber;
+            ID = bulletID;
             transform.position = position;
             this.speed = speed;
             this.damage = damage;
@@ -45,7 +46,7 @@ namespace Arashmup
             CharacterDamage character = collision.collider.GetComponent<CharacterDamage>();
             if (character != null)
             {
-                character.ReceiveDamage(actorNumber, damage);
+                character.ReceiveDamage(actorNumber, this, damage);
             }
 
             gameObject.SetActive(false);

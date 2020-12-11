@@ -170,7 +170,7 @@ namespace Arashmup
             GetComponent<Collider2D>(),
             };
 
-            weaponController.Fire(actorNumber, position, direction, toIgnore);
+            //weaponController.Fire(actorNumber, position, direction, toIgnore);
         }
 
         public void ReceiveDamage(int actorNumber, int damage)

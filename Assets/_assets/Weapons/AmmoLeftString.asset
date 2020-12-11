@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8a837678cf2fe4ba415fa094a6ce34, type: 3}
   m_Name: AmmoLeftString
   m_EditorClassIdentifier: 
-  value: 
+  value: "\u221E"

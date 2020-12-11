@@ -17,4 +17,7 @@ MonoBehaviour:
   duration: 0
   durationLeft: 0
   strength: 0
-  speed: 0
+  WalkSpeedBooster:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}

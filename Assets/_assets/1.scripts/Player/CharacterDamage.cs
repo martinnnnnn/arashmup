@@ -26,12 +26,14 @@ namespace Arashmup
             boosterController = GetComponent<BoosterController>();
         }
 
-        public void ReceiveDamage(int actorNumber, int damage)
+        public void ReceiveDamage(int actorNumber, Bullet bullet, int damage)
         {
             if (!IsDead.Value)
             {
                 if (boosterController.IsDamageDone(damage))
                 {
+                    proxy.KillBullet(bullet);
+
                     IncreaseKillFeed(actorNumber);
                     proxy.Kill();
                 }

@@ -46,7 +46,7 @@ namespace Arashmup
             bulletPool.Setup(bulletPrefab, defaultPoolSize);
         }
 
-        public void Fire(int actorNumber, Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
+        public void Fire(int actorNumber, int bulletID, Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
         {
             GameObject bulletObj = bulletPool.GetNext();
 
@@ -54,7 +54,7 @@ namespace Arashmup
             {
                 case Type.Classic:
                     BulletController_Classic classic = bulletObj.GetComponent<BulletController_Classic>();
-                    classic.Setup(actorNumber, position, direction, bulletSpeed, bulletDamage, ignoreColliders);
+                    classic.Setup(actorNumber, bulletID, position, direction, bulletSpeed, bulletDamage, ignoreColliders);
                     break;
                 case Type.Sniper:
                     BulletController_Sniper sniper = bulletObj.GetComponent<BulletController_Sniper>();

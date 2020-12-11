@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Arashmup
 {
-    public class BulletController_Bounce : MonoBehaviour
+    public class BulletController_Bounce : Bullet
     {
         float speed;
         int damage;

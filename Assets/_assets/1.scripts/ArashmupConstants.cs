@@ -29,6 +29,7 @@ namespace Arashmup
     {
         public static readonly string SetDead = "RPC_SetDead";
         public static readonly string Kill = "RPC_Kill";
+        public static readonly string KillBullet = "RPC_KillBullet";
         public static readonly string Add = "RPC_Add";
         public static readonly string DestroyObject = "RPC_DestroyObject";
         public static readonly string Fire = "RPC_Fire";

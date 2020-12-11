@@ -35,7 +35,6 @@ namespace Arashmup
         [Header("Game Events")]
         public GameEvent GameInitialized;
         public GameEvent LocalPlayerWon;
-        public GameEvent LocalPlayerDied;
 
 
         void Start()
@@ -89,7 +88,7 @@ namespace Arashmup
             if (isLocal && !localDead)
             {
                 localDead = true;
-                LocalPlayerDied.Raise();
+                //LocalPlayerDied.Raise();
             }
         }
 

@@ -65,6 +65,7 @@ MonoBehaviour:
     Variable: {fileID: 11400000, guid: 37fc179bff649894bb077f55ebf7249a, type: 2}
   PlayerName: {fileID: 11400000, guid: 0691dcee37745ed42bfc117a40ba1da9, type: 2}
   NameChangeEvent: {fileID: 11400000, guid: 19ebe58cbd566604b8da8d8c64be04c6, type: 2}
+  LocalPlayerDied: {fileID: 11400000, guid: 4dc020329a9d1a6449d16053566cef2a, type: 2}
   RuntimeSet: {fileID: 11400000, guid: 7790713945d1f3a4782334b8aeba0fdc, type: 2}
 --- !u!114 &4775940296048125763
 MonoBehaviour:
@@ -80,6 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDead: {fileID: 11400000, guid: 37fc179bff649894bb077f55ebf7249a, type: 2}
   Visual: {fileID: 4775940296082830106}
+  BulletsAlive: {fileID: 11400000, guid: 1bba3b15bd83dbc489b7a0a7f4baa197, type: 2}
 --- !u!114 &4775940296048125762
 MonoBehaviour:
   m_ObjectHideFlags: 0

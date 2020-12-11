@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3ef9a3c76468e04b80b6690b1323682, type: 3}
-  m_Name: BoosterSpeed
+  m_Name: BoosterInvincible
   m_EditorClassIdentifier: Assembly-CSharp::Booster_Invincible
-  type: 2
+  type: 1
   useDuration: 1
   duration: 10
   durationLeft: 0
   strength: 0
   WalkSpeedBooster:
-    UseConstant: 0
+    UseConstant: 1
     ConstantValue: 0
-    Variable: {fileID: 11400000, guid: ba6462e5c0ff5884591b29e7a2fa6f09, type: 2}
+    Variable: {fileID: 0}

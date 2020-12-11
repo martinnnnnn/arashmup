@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Arashmup
 {
-    public class BulletController_Fragmentation : MonoBehaviour
+    public class BulletController_Fragmentation : Bullet
     {
         public GameObject fragmentation;
 

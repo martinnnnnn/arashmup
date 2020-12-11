@@ -12,6 +12,7 @@ namespace Arashmup
         public BoolReference IsDead;
         public StringVariable PlayerName;
         public GameEvent NameChangeEvent;
+        public GameEvent LocalPlayerDied;
 
         PhotonView PV;
         CharacterProxy proxy;
@@ -40,11 +41,11 @@ namespace Arashmup
             }
             else
             {
-                Destroy(movement);
-                Destroy(fire);
-                Destroy(damage);
-                Destroy(rigidBody);
-                Destroy(collider2d);
+                Destroy(movement); movement = null;
+                Destroy(movement); movement = null;
+                Destroy(damage); damage = null;
+                Destroy(rigidBody); rigidBody = null;
+                Destroy(collider2d); collider2d = null;
 
                 PlayerName = ScriptableObject.CreateInstance<StringVariable>();
                 GetComponentInChildren<TextReplacer>().Variable = PlayerName;
@@ -59,7 +60,15 @@ namespace Arashmup
 
         public void OnDeath()
         {
+            if (PV.IsMine)
+            {
+                LocalPlayerDied.Raise();
+            }
 
+            if (collider2d != null)
+            {
+                Destroy(collider2d);
+            } 
         }
 
         #region Runtime Set
