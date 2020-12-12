@@ -22,7 +22,7 @@ namespace Arashmup
 
     internal static class RuntimePrefabsPaths
     {
-        public static readonly string PlayerCharacter = Path.Combine("Prefabs", "PlayerCharacter_v2");
+        public static readonly string PlayerCharacter = "PlayerCharacter";
     }
 
     internal static class RPC_Functions

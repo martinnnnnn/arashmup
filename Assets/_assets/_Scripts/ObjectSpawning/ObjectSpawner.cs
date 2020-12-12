@@ -114,7 +114,7 @@ namespace Arashmup
         {
             SpawnPoint spawnPoint = spawnPoints[spawnPointIndex];
 
-            GameObject spawnedObj = Instantiate(Resources.Load<GameObject>(Path.Combine("Prefabs", prefabName)), spawnPoint.transform);
+            GameObject spawnedObj = Instantiate(Resources.Load<GameObject>(prefabName), spawnPoint.transform);
             spawnedObj.transform.position = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y, spawnPoint.transform.position.z - 1);
 
             SpawnObject spawned = spawnedObj.GetComponent<SpawnObject>();

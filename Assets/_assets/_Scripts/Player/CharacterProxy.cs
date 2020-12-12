@@ -31,8 +31,6 @@ namespace Arashmup
             minBulletID = PV.ViewID * 1000;
             maxBulletID = minBulletID + 999;
             currentBulletID = minBulletID;
-
-            Debug.Log("Bullet ID range: " + minBulletID + " -> " + maxBulletID);
         }
 
 
