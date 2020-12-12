@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8898999494789379201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8898999494789379231}
+  - component: {fileID: 8898999494789379230}
+  - component: {fileID: 8898999494789379229}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8898999494789379231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898999494789379201}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 289.04346, y: 765.7606, z: -154.625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8898999494789379230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898999494789379201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96890f09c5932cc4ab228099994d8f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerCharacters: {fileID: 11400000, guid: 7790713945d1f3a4782334b8aeba0fdc, type: 2}
+  SceneFlow: {fileID: 11400000, guid: 12ab9988d3febeb4b80953fd656c7b75, type: 2}
+  PlayersAliveCount: {fileID: 11400000, guid: 26152958d05b9cf40a6ee74d408cfd3a, type: 2}
+  Inputs: {fileID: 11400000, guid: 34ea6df4daa944c44a39c87f62fa8fe8, type: 2}
+  GameInitialized: {fileID: 11400000, guid: ca3b28d830222bf42ac9e13267427bdd, type: 2}
+  GameOverEvent: {fileID: 11400000, guid: f1ed00464d6a7e24bb9642a65286d994, type: 2}
+  CharacterDeathEvent: {fileID: 11400000, guid: bb3424ad7c79c894ea44af3a5084fef9,
+    type: 2}
+--- !u!114 &8898999494789379229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898999494789379201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7feb1e8f29a352c4a90af192a426d492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: bb3424ad7c79c894ea44af3a5084fef9, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8898999494789379230}
+        m_MethodName: OnCharacterDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8898999494789379230}
+        m_MethodName: CheckEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

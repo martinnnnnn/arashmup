@@ -68,7 +68,6 @@ namespace Arashmup
 
         void Update()
         {
-
             if (PhotonNetwork.IsMasterClient)
             {
                 timeSinceSpawn += Time.deltaTime;

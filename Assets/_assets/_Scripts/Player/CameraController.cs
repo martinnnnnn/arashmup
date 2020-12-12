@@ -6,6 +6,7 @@ namespace Arashmup
     {
         public FloatReference CameraDepth;
         public Vector3Reference PlayerPosition;
+        public GameInputs Inputs;
 
         Camera cam;
 
@@ -16,8 +17,7 @@ namespace Arashmup
 
         public Vector2 GetWorldPoint()
         {
-            return cam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-
+            return cam.ScreenToWorldPoint(Inputs.Actions.Gameplay.FireGoal.ReadValue<Vector2>());
         }
 
         void FixedUpdate()

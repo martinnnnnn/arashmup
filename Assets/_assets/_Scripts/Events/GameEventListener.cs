@@ -30,7 +30,7 @@ namespace Arashmup
 
         public void OnEventRaised()
         {
-            Response.Invoke();
+            Response?.Invoke();
         }
     }
 }

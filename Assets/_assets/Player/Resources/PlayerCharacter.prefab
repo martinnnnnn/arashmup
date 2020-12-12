@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Position: {fileID: 11400000, guid: 538a4ce04659e4d4e837cb2ff7efaa10, type: 2}
   MoveAllowed: {fileID: 11400000, guid: 2722a83df1c003e4aa2c94aa431b7391, type: 2}
+  Inputs: {fileID: 11400000, guid: 34ea6df4daa944c44a39c87f62fa8fe8, type: 2}
   WalkSpeedStandard:
     UseConstant: 0
     ConstantValue: 0
@@ -133,6 +134,7 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 37fc179bff649894bb077f55ebf7249a, type: 2}
   FireAllowed: {fileID: 11400000, guid: 912aca0e159d5574baf2e560a53a2a28, type: 2}
+  Inputs: {fileID: 11400000, guid: 34ea6df4daa944c44a39c87f62fa8fe8, type: 2}
   FireElaspedTime: {fileID: 11400000, guid: 7d09ff597dbc5c54d8df4859a6dcd36d, type: 2}
   FireRate:
     UseConstant: 0

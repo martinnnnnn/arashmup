@@ -17,6 +17,7 @@ namespace Arashmup
     {
         public BoolReference IsDead;
         public BoolVariable FireAllowed;
+        public GameInputs Inputs;
 
         [Header("Firing")]
         public FloatVariable FireElaspedTime;
@@ -47,42 +48,28 @@ namespace Arashmup
                 PV = GetComponent<PhotonView>();
             }
 
-            if (PV.IsMine)
+            Vector2 direction = Inputs.Actions.Gameplay.FireDirection.ReadValue<Vector2>();
+            bool hasClicked = Inputs.Actions.Gameplay.Fire.ReadValue<float>() > 0.1f;
+
+            if (hasClicked || direction.magnitude > 0.1f)
             {
-                if (FollowCamera == null)
+                if (FireAllowed.Value && !IsDead.Value && FireElaspedTime.Value > FireRate.Value)
                 {
-                    Debug.Log("FollowCamera");
-                }
-                if (FireAllowed == null)
-                {
-                    Debug.Log("FireAllowed");
-                }
-                if (IsDead == null)
-                {
-                    Debug.Log("IsDead");
-                }
-                if (FireElaspedTime == null)
-                {
-                    Debug.Log("FireElaspedTime");
-                }
-                if (FireRate == null)
-                {
-                    Debug.Log("FireRate");
-                }
-                if (PhotonNetwork.LocalPlayer == null)
-                {
-                    Debug.Log("PhotonNetwork.LocalPlayer");
-                }
-            }
+                    FireElaspedTime.SetValue(0.0f);
 
-            if (Input.GetMouseButton(0) && FireAllowed.Value && !IsDead.Value && FireElaspedTime.Value > FireRate.Value)
-            {
-                FireElaspedTime.SetValue(0.0f);
+                    // in case of click, we need to compute the direction using the mouse position
+                    if (direction.magnitude <= 0.1f)
+                    {
+                        direction = (FollowCamera.GetWorldPoint() - new Vector2(transform.position.x, transform.position.y));
+                    }
 
-                Vector2 direction = (FollowCamera.GetWorldPoint() - new Vector2(transform.position.x, transform.position.y)).normalized;
-                Vector3 position = transform.position + new Vector3(direction.x, direction.y, transform.position.z) * 0.9f;
+                    direction.Normalize();
 
-                proxy.Fire(PhotonNetwork.LocalPlayer.ActorNumber, position, direction);
+                    // adding a bit of the direction vector to the position so the bullet does spawn at the character center
+                    Vector3 position = transform.position + new Vector3(direction.x, direction.y, transform.position.z) * 0.9f; 
+
+                    proxy.Fire(PhotonNetwork.LocalPlayer.ActorNumber, position, direction);
+                }
             }
         }
     }

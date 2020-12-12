@@ -23,4 +23,4 @@ MonoBehaviour:
   RuntimeSet: {fileID: 11400000, guid: c7ab3ca7acc895d4b8f5a703d9051a2f, type: 2}
   poolPrefab: {fileID: 7216681613157809091, guid: 0f7c5fe77fafb2d408446200f5e81268,
     type: 3}
-  defaultPoolSize: 10
+  defaultPoolSize: 30

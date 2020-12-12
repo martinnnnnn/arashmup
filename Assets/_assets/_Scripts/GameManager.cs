@@ -27,6 +27,7 @@ namespace Arashmup
         public PlayerCharacterRuntimeSet PlayerCharacters;
         public SceneFlowData SceneFlow;
         public IntVariable PlayersAliveCount;
+        public GameInputs Inputs;
 
         [Header("Game Events")]
         public GameEvent GameInitialized;
@@ -34,7 +35,6 @@ namespace Arashmup
         public GameEvent CharacterDeathEvent;
 
         int deadPlayerCount = 0;
-
 
         void Start()
         {
@@ -56,7 +56,7 @@ namespace Arashmup
         bool hasLeft = false;
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F10) && !hasLeft)
+            if (Inputs.Actions.Gameplay.LeaveGame.ReadValue<float>() > 0.0f && !hasLeft)
             {
                 hasLeft = true;
                 PhotonNetwork.LeaveRoom();

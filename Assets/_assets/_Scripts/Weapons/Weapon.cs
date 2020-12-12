@@ -46,7 +46,6 @@ namespace Arashmup
             if (RuntimeSet.Items.ContainsKey(bulletPrefab.name))
             {
                 bulletPool = RuntimeSet.Items[bulletPrefab.name];
-                Debug.Log("found bullet pool");
             }
             else
             {

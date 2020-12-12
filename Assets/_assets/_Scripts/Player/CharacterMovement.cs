@@ -1,14 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
-using Photon.Realtime;
-using Photon.Pun;
-using System.IO;
-using TMPro;
-using DG.Tweening;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 // FSM for dashing / walking
 
@@ -18,6 +10,8 @@ namespace Arashmup
     {
         public Vector3Variable Position;
         public BoolVariable MoveAllowed;
+
+        public GameInputs Inputs;
 
         [Header("Walking")]
         public FloatReference WalkSpeedStandard;
@@ -68,13 +62,14 @@ namespace Arashmup
             }
 
             DashElaspedTime.ApplyChange(Time.deltaTime);
-            if (Input.GetKeyDown(KeyCode.Space) && DashElaspedTime.Value > DashRate.Value)
+
+            if (Inputs.Actions.Gameplay.Dash.ReadValue<float>() > 0.0f && DashElaspedTime.Value > DashRate.Value)
             {
                 mustDash = true;
                 DashElaspedTime.SetValue(0);
             }
 
-            moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            moveDir = Inputs.Actions.Gameplay.Move.ReadValue<Vector2>();
         }
 
         void FixedUpdate()
