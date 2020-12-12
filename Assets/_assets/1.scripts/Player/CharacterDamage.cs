@@ -30,10 +30,10 @@ namespace Arashmup
         {
             if (!IsDead.Value)
             {
+                proxy.KillBullet(bullet);
+
                 if (boosterController.IsDamageDone(damage))
                 {
-                    proxy.KillBullet(bullet);
-
                     IncreaseKillFeed(actorNumber);
                     proxy.Kill();
                 }
