@@ -14,7 +14,6 @@ namespace Arashmup
 {
     public class BoosterController : MonoBehaviour
     {
-        PlayerController playerController;
         PhotonView photonView;
         List<Booster> currentBoosters;
 
@@ -34,7 +33,6 @@ namespace Arashmup
             CustomTypesSerialization.Register();
 
             currentBoosters = new List<Booster>();
-            playerController = GetComponent<PlayerController>();
             photonView = GetComponent<PhotonView>();
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
