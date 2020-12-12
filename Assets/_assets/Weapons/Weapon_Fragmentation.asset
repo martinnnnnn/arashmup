@@ -20,6 +20,7 @@ MonoBehaviour:
   bulletSpeed: 7
   bulletDamage: 10
   bulletBounceCount: 0
+  RuntimeSet: {fileID: 11400000, guid: c7ab3ca7acc895d4b8f5a703d9051a2f, type: 2}
   poolPrefab: {fileID: 7216681613157809091, guid: 0f7c5fe77fafb2d408446200f5e81268,
     type: 3}
   defaultPoolSize: 20

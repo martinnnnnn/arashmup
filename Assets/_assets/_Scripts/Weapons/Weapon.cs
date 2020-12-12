@@ -35,6 +35,7 @@ namespace Arashmup
 
         [Space(3)]
         [Header("Pool")]
+        public ObjectPoolDictionary RuntimeSet;
         public GameObject poolPrefab;
         public int defaultPoolSize;
 
@@ -42,8 +43,17 @@ namespace Arashmup
 
         public void Init()
         {
-            bulletPool = Instantiate(poolPrefab, Vector3.zero, Quaternion.identity).GetComponent<ObjectPool>();
-            bulletPool.Setup(bulletPrefab, defaultPoolSize);
+            if (RuntimeSet.Items.ContainsKey(bulletPrefab.name))
+            {
+                bulletPool = RuntimeSet.Items[bulletPrefab.name];
+                Debug.Log("found bullet pool");
+            }
+            else
+            {
+                bulletPool = Instantiate(poolPrefab, Vector3.zero, Quaternion.identity).GetComponent<ObjectPool>();
+                bulletPool.Setup(bulletPrefab, defaultPoolSize);
+            }
+
         }
 
         public void Fire(int actorNumber, int bulletID, Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)

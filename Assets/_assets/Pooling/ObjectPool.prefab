@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   growAmount: 10
+  RuntimeSet: {fileID: 11400000, guid: c7ab3ca7acc895d4b8f5a703d9051a2f, type: 2}

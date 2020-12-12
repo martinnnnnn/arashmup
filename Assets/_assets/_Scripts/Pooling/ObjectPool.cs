@@ -23,6 +23,8 @@ namespace Arashmup
         public void Setup(GameObject prefab, int amount, int growAmount = 10)
         {
             this.prefab = prefab;
+            RuntimeSet.Add(prefab.name, this);
+
             this.growAmount = growAmount;
             Grow(amount);
         }
@@ -81,9 +83,20 @@ namespace Arashmup
             return pool[nextFree];
         }
 
-        internal void ResetAll()
+        public void ResetAll()
         {
             pool.ForEach(o => o.SetActive(false));
         }
+
+
+        #region Runtime Set
+        public ObjectPoolDictionary RuntimeSet;
+
+        private void OnDisable()
+        {
+            RuntimeSet.Remove(prefab.name);
+        }
+
+        #endregion
     }
 }
