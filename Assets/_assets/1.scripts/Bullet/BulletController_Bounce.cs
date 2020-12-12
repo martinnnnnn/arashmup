@@ -24,9 +24,10 @@ namespace Arashmup
         Rigidbody2D rigidBody;
         int bounceCountLeft;
 
-        public void Setup(int actorNumber, Vector3 position, Vector2 direction, float speed, int damage, int bounceCount, Collider2D[] toIgnore = null)
+        public void Setup(int actorNumber, int bulletID, Vector3 position, Vector2 direction, float speed, int damage, int bounceCount, Collider2D[] toIgnore = null)
         {
             this.actorNumber = actorNumber;
+            ID = bulletID;
             transform.position = position;
             this.direction = direction;
             this.speed = speed;
@@ -52,10 +53,10 @@ namespace Arashmup
 
         void OnCollisionEnter2D(Collision2D collision)
         {
-            PlayerController player = collision.collider.GetComponent<PlayerController>();
-            if (player != null)
+            CharacterDamage character = collision.collider.GetComponent<CharacterDamage>();
+            if (character != null)
             {
-                player.ReceiveDamage(actorNumber, damage);
+                character.ReceiveDamage(actorNumber, this, damage);
             }
 
             if (bounceCountLeft == bounceCount) // we remove sender immunity at first bounce

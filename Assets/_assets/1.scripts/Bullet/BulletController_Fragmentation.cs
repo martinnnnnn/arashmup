@@ -22,9 +22,10 @@ namespace Arashmup
 
         float timeSinceSpawn;
 
-        public void Setup(int actorNumber, Vector3 position, Vector2 direction, float speed, float fragmentationDelay, int fragmentationCount, int damage, Collider2D[] ignoreColliders = null)
+        public void Setup(int actorNumber, int bulletID, Vector3 position, Vector2 direction, float speed, float fragmentationDelay, int fragmentationCount, int damage, Collider2D[] ignoreColliders = null)
         {
             this.actorNumber = actorNumber;
+            ID = bulletID;
             transform.position = position;
             this.speed = speed;
             this.fragmentationDelay = fragmentationDelay;
@@ -63,10 +64,10 @@ namespace Arashmup
 
         void OnCollisionEnter2D(Collision2D collision)
         {
-            PlayerController player = collision.collider.GetComponent<PlayerController>();
-            if (player != null)
+            CharacterDamage character = collision.collider.GetComponent<CharacterDamage>();
+            if (character != null)
             {
-                player.ReceiveDamage(actorNumber, damage);
+                character.ReceiveDamage(actorNumber, this, damage);
             }
             else
             {

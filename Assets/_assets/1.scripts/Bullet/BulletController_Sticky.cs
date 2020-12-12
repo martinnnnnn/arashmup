@@ -21,9 +21,10 @@ namespace Arashmup
         Collider2D ownCollider;
         Collider2D[] ignoreColliders;
 
-        public void Setup(int actorNumber, Vector3 position, Vector2 direction, float speed, int damage, Collider2D[] toIgnore = null)
+        public void Setup(int actorNumber, int bulletID, Vector3 position, Vector2 direction, float speed, int damage, Collider2D[] toIgnore = null)
         {
             this.actorNumber = actorNumber;
+            ID = bulletID;
             transform.position = position;
             this.speed = speed;
             this.damage = damage;
@@ -50,11 +51,11 @@ namespace Arashmup
             if (!hasStopped)
             {
                 hasStopped = true;
-                PlayerController player = collision.collider.GetComponent<PlayerController>();
-                if (player != null)
+
+                CharacterDamage character = collision.collider.GetComponent<CharacterDamage>();
+                if (character != null)
                 {
-                    player.ReceiveDamage(actorNumber, damage);
-                    gameObject.SetActive(false);
+                    character.ReceiveDamage(actorNumber, this, damage);
                 }
                 else
                 {

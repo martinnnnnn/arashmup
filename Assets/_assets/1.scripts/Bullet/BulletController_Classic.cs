@@ -37,19 +37,15 @@ namespace Arashmup
 
         void OnCollisionEnter2D(Collision2D collision)
         {
-            PlayerController player = collision.collider.GetComponent<PlayerController>();
-            if (player != null)
-            {
-                player.ReceiveDamage(actorNumber, damage);
-            }
-
             CharacterDamage character = collision.collider.GetComponent<CharacterDamage>();
             if (character != null)
             {
                 character.ReceiveDamage(actorNumber, this, damage);
             }
-
-            gameObject.SetActive(false);
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

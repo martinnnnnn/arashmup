@@ -58,19 +58,19 @@ namespace Arashmup
                     break;
                 case Type.Sniper:
                     BulletController_Sniper sniper = bulletObj.GetComponent<BulletController_Sniper>();
-                    sniper.Setup(actorNumber, position, direction, bulletSpeed, bulletDamage, ignoreColliders);
+                    sniper.Setup(actorNumber, bulletID, position, direction, bulletSpeed, bulletDamage, ignoreColliders);
                     break;
                 case Type.Bounce:
                     BulletController_Bounce bounce = bulletObj.GetComponent<BulletController_Bounce>();
-                    bounce.Setup(actorNumber, position, direction, bulletSpeed, bulletDamage, bulletBounceCount, ignoreColliders);
+                    bounce.Setup(actorNumber, bulletID, position, direction, bulletSpeed, bulletDamage, bulletBounceCount, ignoreColliders);
                     break;
                 case Type.Sticky:
                     BulletController_Sticky sticky = bulletObj.GetComponent<BulletController_Sticky>();
-                    sticky.Setup(actorNumber, position, direction, bulletSpeed, bulletDamage, ignoreColliders);
+                    sticky.Setup(actorNumber, bulletID, position, direction, bulletSpeed, bulletDamage, ignoreColliders);
                     break;
                 case Type.Fragmentation:
                     BulletController_Fragmentation fragmentation = bulletObj.GetComponent<BulletController_Fragmentation>();
-                    fragmentation.Setup(actorNumber, position, direction, bulletSpeed, 1.0f, 5, bulletDamage, ignoreColliders);
+                    fragmentation.Setup(actorNumber, bulletID, position, direction, bulletSpeed, 1.0f, 5, bulletDamage, ignoreColliders);
                     break;
             }
         }
