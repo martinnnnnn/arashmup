@@ -47,18 +47,13 @@ namespace Arashmup
 
             if (SceneFlow.backFromGameplay)
             {
-                Debug.Log("back from gameplay");
-
                 if (SceneFlow.stayInRoom)
                 {
-                    Debug.Log("stay in room");
-
                     MenuManager.Instance.OpenMenu(Menu.Type.Room);
                     UpdateRoomData();
                 }
                 else if (PhotonNetwork.CurrentRoom != null)
                 {
-                    Debug.Log("leaving room");
                     LeaveRoom();
                 }
                 SceneFlow.Reset();

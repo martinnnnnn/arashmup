@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 4775940296048125626}
   - component: {fileID: 6718312076956884975}
   - component: {fileID: 3013396879843869354}
+  - component: {fileID: 8487929853197407834}
+  - component: {fileID: 6955802188157890580}
   m_Layer: 8
   m_Name: PlayerCharacter_v2
   m_TagString: Untagged
@@ -66,6 +68,7 @@ MonoBehaviour:
   PlayerName: {fileID: 11400000, guid: 0691dcee37745ed42bfc117a40ba1da9, type: 2}
   NameChangeEvent: {fileID: 11400000, guid: 19ebe58cbd566604b8da8d8c64be04c6, type: 2}
   LocalPlayerDied: {fileID: 11400000, guid: 4dc020329a9d1a6449d16053566cef2a, type: 2}
+  LocalPlayerWon: {fileID: 11400000, guid: 4a38252a91b892241998a2d3ebe4404f, type: 2}
   RuntimeSet: {fileID: 11400000, guid: 7790713945d1f3a4782334b8aeba0fdc, type: 2}
 --- !u!114 &4775940296048125763
 MonoBehaviour:
@@ -82,6 +85,8 @@ MonoBehaviour:
   IsDead: {fileID: 11400000, guid: 37fc179bff649894bb077f55ebf7249a, type: 2}
   Visual: {fileID: 4775940296082830106}
   BulletsAlive: {fileID: 11400000, guid: 1bba3b15bd83dbc489b7a0a7f4baa197, type: 2}
+  CharacterDeathEvent: {fileID: 11400000, guid: bb3424ad7c79c894ea44af3a5084fef9,
+    type: 2}
 --- !u!114 &4775940296048125762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +174,8 @@ MonoBehaviour:
   fragmentation: {fileID: 11400000, guid: 644687c9dfe64c14ba4ba72375289e37, type: 2}
   FireRate: {fileID: 11400000, guid: a4434ae9fb1acf34e8633f73594cd5b9, type: 2}
   AmmoLeftText: {fileID: 11400000, guid: f7eee82c8dd030949a4ea4dbd00b6b1b, type: 2}
+  AmmoLeftTextChangedEvent: {fileID: 11400000, guid: 07fe8292f38c4a1468fa6db942e10eb8,
+    type: 2}
 --- !u!114 &4775940296048125766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +340,71 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4775940296048125761}
         m_MethodName: OnCountdownOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8487929853197407834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775940296048125625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7feb1e8f29a352c4a90af192a426d492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: bb3424ad7c79c894ea44af3a5084fef9, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4775940296048125772}
+        m_MethodName: OnCharacterDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6955802188157890580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775940296048125625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7feb1e8f29a352c4a90af192a426d492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: f1ed00464d6a7e24bb9642a65286d994, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4775940296048125772}
+        m_MethodName: OnGameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4775940296048125767}
+        m_MethodName: OnGameOver
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

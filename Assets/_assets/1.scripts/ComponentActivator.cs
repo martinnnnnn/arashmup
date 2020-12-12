@@ -15,7 +15,12 @@ namespace Arashmup
     {
         public MonoBehaviour component;
         public bool defaultValue;
-        public float automaticDeactivationTime;
+
+        [Header("Delayed Deactivation")]
+        public bool EnableDeactivation;
+
+        [ConditionalHide("EnableDeactivation", true)]
+        public float DelayedDeactivationDuration;
 
         private void OnEnable()
         {
@@ -25,15 +30,15 @@ namespace Arashmup
         public void Activate(bool value)
         {
             component.enabled = value;
-            if (automaticDeactivationTime > 0)
+            if (EnableDeactivation)
             {
                 StartCoroutine(Deactivation());
             }
         }
 
-        IEnumerator Deactivation()
+        IEnumerator Deactivation()  
         {
-            yield return new WaitForSeconds(automaticDeactivationTime);
+            yield return new WaitForSeconds(DelayedDeactivationDuration);
             component.enabled = false;
         }
     }

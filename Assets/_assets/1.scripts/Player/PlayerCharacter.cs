@@ -1,8 +1,12 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+
 
 namespace Arashmup
 {
@@ -13,6 +17,7 @@ namespace Arashmup
         public StringVariable PlayerName;
         public GameEvent NameChangeEvent;
         public GameEvent LocalPlayerDied;
+        public GameEvent LocalPlayerWon;
 
         PhotonView PV;
         CharacterProxy proxy;
@@ -23,6 +28,7 @@ namespace Arashmup
         Rigidbody2D rigidBody;
         Collider2D collider2d;
 
+        bool isAlreadyDead;
 
         void Awake()
         {
@@ -42,7 +48,7 @@ namespace Arashmup
             else
             {
                 Destroy(movement); movement = null;
-                Destroy(movement); movement = null;
+                Destroy(fire); fire = null;
                 Destroy(damage); damage = null;
                 Destroy(rigidBody); rigidBody = null;
                 Destroy(collider2d); collider2d = null;
@@ -56,20 +62,54 @@ namespace Arashmup
 
             PlayerName.Value = PV.Owner.NickName;
             NameChangeEvent.Raise();
+
+            isAlreadyDead = false;
         }
 
-        public void OnDeath()
+        public void OnCharacterDeath()
         {
-            if (PV.IsMine)
+            if (!isAlreadyDead && IsDead.Value)
             {
-                LocalPlayerDied.Raise();
-            }
+                isAlreadyDead = true;
 
-            if (collider2d != null)
-            {
-                Destroy(collider2d);
-            } 
+                if (PV.IsMine)
+                {
+                    LocalPlayerDied.Raise();
+                }
+
+                if (collider2d != null)
+                {
+                    Destroy(collider2d);
+                } 
+            }
         }
+
+        public void OnGameOver()
+        {
+            if (!IsDead.Value && PV.IsMine)
+            {
+                AddWinToLocalPlayer();
+                LocalPlayerWon.Raise();
+            }
+        }
+
+        public Player GetNetworkPlayer()
+        {
+            return PV.Owner;
+        }
+
+        void AddWinToLocalPlayer()
+        {
+            int victoryCount = 0;
+            if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(CustomPropertiesKeys.VictoryCount))
+            {
+                victoryCount = (int)PhotonNetwork.LocalPlayer.CustomProperties[CustomPropertiesKeys.VictoryCount];
+            }
+            Hashtable hash = new Hashtable();
+            hash.Add(CustomPropertiesKeys.VictoryCount, ++victoryCount);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        }
+
 
         #region Runtime Set
         public PlayerCharacterRuntimeSet RuntimeSet;
@@ -83,6 +123,7 @@ namespace Arashmup
         {
             RuntimeSet.Remove(this);
         }
+
         #endregion
     }
 }

@@ -10,9 +10,9 @@ namespace Arashmup
         public BoolVariable IsDead;
         public SpriteRenderer Visual;
         public BulletRuntimeSet BulletsAlive;
+        public GameEvent CharacterDeathEvent;
 
         PhotonView PV;
-        PlayerCharacter playerCharacter;
         WeaponController weaponController;
         Collider2D collider2d;
 
@@ -23,7 +23,6 @@ namespace Arashmup
         void Start()
         {
             PV = GetComponent<PhotonView>();
-            playerCharacter = GetComponent<PlayerCharacter>();
             weaponController = GetComponent<WeaponController>();
             collider2d = GetComponent<Collider2D>();
 
@@ -91,7 +90,7 @@ namespace Arashmup
         {
             IsDead.SetValue(true);
             Visual.color = new Color(Visual.color.r, Visual.color.g, Visual.color.b, 0.1f);
-            playerCharacter.OnDeath();
+            CharacterDeathEvent.Raise();
         }
     }
 }

@@ -14,13 +14,11 @@ namespace Arashmup
     
         private void OnEnable()
         {
-            Debug.Log("added bullet " + ID);
             RuntimeSet.Add(this);
         }
     
         private void OnDisable()
         {
-            Debug.Log("removed bullet " + ID);
             RuntimeSet.Remove(this);
         }
         #endregion

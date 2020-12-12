@@ -26,6 +26,7 @@ namespace Arashmup
         Arashmup.Weapon equiped;
 
         public StringVariable AmmoLeftText;
+        public GameEvent AmmoLeftTextChangedEvent;
 
         int ammoLeft;
         int AmmoLeft
@@ -47,6 +48,7 @@ namespace Arashmup
                     {
                         AmmoLeftText.Value = "\u221E";
                     }
+                    AmmoLeftTextChangedEvent.Raise();
                 }
             }
         }
@@ -109,6 +111,11 @@ namespace Arashmup
 
             AmmoLeft = equiped.ammo;
             FireRate.SetValue(equiped.fireRate);
+        }
+
+        public void OnGameOver()
+        {
+            ResetBulletPools();
         }
 
         public void ResetBulletPools()

@@ -28,7 +28,7 @@ namespace Arashmup
         {
             if (AlwaysUpdate)
             {
-                Text.text = Variable.Value;
+                UpdateOnce();
             }
         }
 

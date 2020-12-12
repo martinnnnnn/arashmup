@@ -37,11 +37,45 @@ namespace Arashmup
             FireAllowed.SetValue(true);
         }
 
+        PhotonView PV;
         void Update()
         {
             FireElaspedTime.ApplyChange(Time.deltaTime);
 
-            if (Input.GetMouseButton(0) && FireAllowed.Value && !IsDead.Value && FireElaspedTime.Value > FireRate)
+            if (PV == null)
+            {
+                PV = GetComponent<PhotonView>();
+            }
+
+            if (PV.IsMine)
+            {
+                if (FollowCamera == null)
+                {
+                    Debug.Log("FollowCamera");
+                }
+                if (FireAllowed == null)
+                {
+                    Debug.Log("FireAllowed");
+                }
+                if (IsDead == null)
+                {
+                    Debug.Log("IsDead");
+                }
+                if (FireElaspedTime == null)
+                {
+                    Debug.Log("FireElaspedTime");
+                }
+                if (FireRate == null)
+                {
+                    Debug.Log("FireRate");
+                }
+                if (PhotonNetwork.LocalPlayer == null)
+                {
+                    Debug.Log("PhotonNetwork.LocalPlayer");
+                }
+            }
+
+            if (Input.GetMouseButton(0) && FireAllowed.Value && !IsDead.Value && FireElaspedTime.Value > FireRate.Value)
             {
                 FireElaspedTime.SetValue(0.0f);
 

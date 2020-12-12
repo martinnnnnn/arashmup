@@ -24,17 +24,16 @@ namespace Arashmup
 
     public class GameManager : MonoBehaviourPunCallbacks
     {
-        int deadPlayerCount = 0;
-
         public PlayerCharacterRuntimeSet PlayerCharacters;
-
         public SceneFlowData SceneFlow;
-
         public IntVariable PlayersAliveCount;
 
         [Header("Game Events")]
         public GameEvent GameInitialized;
-        public GameEvent LocalPlayerWon;
+        public GameEvent GameOverEvent;
+        public GameEvent CharacterDeathEvent;
+
+        int deadPlayerCount = 0;
 
 
         void Start()
@@ -43,6 +42,7 @@ namespace Arashmup
             SceneFlow.stayInRoom = true;
 
             PlayersAliveCount.SetValue(PhotonNetwork.PlayerList.Count());
+            deadPlayerCount = 0;
 
             CreateController();
             GameInitialized.Raise();
@@ -72,48 +72,33 @@ namespace Arashmup
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
-            
-            PlayersAliveCount.SetValue(PhotonNetwork.PlayerList.Count() - deadPlayerCount);
-
-            CheckEnd();
-        }
-
-        bool localDead = false;
-        public void IncreaseDead(bool isLocal)
-        {
-            deadPlayerCount++;
-
-            PlayersAliveCount.SetValue(PhotonNetwork.PlayerList.Count() - deadPlayerCount);
-
-            if (isLocal && !localDead)
+            if (PlayerCharacters.Items.Exists(pc => pc.GetNetworkPlayer() == otherPlayer))
             {
-                localDead = true;
-                //LocalPlayerDied.Raise();
+                PlayerCharacter leaver = PlayerCharacters.Items.Find(pc => pc.GetNetworkPlayer() == otherPlayer);
+                if (!leaver.IsDead.Value)
+                {
+                    CharacterDeathEvent.Raise();
+                }
             }
         }
 
-        public bool CheckEnd()
+        public void OnCharacterDeath()
+        {
+            deadPlayerCount++;
+            PlayersAliveCount.SetValue(PhotonNetwork.PlayerList.Count() - deadPlayerCount);
+        }
+
+        public void CheckEnd()
         {
             if (deadPlayerCount >= PhotonNetwork.PlayerList.Count() - 1)
             {
-                FindObjectsOfType<WeaponController>().ToList().ForEach(wc =>
-                {
-                    wc.ResetBulletPools();
-                });
-
-                if (!localDead)
-                {
-                    LocalPlayerWon.Raise();
-                    AddWinToLocalPlayer();
-                }
+                GameOverEvent.Raise();
 
                 if (PhotonNetwork.IsMasterClient)
                 {
                     StartCoroutine(EndGame());
                 }
-                return true;
             }
-            return false;
         }
 
         IEnumerator EndGame()
@@ -124,16 +109,6 @@ namespace Arashmup
             PhotonNetwork.LoadLevel(0);
         }
 
-        void AddWinToLocalPlayer()
-        {
-            int victoryCount = 0;
-            if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(CustomPropertiesKeys.VictoryCount))
-            {
-                victoryCount = (int)PhotonNetwork.LocalPlayer.CustomProperties[CustomPropertiesKeys.VictoryCount];
-            }
-            Hashtable hash = new Hashtable();
-            hash.Add(CustomPropertiesKeys.VictoryCount, ++victoryCount);
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-        }
+
     }
 }

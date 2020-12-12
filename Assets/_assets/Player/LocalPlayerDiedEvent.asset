@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be6d5640f8c0d2541ad8456e7b0d132a, type: 3}
-  m_Name: LocalPlayerWon
+  m_Name: LocalPlayerDiedEvent
   m_EditorClassIdentifier: 

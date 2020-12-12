@@ -193,8 +193,8 @@ namespace Arashmup
             visual.color = new Color(visual.color.r, visual.color.g, visual.color.b, 0.1f);
             Destroy(GetComponent<CircleCollider2D>());
 
-            gameManager.IncreaseDead(PV.IsMine);
-            if (gameManager.CheckEnd())
+            //gameManager.IncreaseDead(PV.IsMine);
+            //if (gameManager.CheckEnd())
             {
                 foreach (PlayerController player in FindObjectsOfType<PlayerController>())
                 {

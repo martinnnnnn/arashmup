@@ -9,6 +9,7 @@ namespace Arashmup
     public class IntReferenceText : MonoBehaviour
     {
         public IntReference Value;
+        public bool AlwaysUpdate;
 
         TMP_Text text;
 
@@ -18,6 +19,14 @@ namespace Arashmup
         }
 
         void Update()
+        {
+            if (AlwaysUpdate)
+            {
+                UpdateOnce();
+            }
+        }
+
+        public void UpdateOnce()
         {
             text.text = Value.Value.ToString();
         }
