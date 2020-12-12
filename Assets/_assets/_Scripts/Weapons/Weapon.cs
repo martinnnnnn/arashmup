@@ -53,7 +53,6 @@ namespace Arashmup
                 bulletPool = Instantiate(poolPrefab, Vector3.zero, Quaternion.identity).GetComponent<ObjectPool>();
                 bulletPool.Setup(bulletPrefab, defaultPoolSize);
             }
-
         }
 
         public void Fire(int actorNumber, int bulletID, Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
