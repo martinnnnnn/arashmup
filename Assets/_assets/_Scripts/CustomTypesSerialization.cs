@@ -22,7 +22,7 @@ namespace Arashmup
         }
 
         #region Booster
-        public static readonly short memBoosterSize = sizeof(Booster.Type) + sizeof(int) + sizeof(float) + sizeof(int) /*+ sizeof(float)*/;
+        public static readonly short memBoosterSize = sizeof(Booster.Type) + sizeof(int) + sizeof(float) + sizeof(int) + sizeof(float);
         public static readonly byte[] memBooster = new byte[memBoosterSize];
 
         private static short SerializeBooster(StreamBuffer outStream, object customobject)
@@ -37,7 +37,7 @@ namespace Arashmup
                 Protocol.Serialize(Convert.ToInt32(booster.useDuration), bytes, ref off);
                 Protocol.Serialize(booster.duration, bytes, ref off);
                 Protocol.Serialize(booster.strength, bytes, ref off);
-                //Protocol.Serialize(booster.WalkSpeedBooster, bytes, ref off);
+                Protocol.Serialize(booster.walkSpeedBooster, bytes, ref off);
                 outStream.Write(bytes, 0, memBoosterSize);
             }
             return memBoosterSize;
@@ -67,10 +67,7 @@ namespace Arashmup
 
                 Protocol.Deserialize(out booster.duration, memBooster, ref off);
                 Protocol.Deserialize(out booster.strength, memBooster, ref off);
-
-                //float walkSpeedBooster = 0;
-                //Protocol.Deserialize(out walkSpeedBooster, memBooster, ref off);
-                //booster.WalkSpeedBooster. = walkSpeedBooster;
+                Protocol.Deserialize(out booster.walkSpeedBooster, memBooster, ref off);
             }
 
             return booster;

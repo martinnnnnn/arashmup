@@ -128,7 +128,7 @@ namespace Arashmup
                 case Booster.Type.Shield:
                     break;
                 case Booster.Type.Speed:
-                    WalkSpeed.SetValue(booster.WalkSpeedBooster);
+                    WalkSpeed.SetValue(booster.walkSpeedBooster);
                     break;
                 case Booster.Type.Invincible:
                     break;

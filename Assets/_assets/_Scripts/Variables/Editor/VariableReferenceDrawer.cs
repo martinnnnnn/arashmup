@@ -3,8 +3,11 @@ using UnityEngine;
 
 namespace Arashmup
 {
+    [CustomPropertyDrawer(typeof(BoolReference))]
+    [CustomPropertyDrawer(typeof(IntReference))]
+    [CustomPropertyDrawer(typeof(FloatReference))]
     [CustomPropertyDrawer(typeof(Vector3Reference))]
-    public class Vector3ReferenceDrawer : PropertyDrawer
+    public class VariableReferenceDrawer : PropertyDrawer
     {
         /// <summary>
         /// Options to display in the popup to select constant or variable.

@@ -34,6 +34,6 @@ namespace Arashmup
         public int strength;
 
         [Header("Speed")]
-        public FloatReference WalkSpeedBooster;
+        public float walkSpeedBooster;
     }
 }

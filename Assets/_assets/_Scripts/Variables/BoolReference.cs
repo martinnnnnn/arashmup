@@ -29,3 +29,9 @@ namespace Arashmup
         }
     }
 }
+
+
+// walk speed
+// fire rate
+// name
+// dash rate
