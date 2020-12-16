@@ -24,8 +24,9 @@ GameObject:
   - component: {fileID: 3013396879843869354}
   - component: {fileID: 8487929853197407834}
   - component: {fileID: 6955802188157890580}
+  - component: {fileID: 6719445239259658111}
   m_Layer: 8
-  m_Name: PlayerCharacter
+  m_Name: PlayerCharacter_v2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -421,6 +422,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6719445239259658111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775940296048125625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d53d6f81db5ce8b4f8217e737280692d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patches: []
 --- !u!1 &4775940296082830111
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +547,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4775940297310951902}
   - component: {fileID: 4775940297310951897}
-  - component: {fileID: 4775940297310951896}
   - component: {fileID: 4775940297310951903}
   - component: {fileID: 8096356297619483067}
   - component: {fileID: 6113759982423582767}
@@ -604,14 +617,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &4775940297310951896
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4775940297310951901}
-  m_CullTransparentMesh: 0
 --- !u!114 &4775940297310951903
 MonoBehaviour:
   m_ObjectHideFlags: 0

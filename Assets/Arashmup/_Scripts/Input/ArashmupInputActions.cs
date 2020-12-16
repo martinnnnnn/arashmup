@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/_assets/_Scripts/Input/ArashmupInputActions.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Arashmup/_Scripts/Input/ArashmupInputActions.inputactions'
 
 using System;
 using System.Collections;
