@@ -39,5 +39,13 @@ namespace Arashmup
     internal static class PlayerPrefsNames
     {
         public static readonly string PlayerName = "PlayerName";
+        public static readonly string PlayerCharacter = "PlayerCharacter";
+    }
+
+    internal static class CharacterNames
+    {
+        public static readonly string Girl = "Girl";
+        public static readonly string Hoodie = "Hoodie";
+        public static readonly string Dragon = "Dragon";
     }
 }

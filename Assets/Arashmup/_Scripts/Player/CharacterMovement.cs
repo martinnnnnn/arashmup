@@ -24,7 +24,8 @@ namespace Arashmup
         public GameObject DashParticule;
         public float dashTime;
 
-        Animator animator;
+        Animator characterAnimator;
+        SpriteRenderer weaponSprite;
         SpriteRenderer sprite;
 
         Vector2 moveDir;
@@ -40,8 +41,15 @@ namespace Arashmup
             WalkSpeed.SetValue(WalkSpeedStandard);
             DashRate.SetValue(DashRateStandard);
 
-            animator = GetComponentInChildren<Animator>();
             sprite = GetComponentInChildren<SpriteRenderer>();
+
+            foreach (Transform t in transform)
+            {
+                if (t.name == "Body")
+                {
+                    characterAnimator = t.GetComponent<Animator>();
+                }
+            }
         }
 
         public void OnGameInitialized()
@@ -102,13 +110,19 @@ namespace Arashmup
             }
             else
             {
-                animator.SetBool("IsRunning", moveDir != Vector2.zero);
+                characterAnimator.SetBool("IsRunning", moveDir != Vector2.zero);
                 rigidBody.velocity = moveDir * WalkSpeed.Value;
             }
 
             if (moveDir.x != 0.0f)
             {
                 sprite.flipX = moveDir.x < 0;
+
+                //if (weaponSprite == null)
+                //{
+                //    weaponSprite = GetComponent<CharacterFire>().weaponAnimator.GetComponent<SpriteRenderer>();
+                //}
+                //weaponSprite.flipX = moveDir.x < 0;
             }
 
             Position.SetValue(transform.position);

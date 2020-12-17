@@ -134,6 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 43544553}
   - component: {fileID: 43544554}
+  - component: {fileID: 43544555}
   m_Layer: 5
   m_Name: Characters
   m_TagString: Untagged
@@ -189,6 +190,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &43544555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43544552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61877b6cef35cab4089b09f21d5bdd08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &277400565
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +555,7 @@ GameObject:
   - component: {fileID: 815008522}
   - component: {fileID: 815008521}
   m_Layer: 5
-  m_Name: Character 2
+  m_Name: Player_Hoodie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -611,7 +624,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 815008522}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8834693193328652840}
+        m_TargetAssemblyTypeName: Arashmup.Launcher, Assembly-CSharp
+        m_MethodName: ChangePlayerCharacter
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Player_Hoodie
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &815008522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1008,7 +1033,7 @@ GameObject:
   - component: {fileID: 1756846638}
   - component: {fileID: 1756846637}
   m_Layer: 5
-  m_Name: Character 3
+  m_Name: Player_Dragon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1077,7 +1102,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1756846638}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8834693193328652840}
+        m_TargetAssemblyTypeName: Arashmup.Launcher, Assembly-CSharp
+        m_MethodName: ChangePlayerCharacter
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Player_Dragon
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1756846638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1344,7 +1381,7 @@ GameObject:
   - component: {fileID: 2025265358}
   - component: {fileID: 2025265357}
   m_Layer: 5
-  m_Name: Character 1
+  m_Name: Player_Girl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1413,7 +1450,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2025265358}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8834693193328652840}
+        m_TargetAssemblyTypeName: Arashmup.Launcher, Assembly-CSharp
+        m_MethodName: ChangePlayerCharacter
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Player_Girl
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2025265358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1542,7 +1591,7 @@ PrefabInstance:
     - target: {fileID: 8834693193238825349, guid: b3b278d213683e54e9dcf8237f7bed83,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -21.000305
+      value: -21.000366
       objectReference: {fileID: 0}
     - target: {fileID: 8834693193249408446, guid: b3b278d213683e54e9dcf8237f7bed83,
         type: 3}
@@ -1922,3 +1971,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
+--- !u!114 &8834693193328652840 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8834693194474884984, guid: b3b278d213683e54e9dcf8237f7bed83,
+    type: 3}
+  m_PrefabInstance: {fileID: 8834693193328652839}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fda76bc92402794690b9b0547277656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player_Girl_Profile_Walk
+  m_Name: Player_Hoodie_Walk
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 32e2545c3ba294f4888e421685bb8de7, type: 2}
+  m_Motion: {fileID: 7400000, guid: 28416fda7b9771a44b73bb9a57a11ffd, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -101,7 +101,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ef476d28dedd94f419489cb9ab39a333, type: 2}
+  m_Motion: {fileID: 7400000, guid: a93047d44f89eaf46b81582760765690, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

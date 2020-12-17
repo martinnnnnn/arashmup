@@ -98,6 +98,11 @@ namespace Arashmup
             }
         }
 
+        public void ChangePlayerCharacter(string name)
+        {
+            PlayerPrefs.SetString(PlayerPrefsNames.PlayerCharacter, name);
+        }
+
         public void QuitGame()
         {
             Application.Quit();
