@@ -10,7 +10,6 @@ namespace Arashmup
     {
         public Vector3Variable Position;
         public BoolVariable MoveAllowed;
-
         public GameInputs Inputs;
 
         [Header("Walking")]
@@ -22,19 +21,27 @@ namespace Arashmup
         public FloatReference DashForce;
         public FloatVariable DashRate;
         public FloatVariable DashElaspedTime;
+        public GameObject DashParticule;
+        public float dashTime;
+
+        Animator animator;
+        SpriteRenderer sprite;
 
         Vector2 moveDir;
         Rigidbody2D rigidBody;
-        bool mustDash;
+        //bool mustDash;
 
         void Start()
         {
             rigidBody = GetComponent<Rigidbody2D>();
 
-            mustDash = false;
+            //mustDash = false;
 
             WalkSpeed.SetValue(WalkSpeedStandard);
             DashRate.SetValue(DashRateStandard);
+
+            animator = GetComponentInChildren<Animator>();
+            sprite = GetComponentInChildren<SpriteRenderer>();
         }
 
         public void OnGameInitialized()
@@ -54,7 +61,6 @@ namespace Arashmup
 
         void Move()
         {
-            moveDir = Vector2.zero;
 
             if (!MoveAllowed.Value)
             {
@@ -63,9 +69,16 @@ namespace Arashmup
 
             DashElaspedTime.ApplyChange(Time.deltaTime);
 
+            if (DashElaspedTime.Value < dashTime)
+            {
+                return;
+            }
+
+            moveDir = Vector2.zero;
+
             if (Inputs.Actions.Gameplay.Dash.ReadValue<float>() > 0.0f && DashElaspedTime.Value > DashRate.Value)
             {
-                mustDash = true;
+                //mustDash = true;
                 DashElaspedTime.SetValue(0);
             }
 
@@ -74,14 +87,28 @@ namespace Arashmup
 
         void FixedUpdate()
         {
-            if (mustDash)
+            if (DashElaspedTime.Value < dashTime)
             {
-                mustDash = false;
+                //animator.SetTrigger("Dash");
+                //mustDash = false;
+                //rigidBody.position += moveDir;
                 rigidBody.velocity = moveDir * DashForce;
+
+                ParticleSystemRenderer particuleRenderer = Instantiate(DashParticule, transform.position, transform.rotation).GetComponent<ParticleSystemRenderer>();
+                if (sprite.flipX)
+                {
+                    particuleRenderer.flip = new Vector3(1, 0, 0);
+                }
             }
             else
             {
+                animator.SetBool("IsRunning", moveDir != Vector2.zero);
                 rigidBody.velocity = moveDir * WalkSpeed.Value;
+            }
+
+            if (moveDir.x != 0.0f)
+            {
+                sprite.flipX = moveDir.x < 0;
             }
 
             Position.SetValue(transform.position);

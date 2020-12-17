@@ -8,13 +8,13 @@ namespace Arashmup
     public class CharacterProxy : MonoBehaviour
     {
         public BoolVariable IsDead;
-        public SpriteRenderer Visual;
         public BulletRuntimeSet BulletsAlive;
         public GameEvent CharacterDeathEvent;
 
         PhotonView PV;
         WeaponController weaponController;
         Collider2D collider2d;
+        public SpriteRenderer visual;
 
         int minBulletID;
         int maxBulletID;
@@ -25,6 +25,7 @@ namespace Arashmup
             PV = GetComponent<PhotonView>();
             weaponController = GetComponent<WeaponController>();
             collider2d = GetComponent<Collider2D>();
+            visual = GetComponentInChildren<SpriteRenderer>();
 
             IsDead.SetValue(false);
 
@@ -87,7 +88,7 @@ namespace Arashmup
         void RPC_Kill()
         {
             IsDead.SetValue(true);
-            Visual.color = new Color(Visual.color.r, Visual.color.g, Visual.color.b, 0.1f);
+            visual.color = new Color(visual.color.r, visual.color.g, visual.color.b, 0.1f);
             CharacterDeathEvent.Raise();
         }
     }
