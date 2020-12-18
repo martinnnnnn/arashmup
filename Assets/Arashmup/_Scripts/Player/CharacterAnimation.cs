@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.Animations;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Arashmup
 {
@@ -14,7 +10,7 @@ namespace Arashmup
         public struct Anim
         {
             public string name;
-            public AnimatorController controller;
+            public RuntimeAnimatorController controller;
         }
 
         public List<Anim> Animators;
