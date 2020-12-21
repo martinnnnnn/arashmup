@@ -15,13 +15,13 @@ namespace Arashmup
 {
     public class CharacterFire : MonoBehaviour
     {
-        public BoolReference IsDead;
+        public GenericReference<bool> IsDead;
         public BoolVariable FireAllowed;
         public GameInputs Inputs;
 
         [Header("Firing")]
         public FloatVariable FireElaspedTime;
-        public FloatReference FireRate;
+        public GenericReference<float> FireRate;
 
         public Transform gunPos1;
         public Transform gunPos2;

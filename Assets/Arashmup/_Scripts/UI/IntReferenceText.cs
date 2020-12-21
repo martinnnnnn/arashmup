@@ -8,7 +8,7 @@ namespace Arashmup
 {
     public class IntReferenceText : MonoBehaviour
     {
-        public IntReference Value;
+        public GenericReference<int> Value;
         public bool AlwaysUpdate;
 
         TMP_Text text;

@@ -16,10 +16,14 @@ namespace Arashmup
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            WeaponController weaponController = other.GetComponent<WeaponController>();
-            if (weaponController != null)
+            PlayerCharacter player = other.GetComponent<PlayerCharacter>();
+            if (player != null)
             {
-                weaponController.Equip(weaponType);
+                WeaponController weaponController = other.GetComponent<WeaponController>();
+                if (weaponController != null)
+                {
+                    weaponController.Equip(weaponType);
+                }
                 DestroySelf();
             }
         }

@@ -11,19 +11,23 @@ using System;
 
 namespace Arashmup
 {
+    public class WeaponRef
+    {
+        Weapon weapon;
+    }
+
     public class WeaponController : MonoBehaviour
     {
-        [SerializeField] Arashmup.Weapon classic;
-        [SerializeField] Arashmup.Weapon sniper;
-        [SerializeField] Arashmup.Weapon bounce;
-        [SerializeField] Arashmup.Weapon sticky;
-        [SerializeField] Arashmup.Weapon fragmentation;
-
+        [SerializeField] Weapon classic;
+        [SerializeField] Weapon sniper;
+        [SerializeField] Weapon bounce;
+        [SerializeField] Weapon sticky;
+        [SerializeField] Weapon fragmentation;
 
         public FloatVariable FireRate;
 
-        PhotonView photonView;
-        Arashmup.Weapon equiped;
+        PhotonView PV;
+        Weapon equiped;
 
         public StringVariable AmmoLeftText;
         public GameEvent AmmoLeftTextChangedEvent;
@@ -38,7 +42,7 @@ namespace Arashmup
             set
             {
                 ammoLeft = value;
-                if (photonView.IsMine)
+                if (PV.IsMine)
                 {
                     if (ammoLeft >= 0)
                     {
@@ -55,7 +59,7 @@ namespace Arashmup
 
         void Awake()
         {
-            photonView = GetComponent<PhotonView>();
+            PV = GetComponent<PhotonView>();
 
             classic.Init();
             sniper.Init();
@@ -63,48 +67,45 @@ namespace Arashmup
             sticky.Init();
             fragmentation.Init();
 
-            Equip(Arashmup.Weapon.Type.Classic);
+            Equip(Weapon.Type.Classic);
         }
 
         public void Fire(int actorNumber, int bulletID, Vector3 position, Vector2 direction, Collider2D[] ignoreColliders = null)
         {
             equiped.Fire(actorNumber, bulletID, position, direction, ignoreColliders);
-            if (equiped != classic)
+            if (PV.IsMine)
             {
-                AmmoLeft--;
-                if (AmmoLeft <= 0)
+                if (equiped != classic)
                 {
-                    Equip(Arashmup.Weapon.Type.Classic);
+                    AmmoLeft--;
+                    if (AmmoLeft <= 0)
+                    {
+                        Equip(Weapon.Type.Classic);
+                    }
                 }
             }
         }
 
-        public void Equip(Arashmup.Weapon.Type newWeaponType)
-        {
-            photonView.RPC(RPC_Functions.Equip, RpcTarget.All, newWeaponType);
-        }
-
-        [PunRPC]
-        public void RPC_Equip(Arashmup.Weapon.Type newWeaponType)
+        public void Equip(Weapon.Type newWeaponType)
         {
             switch (newWeaponType)
             {
-                case Arashmup.Weapon.Type.Classic:
+                case Weapon.Type.Classic:
                     equiped = classic;
                     break;
 
-                case Arashmup.Weapon.Type.Sniper:
+                case Weapon.Type.Sniper:
                     equiped = sniper;
 
                     break;
-                case Arashmup.Weapon.Type.Bounce:
+                case Weapon.Type.Bounce:
                     equiped = bounce;
                     break;
 
-                case Arashmup.Weapon.Type.Sticky:
+                case Weapon.Type.Sticky:
                     equiped = sticky;
                     break;
-                case Arashmup.Weapon.Type.Fragmentation:
+                case Weapon.Type.Fragmentation:
                     equiped = fragmentation;
                     break;
             }
@@ -112,6 +113,12 @@ namespace Arashmup
             AmmoLeft = equiped.ammo;
             FireRate.SetValue(equiped.fireRate);
         }
+
+        //[PunRPC]
+        //public void RPC_Equip(Weapon.Type newWeaponType)
+        //{
+
+        //}
 
         public void OnGameOver()
         {

@@ -13,7 +13,7 @@ namespace Arashmup
     public class PlayerCharacter : MonoBehaviour
     {
         public GameObject FollowCamera;
-        public BoolReference IsDead;
+        public GenericReference<bool> IsDead;
         public StringVariable PlayerName;
         public GameEvent NameChangeEvent;
         public GameEvent LocalPlayerDied;
@@ -25,6 +25,7 @@ namespace Arashmup
         CharacterMovement movement;
         CharacterFire fire;
         CharacterDamage damage;
+        BoosterController boosterController;
         Rigidbody2D rigidBody;
         Collider2D collider2d;
 
@@ -37,6 +38,7 @@ namespace Arashmup
             movement = GetComponent<CharacterMovement>();
             fire = GetComponent<CharacterFire>();
             damage = GetComponent<CharacterDamage>();
+            boosterController = GetComponent<BoosterController>();
             rigidBody = GetComponent<Rigidbody2D>();
             collider2d = GetComponent<Collider2D>();
 
@@ -50,14 +52,15 @@ namespace Arashmup
                 Destroy(movement); movement = null;
                 Destroy(fire); fire = null;
                 Destroy(damage); damage = null;
+                Destroy(boosterController); boosterController = null;
                 Destroy(rigidBody); rigidBody = null;
                 Destroy(collider2d); collider2d = null;
 
                 PlayerName = ScriptableObject.CreateInstance<StringVariable>();
                 GetComponentInChildren<TextReplacer>().Variable = PlayerName;
 
-                IsDead.Variable = ScriptableObject.CreateInstance<BoolVariable>();
-                proxy.IsDead = IsDead.Variable;
+                proxy.IsDead = ScriptableObject.CreateInstance<BoolVariable>();
+                IsDead.Variable = proxy.IsDead;
             }
 
             PlayerName.Value = PV.Owner.NickName;
@@ -127,3 +130,8 @@ namespace Arashmup
         #endregion
     }
 }
+
+// walk speed
+// fire rate
+// name
+// dash rate

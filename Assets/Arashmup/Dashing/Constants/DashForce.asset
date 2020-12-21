@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DashForce
   m_EditorClassIdentifier: 
   DeveloperDescription: Force used to dash the player forward
-  Value: 30
+  Value: 25

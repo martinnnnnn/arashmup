@@ -1,33 +1,41 @@
 ﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Arashmup
 {
+
     [Serializable]
-    public class BoolReference
+    public class GenericReference<T>
     {
         public bool UseConstant = true;
-        public bool ConstantValue;
-        public BoolVariable Variable;
+        public T ConstantValue;
 
-        public BoolReference()
+        [SerializeField]
+        public GenericVariable<T> Variable;
+
+        public GenericReference()
         { }
 
-        public BoolReference(bool value)
+        public GenericReference(T value)
         {
             UseConstant = true;
             ConstantValue = value;
         }
 
-        public bool Value
+        public T Value
         {
             get { return UseConstant ? ConstantValue : Variable.Value; }
         }
 
-        public static implicit operator bool(BoolReference reference)
+        public static implicit operator T(GenericReference<T> reference)
         {
             return reference.Value;
         }
     }
+
+
+
 }
 
 

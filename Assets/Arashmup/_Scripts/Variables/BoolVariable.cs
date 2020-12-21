@@ -3,22 +3,7 @@
 namespace Arashmup
 {
     [CreateAssetMenu]
-    public class BoolVariable : ScriptableObject
+    public class BoolVariable : GenericVariable<bool>
     {
-#if UNITY_EDITOR
-        [Multiline]
-        public string DeveloperDescription = "";
-#endif
-        public bool Value;
-
-        public void SetValue(bool value)
-        {
-            Value = value;
-        }
-
-        public void SetValue(BoolVariable value)
-        {
-            Value = value.Value;
-        }
     }
 }

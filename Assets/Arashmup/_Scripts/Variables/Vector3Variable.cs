@@ -3,24 +3,8 @@
 namespace Arashmup
 {
     [CreateAssetMenu]
-    public class Vector3Variable : ScriptableObject
+    public class Vector3Variable : GenericVariable<Vector3>
     {
-#if UNITY_EDITOR
-        [Multiline]
-        public string DeveloperDescription = "";
-#endif
-        public Vector3 Value;
-
-        public void SetValue(Vector3 value)
-        {
-            Value = value;
-        }
-
-        public void SetValue(Vector3Variable value)
-        {
-            Value = value.Value;
-        }
-
         public void ApplyChange(Vector3 amount)
         {
             Value += amount;

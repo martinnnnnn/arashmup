@@ -14,26 +14,26 @@ namespace Arashmup
 {
     public class BoosterController : MonoBehaviour
     {
-        PhotonView photonView;
-        List<Booster> currentBoosters;
-
-        SpriteRenderer spriteRenderer;
-
         [Header("Walking")]
-        public FloatReference WalkSpeedStandard;
+        public GenericReference<float> WalkSpeedStandard;
         public FloatVariable WalkSpeed;
 
         [Header("Dashing")]
-        public FloatReference DashRateStandard;
-        public FloatReference DashRateBooster;
+        public GenericReference<float> DashRateStandard;
+        public GenericReference<float> DashRateBooster;
         public FloatVariable DashRate;
+
+
+        CharacterProxy proxy;
+        List<Booster> currentBoosters;
+        SpriteRenderer spriteRenderer;
 
         void Start()
         {
             CustomTypesSerialization.Register();
 
             currentBoosters = new List<Booster>();
-            photonView = GetComponent<PhotonView>();
+            proxy = GetComponent<CharacterProxy>();
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
@@ -45,19 +45,6 @@ namespace Arashmup
 
                 if (booster.useDuration)
                 {
-                    switch (booster.type)
-                    {
-                        case Booster.Type.Invincible:
-
-                            float r = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 1.0f / 3.0f))) + 1.0f) / 2.0f;
-                            float g = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 2.0f / 3.0f))) + 1.0f) / 2.0f;
-                            float b = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 3.0f / 3.0f))) + 1.0f) / 2.0f;
-
-                            spriteRenderer.color = new Color(r, g, b);
-
-                            break;
-                    }
-
                     booster.durationLeft -= Time.deltaTime;
 
                     if (booster.durationLeft <= 0)
@@ -103,12 +90,6 @@ namespace Arashmup
 
         public void Add(Booster booster)
         {
-            photonView.RPC(RPC_Functions.Add, RpcTarget.All, booster);
-        }
-
-        [PunRPC]
-        void RPC_Add(Booster booster)
-        {
             currentBoosters.RemoveAll(b =>
             {
                 if (b.type == booster.type)
@@ -131,6 +112,7 @@ namespace Arashmup
                     WalkSpeed.SetValue(booster.walkSpeedBooster);
                     break;
                 case Booster.Type.Invincible:
+                    proxy.EnableInvincibleColor(true);
                     break;
                 case Booster.Type.NoCooldownDash:
                     DashRate.SetValue(DashRateBooster);
@@ -148,7 +130,7 @@ namespace Arashmup
                     WalkSpeed.SetValue(WalkSpeedStandard);
                     break;
                 case Booster.Type.Invincible:
-                    spriteRenderer.color = Color.white;
+                    proxy.EnableInvincibleColor(false);
                     break;
                 case Booster.Type.NoCooldownDash:
                     DashRate.SetValue(DashRateStandard);

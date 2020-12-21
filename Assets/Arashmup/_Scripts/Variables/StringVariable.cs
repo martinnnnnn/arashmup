@@ -3,15 +3,7 @@
 namespace Arashmup
 {
     [CreateAssetMenu]
-    public class StringVariable : ScriptableObject
+    public class StringVariable : GenericVariable<string>
     {
-        [SerializeField]
-        private string value = "";
-
-        public string Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
     }
 }

@@ -16,10 +16,14 @@ namespace Arashmup
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            BoosterController boosterController = other.GetComponent<BoosterController>();
-            if (boosterController != null)
+            PlayerCharacter player = other.GetComponent<PlayerCharacter>();
+            if (player != null)
             {
-                boosterController.Add(booster);
+                BoosterController boosterController = other.GetComponent<BoosterController>();
+                if (boosterController != null)
+                {
+                    boosterController.Add(booster);
+                }
                 DestroySelf();
             }
         }

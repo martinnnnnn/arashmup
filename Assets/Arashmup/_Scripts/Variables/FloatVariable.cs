@@ -3,24 +3,8 @@
 namespace Arashmup
 {
     [CreateAssetMenu]
-    public class FloatVariable : ScriptableObject
+    public class FloatVariable : GenericVariable<float>
     {
-#if UNITY_EDITOR
-        [Multiline]
-        public string DeveloperDescription = "";
-#endif
-        public float Value;
-
-        public void SetValue(float value)
-        {
-            Value = value;
-        }
-
-        public void SetValue(FloatVariable value)
-        {
-            Value = value.Value;
-        }
-
         public void ApplyChange(float amount)
         {
             Value += amount;

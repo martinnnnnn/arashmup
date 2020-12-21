@@ -13,12 +13,12 @@ namespace Arashmup
         public GameInputs Inputs;
 
         [Header("Walking")]
-        public FloatReference WalkSpeedStandard;
+        public GenericReference<float> WalkSpeedStandard;
         public FloatVariable WalkSpeed;
 
         [Header("Dashing")]
-        public FloatReference DashRateStandard;
-        public FloatReference DashForce;
+        public GenericReference<float> DashRateStandard;
+        public GenericReference<float> DashForce;
         public FloatVariable DashRate;
         public FloatVariable DashElaspedTime;
         public GameObject DashParticule;

@@ -3,10 +3,7 @@ using UnityEngine;
 
 namespace Arashmup
 {
-    [CustomPropertyDrawer(typeof(BoolReference))]
-    [CustomPropertyDrawer(typeof(IntReference))]
-    [CustomPropertyDrawer(typeof(FloatReference))]
-    [CustomPropertyDrawer(typeof(Vector3Reference))]
+    [CustomPropertyDrawer(typeof(GenericReference<>))]
     public class VariableReferenceDrawer : PropertyDrawer
     {
         /// <summary>

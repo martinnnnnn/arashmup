@@ -8,9 +8,9 @@ namespace Arashmup
     [ExecuteInEditMode()]
     public class ProgressBar : MonoBehaviour
     {
-        public FloatReference Variable;
-        public FloatReference Min;
-        public FloatReference Max;
+        public GenericReference<float> Variable;
+        public GenericReference<float> Min;
+        public GenericReference<float> Max;
 
         public Image Image;
 

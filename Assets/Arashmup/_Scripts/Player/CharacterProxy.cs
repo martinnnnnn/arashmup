@@ -71,7 +71,7 @@ namespace Arashmup
         {
             if(!BulletsAlive.Items.Exists(b => b.ID == bulletID))
             {
-                Debug.LogError("This bullet does not exists");
+                Debug.LogWarning("This bullet does not exists");
                 return;
             }
 
@@ -90,6 +90,35 @@ namespace Arashmup
             IsDead.SetValue(true);
             visual.color = new Color(visual.color.r, visual.color.g, visual.color.b, 0.1f);
             CharacterDeathEvent.Raise();
+        }
+
+        bool invincibleColorEnabled = false;
+
+        public void EnableInvincibleColor(bool enable)
+        {
+            PV.RPC(RPC_Functions.EnableInvincibleColor, RpcTarget.All, enable);
+        }
+
+        [PunRPC]
+        public void EnableInvincibleColor_RPC(bool enable)
+        {
+            invincibleColorEnabled = enable;
+            if (!invincibleColorEnabled)
+            {
+                visual.color = Color.white;
+            }
+        }
+
+        void Update()
+        {
+            if (invincibleColorEnabled)
+            {
+                float r = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 1.0f / 3.0f))) + 1.0f) / 2.0f;
+                float g = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 2.0f / 3.0f))) + 1.0f) / 2.0f;
+                float b = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 3.0f / 3.0f))) + 1.0f) / 2.0f;
+
+                visual.color = new Color(r, g, b);
+            }
         }
     }
 }

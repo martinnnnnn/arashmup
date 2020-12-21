@@ -15,7 +15,7 @@ namespace Arashmup
 {
     public class CharacterDamage : MonoBehaviour
     {
-        public BoolReference IsDead;
+        public GenericReference<bool> IsDead;
 
         CharacterProxy proxy;
         BoosterController boosterController;

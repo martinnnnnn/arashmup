@@ -4,8 +4,8 @@ namespace Arashmup
 {
     public class CameraController : MonoBehaviour
     {
-        public FloatReference CameraDepth;
-        public Vector3Reference PlayerPosition;
+        public GenericReference<float> CameraDepth;
+        public GenericReference<Vector3> PlayerPosition;
         public GameInputs Inputs;
 
         Camera cam;

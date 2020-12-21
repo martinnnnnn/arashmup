@@ -2102,12 +2102,17 @@ PrefabInstance:
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
       propertyPath: maxRespawnTime
-      value: 5
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
+        type: 3}
+      propertyPath: minRespawnTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6891979414887546167, guid: df9f1811cb90d484c9db10ff9da3fe50,
         type: 3}
       propertyPath: spawnableObjects.Array.data[6].frequency
-      value: 1
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df9f1811cb90d484c9db10ff9da3fe50, type: 3}
