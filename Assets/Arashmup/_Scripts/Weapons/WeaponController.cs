@@ -88,6 +88,14 @@ namespace Arashmup
 
         public void Equip(Weapon.Type newWeaponType)
         {
+            PV.RPC(RPC_Functions.Equip, RpcTarget.All, newWeaponType);
+            AmmoLeft = equiped.ammo;
+            FireRate.SetValue(equiped.fireRate);
+        }
+
+        [PunRPC]
+        public void RPC_Equip(Weapon.Type newWeaponType)
+        {
             switch (newWeaponType)
             {
                 case Weapon.Type.Classic:
@@ -110,15 +118,7 @@ namespace Arashmup
                     break;
             }
 
-            AmmoLeft = equiped.ammo;
-            FireRate.SetValue(equiped.fireRate);
         }
-
-        //[PunRPC]
-        //public void RPC_Equip(Weapon.Type newWeaponType)
-        //{
-
-        //}
 
         public void OnGameOver()
         {
