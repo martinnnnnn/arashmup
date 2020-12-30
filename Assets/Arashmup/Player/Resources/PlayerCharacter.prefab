@@ -758,13 +758,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627202ad1c03d024c953310d95d988b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animators:
-  - name: Player_Dragon
-    controller: {fileID: 9100000, guid: 259203548d940964a950da62411f763b, type: 2}
-  - name: Player_Girl
-    controller: {fileID: 9100000, guid: 1cc185d2694b1f04e867c754fc5b2292, type: 2}
-  - name: Player_Hoodie
-    controller: {fileID: 9100000, guid: d732f392c9a80134782a0087ec579830, type: 2}
+  AnimControllers:
+  - {fileID: 9100000, guid: 259203548d940964a950da62411f763b, type: 2}
+  - {fileID: 9100000, guid: 1cc185d2694b1f04e867c754fc5b2292, type: 2}
+  - {fileID: 9100000, guid: d732f392c9a80134782a0087ec579830, type: 2}
 --- !u!1 &7298287732574270740
 GameObject:
   m_ObjectHideFlags: 0

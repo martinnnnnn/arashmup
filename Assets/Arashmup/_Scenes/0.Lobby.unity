@@ -424,6 +424,18 @@ PrefabInstance:
       propertyPath: m_Colors.m_SelectedColor.a
       value: 0.78039217
       objectReference: {fileID: 0}
+    - target: {fileID: 815008521, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 815008521, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 9100000, guid: d732f392c9a80134782a0087ec579830, type: 2}
+    - target: {fileID: 815008521, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.RuntimeAnimatorController, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1756846636, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -452,6 +464,18 @@ PrefabInstance:
       propertyPath: m_Colors.m_SelectedColor.a
       value: 0.78039217
       objectReference: {fileID: 0}
+    - target: {fileID: 1756846637, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756846637, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 9100000, guid: 259203548d940964a950da62411f763b, type: 2}
+    - target: {fileID: 1756846637, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.RuntimeAnimatorController, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2025265356, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -479,6 +503,18 @@ PrefabInstance:
     - target: {fileID: 2025265357, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
       propertyPath: m_Colors.m_SelectedColor.a
       value: 0.78039217
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025265357, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025265357, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 9100000, guid: 1cc185d2694b1f04e867c754fc5b2292, type: 2}
+    - target: {fileID: 2025265357, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.RuntimeAnimatorController, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8834693192674991680, guid: b3b278d213683e54e9dcf8237f7bed83,
         type: 3}

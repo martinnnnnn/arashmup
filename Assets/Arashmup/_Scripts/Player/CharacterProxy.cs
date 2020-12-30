@@ -5,9 +5,11 @@ using UnityEngine;
 
 namespace Arashmup
 {
-    public class CharacterProxy : MonoBehaviour
+    public class CharacterProxy : MonoBehaviour, IPunObservable
     {
         public BoolVariable IsDead;
+        public Vector2Variable Direction;
+        public BoolVariable IsDashing;
         public BulletRuntimeSet BulletsAlive;
         public GameEvent CharacterDeathEvent;
 
@@ -34,6 +36,26 @@ namespace Arashmup
             currentBulletID = minBulletID;
         }
 
+        void Update()
+        {
+            if (invincibleColorEnabled)
+            {
+                float r = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 1.0f / 3.0f))) + 1.0f) / 2.0f;
+                float g = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 2.0f / 3.0f))) + 1.0f) / 2.0f;
+                float b = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 3.0f / 3.0f))) + 1.0f) / 2.0f;
+
+                visual.color = new Color(r, g, b);
+            }
+
+            if (Direction.Value != Vector2.zero)
+            {
+
+            }
+            if (IsDashing.Value)
+            {
+
+            }
+        }
 
         public void Fire(int actorNumber, Vector3 position, Vector2 direction)
         {
@@ -109,16 +131,21 @@ namespace Arashmup
             }
         }
 
-        void Update()
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            if (invincibleColorEnabled)
+            if (stream.IsWriting)
             {
-                float r = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 1.0f / 3.0f))) + 1.0f) / 2.0f;
-                float g = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 2.0f / 3.0f))) + 1.0f) / 2.0f;
-                float b = (Mathf.Sin((Time.timeSinceLevelLoad * 10.0f + (Mathf.PI * 2.0f * 3.0f / 3.0f))) + 1.0f) / 2.0f;
-
-                visual.color = new Color(r, g, b);
+                stream.SendNext(IsDashing.Value);
+                stream.SendNext(Direction.Value);
+            }
+            else
+            {
+                IsDashing.SetValue((bool)stream.ReceiveNext());
+                Direction.SetValue((Vector2)stream.ReceiveNext());
             }
         }
     }
 }
+
+//Artist is Mezerg.
+//If you're looking for another brilliant french electro artist using theremin you can try Spiky the Machinist, as well.

@@ -98,9 +98,9 @@ namespace Arashmup
             }
         }
 
-        public void ChangePlayerCharacter(string name)
+        public void ChangePlayerCharacter(RuntimeAnimatorController animController)
         {
-            PlayerPrefs.SetString(PlayerPrefsNames.PlayerCharacter, name);
+            PlayerPrefs.SetString(PlayerPrefsNames.PlayerCharacter, animController.name);
         }
 
         public void QuitGame()

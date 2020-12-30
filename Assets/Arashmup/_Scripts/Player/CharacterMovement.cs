@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 
@@ -9,6 +10,7 @@ namespace Arashmup
     public class CharacterMovement : MonoBehaviour
     {
         public Vector3Variable Position;
+        public Vector2Variable Direction;
         public BoolVariable MoveAllowed;
         public GameInputs Inputs;
 
@@ -28,7 +30,7 @@ namespace Arashmup
         SpriteRenderer weaponSprite;
         SpriteRenderer sprite;
 
-        Vector2 moveDir;
+        //Vector2 moveDir;
         Rigidbody2D rigidBody;
         //bool mustDash;
 
@@ -64,12 +66,6 @@ namespace Arashmup
 
         void Update()
         {
-            Move();
-        }
-
-        void Move()
-        {
-
             if (!MoveAllowed.Value)
             {
                 return;
@@ -82,7 +78,7 @@ namespace Arashmup
                 return;
             }
 
-            moveDir = Vector2.zero;
+            Direction.SetValue(Vector2.zero);
 
             if (Inputs.Actions.Gameplay.Dash.ReadValue<float>() > 0.0f && DashElaspedTime.Value > DashRate.Value)
             {
@@ -90,7 +86,7 @@ namespace Arashmup
                 DashElaspedTime.SetValue(0);
             }
 
-            moveDir = Inputs.Actions.Gameplay.Move.ReadValue<Vector2>();
+            Direction.SetValue(Inputs.Actions.Gameplay.Move.ReadValue<Vector2>());
         }
 
         void FixedUpdate()
@@ -100,7 +96,7 @@ namespace Arashmup
                 //animator.SetTrigger("Dash");
                 //mustDash = false;
                 //rigidBody.position += moveDir;
-                rigidBody.velocity = moveDir * DashForce;
+                rigidBody.velocity = Direction.Value * DashForce;
 
                 ParticleSystemRenderer particuleRenderer = Instantiate(DashParticule, transform.position, transform.rotation).GetComponent<ParticleSystemRenderer>();
                 if (sprite.flipX)
@@ -110,13 +106,13 @@ namespace Arashmup
             }
             else
             {
-                characterAnimator.SetBool("IsRunning", moveDir != Vector2.zero);
-                rigidBody.velocity = moveDir * WalkSpeed.Value;
+                characterAnimator.SetBool("IsRunning", Direction.Value != Vector2.zero);
+                rigidBody.velocity = Direction.Value * WalkSpeed.Value;
             }
 
-            if (moveDir.x != 0.0f)
+            if (Direction.Value.x != 0.0f)
             {
-                sprite.flipX = moveDir.x < 0;
+                sprite.flipX = Direction.Value.x < 0;
 
                 //if (weaponSprite == null)
                 //{
@@ -136,7 +132,7 @@ namespace Arashmup
 //Vector2 networkVelocity;
 //float currentSpeed;
 //double lastNetworkDataReceivedTime;
-//public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+//public void   (PhotonStream stream, PhotonMessageInfo info)
 //{
 //    if (stream.IsWriting)
 //    {

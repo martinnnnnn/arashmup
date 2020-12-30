@@ -6,23 +6,16 @@ namespace Arashmup
 {
     public class CharacterAnimation : MonoBehaviour
     {
-        [Serializable]
-        public struct Anim
-        {
-            public string name;
-            public RuntimeAnimatorController controller;
-        }
-
-        public List<Anim> Animators;
+        public List<RuntimeAnimatorController> AnimControllers;
 
         void Start()
         {
             string animatorName = PlayerPrefs.GetString(PlayerPrefsNames.PlayerCharacter);
-            foreach (Anim anim in Animators)
+            foreach (RuntimeAnimatorController animController in AnimControllers)
             {
-                if (anim.name == animatorName)
+                if (animController.name == animatorName)
                 {
-                    GetComponent<Animator>().runtimeAnimatorController = anim.controller;
+                    GetComponent<Animator>().runtimeAnimatorController = animController;
                     break;
                 }
             }
