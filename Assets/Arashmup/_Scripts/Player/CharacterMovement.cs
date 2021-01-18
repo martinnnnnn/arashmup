@@ -22,9 +22,10 @@ namespace Arashmup
         public GenericReference<float> DashRateStandard;
         public GenericReference<float> DashForce;
         public FloatVariable DashRate;
+        public BoolVariable IsDashing;
         public FloatVariable DashElaspedTime;
         public GameObject DashParticule;
-        public float dashTime;
+        public float dashTime; // 0.15f
 
         Animator characterAnimator;
         SpriteRenderer weaponSprite;
@@ -38,7 +39,8 @@ namespace Arashmup
         {
             rigidBody = GetComponent<Rigidbody2D>();
 
-            //mustDash = false;
+            IsDashing.SetValue(false);
+            DashElaspedTime.SetValue(DashRate.Value);
 
             WalkSpeed.SetValue(WalkSpeedStandard);
             DashRate.SetValue(DashRateStandard);
@@ -73,36 +75,37 @@ namespace Arashmup
 
             DashElaspedTime.ApplyChange(Time.deltaTime);
 
-            if (DashElaspedTime.Value < dashTime)
+            if (IsDashing.Value)
             {
-                return;
+                if (DashElaspedTime.Value >= dashTime)
+                {
+                    IsDashing.SetValue(false);
+                }
             }
-
-            Direction.SetValue(Vector2.zero);
-
-            if (Inputs.Actions.Gameplay.Dash.ReadValue<float>() > 0.0f && DashElaspedTime.Value > DashRate.Value)
+            else
             {
-                //mustDash = true;
-                DashElaspedTime.SetValue(0);
-            }
+                if (Inputs.Actions.Gameplay.Dash.ReadValue<float>() > 0.0f && DashElaspedTime.Value > DashRate.Value)
+                {
+                    IsDashing.SetValue(true);
+                    DashElaspedTime.SetValue(0);
+                }
 
-            Direction.SetValue(Inputs.Actions.Gameplay.Move.ReadValue<Vector2>());
+                Direction.SetValue(Inputs.Actions.Gameplay.Move.ReadValue<Vector2>());
+            }
         }
 
         void FixedUpdate()
         {
-            if (DashElaspedTime.Value < dashTime)
+            if (IsDashing.Value)
             {
-                //animator.SetTrigger("Dash");
-                //mustDash = false;
-                //rigidBody.position += moveDir;
                 rigidBody.velocity = Direction.Value * DashForce;
-
+                
+                // spawing dash particule
                 ParticleSystemRenderer particuleRenderer = Instantiate(DashParticule, transform.position, transform.rotation).GetComponent<ParticleSystemRenderer>();
-                if (sprite.flipX)
-                {
-                    particuleRenderer.flip = new Vector3(1, 0, 0);
-                }
+                //if (sprite.flipX)
+                Debug.Log(Direction.Value);
+
+                particuleRenderer.flip = Direction.Value.x < 0 ? new Vector3(1, 0, 0) : new Vector3(-1, 0, 0);
             }
             else
             {

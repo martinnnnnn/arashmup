@@ -5,13 +5,14 @@ using UnityEngine;
 
 namespace Arashmup
 {
-    public class CharacterProxy : MonoBehaviour, IPunObservable
+    public class CharacterProxy : MonoBehaviour/*, IPunObservable*/
     {
         public BoolVariable IsDead;
-        public Vector2Variable Direction;
-        public BoolVariable IsDashing;
+        //public Vector2Variable Direction;
+        //public BoolVariable IsDashing;
         public BulletRuntimeSet BulletsAlive;
         public GameEvent CharacterDeathEvent;
+        public StringVariable AnimatorControllerName;
 
         PhotonView PV;
         WeaponController weaponController;
@@ -47,14 +48,14 @@ namespace Arashmup
                 visual.color = new Color(r, g, b);
             }
 
-            if (Direction.Value != Vector2.zero)
-            {
+            //if (Direction.Value != Vector2.zero)
+            //{
 
-            }
-            if (IsDashing.Value)
-            {
+            //}
+            //if (IsDashing.Value)
+            //{
 
-            }
+            //}
         }
 
         public void Fire(int actorNumber, Vector3 position, Vector2 direction)
@@ -122,7 +123,7 @@ namespace Arashmup
         }
 
         [PunRPC]
-        public void EnableInvincibleColor_RPC(bool enable)
+        public void RPC_EnableInvincibleColor(bool enable)
         {
             invincibleColorEnabled = enable;
             if (!invincibleColorEnabled)
@@ -131,19 +132,32 @@ namespace Arashmup
             }
         }
 
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        public void SetCharacterAnimation()
         {
-            if (stream.IsWriting)
-            {
-                stream.SendNext(IsDashing.Value);
-                stream.SendNext(Direction.Value);
-            }
-            else
-            {
-                IsDashing.SetValue((bool)stream.ReceiveNext());
-                Direction.SetValue((Vector2)stream.ReceiveNext());
-            }
+            PV = GetComponent<PhotonView>();
+            PV.RPC(RPC_Functions.SetCharacterAnimation, RpcTarget.AllBuffered, AnimatorControllerName.Value);
         }
+
+        [PunRPC]
+        public void PRC_SetCharacterAnimation(string animatorName)
+        {
+            CharacterAnimation charaAnimation = GetComponentInChildren<CharacterAnimation>();
+            charaAnimation.SetAnim(animatorName);
+        }
+
+        //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        //{
+        //    if (stream.IsWriting)
+        //    {
+        //        stream.SendNext(IsDashing.Value);
+        //        stream.SendNext(Direction.Value);
+        //    }
+        //    else
+        //    {
+        //        IsDashing.SetValue((bool)stream.ReceiveNext());
+        //        Direction.SetValue((Vector2)stream.ReceiveNext());
+        //    }
+        //}
     }
 }
 

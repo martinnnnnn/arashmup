@@ -396,6 +396,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 43544555, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
+      propertyPath: AnimatorControllerName
+      value: 
+      objectReference: {fileID: 11400000, guid: 3ccd1c4214c97e14abc6619db7d9cdc4,
+        type: 2}
     - target: {fileID: 815008520, guid: b3b278d213683e54e9dcf8237f7bed83, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -696,6 +701,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8834693194474884984, guid: b3b278d213683e54e9dcf8237f7bed83,
+        type: 3}
+      propertyPath: AnimatorControllerName
+      value: 
+      objectReference: {fileID: 11400000, guid: 3ccd1c4214c97e14abc6619db7d9cdc4,
+        type: 2}
     - target: {fileID: 8834693194474884985, guid: b3b278d213683e54e9dcf8237f7bed83,
         type: 3}
       propertyPath: m_Name

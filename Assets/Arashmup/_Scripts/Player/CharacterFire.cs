@@ -61,9 +61,9 @@ namespace Arashmup
             }
 
             Vector2 direction = Inputs.Actions.Gameplay.FireDirection.ReadValue<Vector2>();
-            bool hasClicked = Inputs.Actions.Gameplay.Fire.ReadValue<float>() > 0.1f;
+            bool hasTriggered = Inputs.Actions.Gameplay.Fire.ReadValue<float>() > 0.1f;
 
-            if (hasClicked || direction.magnitude > 0.1f)
+            if (hasTriggered || direction.magnitude > 0.1f)
             {
                 // in case of click, we need to compute the direction using the mouse position
                 if (direction.magnitude <= 0.1f)
@@ -76,7 +76,6 @@ namespace Arashmup
                 if (FireAllowed.Value && !IsDead.Value && FireElaspedTime.Value > FireRate.Value)
                 {
                     FireElaspedTime.SetValue(0.0f);
-
 
                     // adding a bit of the direction vector to the position so the bullet does spawn at the character center
                     Vector3 position = transform.position + new Vector3(direction.x, direction.y, transform.position.z) * 0.9f; 

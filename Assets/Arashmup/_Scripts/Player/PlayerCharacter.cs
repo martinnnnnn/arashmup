@@ -26,6 +26,7 @@ namespace Arashmup
         CharacterFire fire;
         CharacterDamage damage;
         BoosterController boosterController;
+        WeaponController weaponController;
         Rigidbody2D rigidBody;
         Collider2D collider2d;
 
@@ -39,34 +40,61 @@ namespace Arashmup
             fire = GetComponent<CharacterFire>();
             damage = GetComponent<CharacterDamage>();
             boosterController = GetComponent<BoosterController>();
+            weaponController = GetComponent<WeaponController>();
             rigidBody = GetComponent<Rigidbody2D>();
             collider2d = GetComponent<Collider2D>();
 
             if (PV.IsMine)
             {
-                CameraController cameraController = Instantiate(FollowCamera, Vector3.zero, Quaternion.identity).GetComponent<CameraController>();
-                fire.FollowCamera = cameraController;
+                InitLocal();
             }
             else
             {
-                Destroy(movement); movement = null;
-                Destroy(fire); fire = null;
-                Destroy(damage); damage = null;
-                Destroy(boosterController); boosterController = null;
-                Destroy(rigidBody); rigidBody = null;
-                Destroy(collider2d); collider2d = null;
-
-                PlayerName = ScriptableObject.CreateInstance<StringVariable>();
-                GetComponentInChildren<TextReplacer>().Variable = PlayerName;
-
-                proxy.IsDead = ScriptableObject.CreateInstance<BoolVariable>();
-                IsDead.Variable = proxy.IsDead;
+                InitProxy();
             }
-
+            
             PlayerName.Value = PV.Owner.NickName;
             NameChangeEvent.Raise();
 
             isAlreadyDead = false;
+        }
+
+        void InitProxy()
+        {
+            Destroy(movement); movement = null;
+            Destroy(fire); fire = null;
+            Destroy(damage); damage = null;
+            Destroy(boosterController); boosterController = null;
+            Destroy(rigidBody); rigidBody = null;
+            Destroy(collider2d); collider2d = null;
+
+            // Replace PlayerName
+            PlayerName = ScriptableObject.CreateInstance<StringVariable>();
+            GetComponentInChildren<TextReplacer>().Variable = PlayerName;
+
+            // Replace IsDead
+            proxy.IsDead = ScriptableObject.CreateInstance<BoolVariable>();
+            IsDead.Variable = proxy.IsDead;
+
+            // Replace WalkSpeed
+            movement.WalkSpeed = ScriptableObject.CreateInstance<FloatVariable>();
+            boosterController.WalkSpeed = movement.WalkSpeed;
+
+            // Replace Dash Rate
+            movement.DashRate = ScriptableObject.CreateInstance<FloatVariable>();
+            boosterController.DashRate = movement.DashRate;
+
+            // Replace FireRate
+            weaponController.FireRate = ScriptableObject.CreateInstance<FloatVariable>();
+            fire.FireRate.Variable = weaponController.FireRate;
+        }
+
+        void InitLocal()
+        {
+            CameraController cameraController = Instantiate(FollowCamera, Vector3.zero, Quaternion.identity).GetComponent<CameraController>();
+            fire.FollowCamera = cameraController;
+
+            proxy.SetCharacterAnimation();
         }
 
         public void OnCharacterDeath()
@@ -130,8 +158,3 @@ namespace Arashmup
         #endregion
     }
 }
-
-// walk speed
-// fire rate
-// name
-// dash rate

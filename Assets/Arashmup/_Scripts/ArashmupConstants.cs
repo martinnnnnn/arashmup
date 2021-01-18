@@ -34,13 +34,14 @@ namespace Arashmup
         public static readonly string DestroyObject = "RPC_DestroyObject";
         public static readonly string Fire = "RPC_Fire";
         public static readonly string Equip = "RPC_Equip";
-        public static readonly string EnableInvincibleColor = "EnableInvincibleColor_RPC";
+        public static readonly string EnableInvincibleColor = "RPC_EnableInvincibleColor";
+        public static readonly string SetCharacterAnimation = "PRC_SetCharacterAnimation";
+        
     }
 
     internal static class PlayerPrefsNames
     {
         public static readonly string PlayerName = "PlayerName";
-        public static readonly string PlayerCharacter = "PlayerCharacter";
     }
 
     internal static class CharacterNames

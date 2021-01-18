@@ -86,6 +86,8 @@ MonoBehaviour:
   BulletsAlive: {fileID: 11400000, guid: 1bba3b15bd83dbc489b7a0a7f4baa197, type: 2}
   CharacterDeathEvent: {fileID: 11400000, guid: bb3424ad7c79c894ea44af3a5084fef9,
     type: 2}
+  AnimatorControllerName: {fileID: 11400000, guid: 3ccd1c4214c97e14abc6619db7d9cdc4,
+    type: 2}
   visual: {fileID: 2480934162348740033}
 --- !u!114 &4775940296048125762
 MonoBehaviour:
@@ -100,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Position: {fileID: 11400000, guid: 538a4ce04659e4d4e837cb2ff7efaa10, type: 2}
+  Direction: {fileID: 11400000, guid: bd3f74c04c0277e4cbf5f1683255bcb5, type: 2}
   MoveAllowed: {fileID: 11400000, guid: 2722a83df1c003e4aa2c94aa431b7391, type: 2}
   Inputs: {fileID: 11400000, guid: 34ea6df4daa944c44a39c87f62fa8fe8, type: 2}
   WalkSpeedStandard:
@@ -116,6 +119,7 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 52c25e453a8a8f24e8d77240dcccd478, type: 2}
   DashRate: {fileID: 11400000, guid: b48fd52d55de6154fa6fca144c42a55a, type: 2}
+  IsDashing: {fileID: 11400000, guid: 7a1b62866ca735f479c422a63f3ab514, type: 2}
   DashElaspedTime: {fileID: 11400000, guid: 527815d25175eac4f983084fc2828e35, type: 2}
   DashParticule: {fileID: 9086533193961667989, guid: 4319cba63911b484c801cb12c1831616,
     type: 3}

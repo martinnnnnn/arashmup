@@ -8,9 +8,8 @@ namespace Arashmup
     {
         public List<RuntimeAnimatorController> AnimControllers;
 
-        void Start()
+        public void SetAnim(string animatorName)
         {
-            string animatorName = PlayerPrefs.GetString(PlayerPrefsNames.PlayerCharacter);
             foreach (RuntimeAnimatorController animController in AnimControllers)
             {
                 if (animController.name == animatorName)

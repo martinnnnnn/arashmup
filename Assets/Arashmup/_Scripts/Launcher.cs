@@ -25,6 +25,9 @@ namespace Arashmup
 
         [SerializeField] GameObject startGameButton;
 
+        [SerializeField] StringVariable AnimatorControllerName;
+
+
         public StringVariable PlayerName;
 
         public SceneFlowData SceneFlow;
@@ -100,7 +103,7 @@ namespace Arashmup
 
         public void ChangePlayerCharacter(RuntimeAnimatorController animController)
         {
-            PlayerPrefs.SetString(PlayerPrefsNames.PlayerCharacter, animController.name);
+            AnimatorControllerName.SetValue(animController.name); 
         }
 
         public void QuitGame()
