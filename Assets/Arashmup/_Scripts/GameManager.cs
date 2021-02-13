@@ -77,14 +77,22 @@ namespace Arashmup
                 PlayerCharacter leaver = PlayerCharacters.Items.Find(pc => pc.GetNetworkPlayer() == otherPlayer);
                 if (!leaver.IsDead.Value)
                 {
-                    CharacterDeathEvent.Raise();
+                    UpdatePlayersAliveCount();
+                    CheckEnd();
+                    Debug.Log("OnPlayerLeftRoom");
                 }
             }
         }
 
         public void OnCharacterDeath()
         {
+            Debug.Log("OnCharacterDeath");
             deadPlayerCount++;
+            UpdatePlayersAliveCount();
+        }
+
+        public void UpdatePlayersAliveCount()
+        {
             PlayersAliveCount.SetValue(PhotonNetwork.PlayerList.Count() - deadPlayerCount);
         }
 

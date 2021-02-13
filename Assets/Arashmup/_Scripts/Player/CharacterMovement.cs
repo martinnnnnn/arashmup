@@ -24,16 +24,9 @@ namespace Arashmup
         public FloatVariable DashRate;
         public BoolVariable IsDashing;
         public FloatVariable DashElaspedTime;
-        //public GameObject DashParticule;
         public float dashTime; // 0.15f
 
-        //Animator characterAnimator;
-        //SpriteRenderer sprite;
-
-        //Vector2 moveDir;
         Rigidbody2D rigidBody;
-        //bool mustDash;
-
         Vector2 lastValideDirection;
 
         void Start()
@@ -45,16 +38,6 @@ namespace Arashmup
 
             WalkSpeed.SetValue(WalkSpeedStandard);
             DashRate.SetValue(DashRateStandard);
-
-            //sprite = GetComponentInChildren<SpriteRenderer>();
-
-            //foreach (Transform t in transform)
-            //{
-            //    if (t.name == "Body")
-            //    {
-            //        characterAnimator = t.GetComponent<Animator>();
-            //    }
-            //}
         }
 
         public void OnGameInitialized()
@@ -109,21 +92,11 @@ namespace Arashmup
                     Direction.SetValue(lastValideDirection);
                 }
                 rigidBody.velocity = Direction.Value * DashForce;
-
-                // spawing dash particule
-                //ParticleSystemRenderer particuleRenderer = Instantiate(DashParticule, transform.position, transform.rotation).GetComponent<ParticleSystemRenderer>();
-                //particuleRenderer.flip = Direction.Value.x < 0 ? new Vector3(1, 0, 0) : new Vector3(-1, 0, 0);
             }
             else
             {
-                //characterAnimator.SetBool("IsRunning", Direction.Value != Vector2.zero);
                 rigidBody.velocity = Direction.Value * WalkSpeed.Value;
             }
-
-            //if (Direction.Value.x != 0.0f)
-            //{
-            //    sprite.flipX = Direction.Value.x < 0;
-            //}
 
             Position.SetValue(transform.position);
         }
