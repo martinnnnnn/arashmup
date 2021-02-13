@@ -24,16 +24,17 @@ namespace Arashmup
         public FloatVariable DashRate;
         public BoolVariable IsDashing;
         public FloatVariable DashElaspedTime;
-        public GameObject DashParticule;
+        //public GameObject DashParticule;
         public float dashTime; // 0.15f
 
-        Animator characterAnimator;
-        SpriteRenderer weaponSprite;
-        SpriteRenderer sprite;
+        //Animator characterAnimator;
+        //SpriteRenderer sprite;
 
         //Vector2 moveDir;
         Rigidbody2D rigidBody;
         //bool mustDash;
+
+        Vector2 lastValideDirection;
 
         void Start()
         {
@@ -45,15 +46,15 @@ namespace Arashmup
             WalkSpeed.SetValue(WalkSpeedStandard);
             DashRate.SetValue(DashRateStandard);
 
-            sprite = GetComponentInChildren<SpriteRenderer>();
+            //sprite = GetComponentInChildren<SpriteRenderer>();
 
-            foreach (Transform t in transform)
-            {
-                if (t.name == "Body")
-                {
-                    characterAnimator = t.GetComponent<Animator>();
-                }
-            }
+            //foreach (Transform t in transform)
+            //{
+            //    if (t.name == "Body")
+            //    {
+            //        characterAnimator = t.GetComponent<Animator>();
+            //    }
+            //}
         }
 
         public void OnGameInitialized()
@@ -91,6 +92,11 @@ namespace Arashmup
                 }
 
                 Direction.SetValue(Inputs.Actions.Gameplay.Move.ReadValue<Vector2>());
+
+                if (Direction.Value.magnitude != 0.0f)
+                {
+                    lastValideDirection = Direction.Value;
+                }
             }
         }
 
@@ -98,31 +104,26 @@ namespace Arashmup
         {
             if (IsDashing.Value)
             {
+                if (Direction.Value.magnitude == 0.0f)
+                {
+                    Direction.SetValue(lastValideDirection);
+                }
                 rigidBody.velocity = Direction.Value * DashForce;
-                
-                // spawing dash particule
-                ParticleSystemRenderer particuleRenderer = Instantiate(DashParticule, transform.position, transform.rotation).GetComponent<ParticleSystemRenderer>();
-                //if (sprite.flipX)
-                Debug.Log(Direction.Value);
 
-                particuleRenderer.flip = Direction.Value.x < 0 ? new Vector3(1, 0, 0) : new Vector3(-1, 0, 0);
+                // spawing dash particule
+                //ParticleSystemRenderer particuleRenderer = Instantiate(DashParticule, transform.position, transform.rotation).GetComponent<ParticleSystemRenderer>();
+                //particuleRenderer.flip = Direction.Value.x < 0 ? new Vector3(1, 0, 0) : new Vector3(-1, 0, 0);
             }
             else
             {
-                characterAnimator.SetBool("IsRunning", Direction.Value != Vector2.zero);
+                //characterAnimator.SetBool("IsRunning", Direction.Value != Vector2.zero);
                 rigidBody.velocity = Direction.Value * WalkSpeed.Value;
             }
 
-            if (Direction.Value.x != 0.0f)
-            {
-                sprite.flipX = Direction.Value.x < 0;
-
-                //if (weaponSprite == null)
-                //{
-                //    weaponSprite = GetComponent<CharacterFire>().weaponAnimator.GetComponent<SpriteRenderer>();
-                //}
-                //weaponSprite.flipX = moveDir.x < 0;
-            }
+            //if (Direction.Value.x != 0.0f)
+            //{
+            //    sprite.flipX = Direction.Value.x < 0;
+            //}
 
             Position.SetValue(transform.position);
         }

@@ -76,17 +76,17 @@ namespace Arashmup
             proxy.IsDead = ScriptableObject.CreateInstance<BoolVariable>();
             IsDead.Variable = proxy.IsDead;
 
-            // Replace WalkSpeed
-            movement.WalkSpeed = ScriptableObject.CreateInstance<FloatVariable>();
-            boosterController.WalkSpeed = movement.WalkSpeed;
+            // Replace WalkSpeed --> useless ? movement deleted in proxy
+            //movement.WalkSpeed = ScriptableObject.CreateInstance<FloatVariable>();
+            //boosterController.WalkSpeed = movement.WalkSpeed;
 
-            // Replace Dash Rate
-            movement.DashRate = ScriptableObject.CreateInstance<FloatVariable>();
-            boosterController.DashRate = movement.DashRate;
+            // Replace Dash Rate --> useless ? movement deleted in proxy
+            //movement.DashRate = ScriptableObject.CreateInstance<FloatVariable>();
+            //boosterController.DashRate = movement.DashRate;
 
             // Replace FireRate
             weaponController.FireRate = ScriptableObject.CreateInstance<FloatVariable>();
-            fire.FireRate.Variable = weaponController.FireRate;
+            //fire.FireRate.Variable = weaponController.FireRate;
         }
 
         void InitLocal()

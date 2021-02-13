@@ -5,14 +5,15 @@ using UnityEngine;
 
 namespace Arashmup
 {
-    public class CharacterProxy : MonoBehaviour/*, IPunObservable*/
+    public class CharacterProxy : MonoBehaviour, IPunObservable
     {
         public BoolVariable IsDead;
-        //public Vector2Variable Direction;
-        //public BoolVariable IsDashing;
+        public Vector2Variable Direction;
+        public BoolVariable IsDashing;
         public BulletRuntimeSet BulletsAlive;
         public GameEvent CharacterDeathEvent;
         public StringVariable AnimatorControllerName;
+        public CharacterAnimation CharaAnimation;
 
         PhotonView PV;
         WeaponController weaponController;
@@ -22,6 +23,13 @@ namespace Arashmup
         int minBulletID;
         int maxBulletID;
         int currentBulletID;
+
+        // used for proxy character : local character sends Direction
+        Vector2 directionRemote;
+
+        // used for proxy character : local character sends Direction
+        bool isDashingRemote;
+
 
         void Start()
         {
@@ -48,14 +56,40 @@ namespace Arashmup
                 visual.color = new Color(r, g, b);
             }
 
-            //if (Direction.Value != Vector2.zero)
-            //{
+            HandleAnimation();
+        }
 
-            //}
-            //if (IsDashing.Value)
-            //{
+        void HandleAnimation()
+        {
+            bool isDashing = false;
+            Vector2 direction = Vector2.zero;
 
-            //}
+            if (PV.IsMine)
+            {
+                isDashing = IsDashing.Value;
+                direction = Direction.Value;
+            }
+            else
+            {
+                isDashing = isDashingRemote;
+                direction = directionRemote;
+            }
+
+            CharaAnimation.Animate(direction, isDashing);
+        }
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting)
+            {
+                stream.SendNext(Direction.Value);
+                stream.SendNext(IsDashing.Value);
+            }
+            else
+            {
+                directionRemote = (Vector2)stream.ReceiveNext();
+                isDashingRemote = (bool)stream.ReceiveNext();
+            }
         }
 
         public void Fire(int actorNumber, Vector3 position, Vector2 direction)
@@ -141,23 +175,8 @@ namespace Arashmup
         [PunRPC]
         public void PRC_SetCharacterAnimation(string animatorName)
         {
-            CharacterAnimation charaAnimation = GetComponentInChildren<CharacterAnimation>();
-            charaAnimation.SetAnim(animatorName);
+            CharaAnimation.SetAnim(animatorName);
         }
-
-        //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-        //{
-        //    if (stream.IsWriting)
-        //    {
-        //        stream.SendNext(IsDashing.Value);
-        //        stream.SendNext(Direction.Value);
-        //    }
-        //    else
-        //    {
-        //        IsDashing.SetValue((bool)stream.ReceiveNext());
-        //        Direction.SetValue((Vector2)stream.ReceiveNext());
-        //    }
-        //}
     }
 }
 

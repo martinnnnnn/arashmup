@@ -83,11 +83,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDead: {fileID: 11400000, guid: 37fc179bff649894bb077f55ebf7249a, type: 2}
+  Direction: {fileID: 11400000, guid: bd3f74c04c0277e4cbf5f1683255bcb5, type: 2}
+  IsDashing: {fileID: 11400000, guid: 7a1b62866ca735f479c422a63f3ab514, type: 2}
   BulletsAlive: {fileID: 11400000, guid: 1bba3b15bd83dbc489b7a0a7f4baa197, type: 2}
   CharacterDeathEvent: {fileID: 11400000, guid: bb3424ad7c79c894ea44af3a5084fef9,
     type: 2}
   AnimatorControllerName: {fileID: 11400000, guid: 3ccd1c4214c97e14abc6619db7d9cdc4,
     type: 2}
+  CharaAnimation: {fileID: 8501723447122133139}
   visual: {fileID: 2480934162348740033}
 --- !u!114 &4775940296048125762
 MonoBehaviour:
@@ -121,8 +124,6 @@ MonoBehaviour:
   DashRate: {fileID: 11400000, guid: b48fd52d55de6154fa6fca144c42a55a, type: 2}
   IsDashing: {fileID: 11400000, guid: 7a1b62866ca735f479c422a63f3ab514, type: 2}
   DashElaspedTime: {fileID: 11400000, guid: 527815d25175eac4f983084fc2828e35, type: 2}
-  DashParticule: {fileID: 9086533193961667989, guid: 4319cba63911b484c801cb12c1831616,
-    type: 3}
   dashTime: 0.15
 --- !u!114 &4775940296048125761
 MonoBehaviour:
@@ -233,6 +234,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
+  - {fileID: 4775940296048125763}
   - {fileID: 4775940296048125764}
   viewIdField: 0
   InstantiationId: 0
@@ -762,10 +764,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627202ad1c03d024c953310d95d988b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimControllers:
-  - {fileID: 9100000, guid: 259203548d940964a950da62411f763b, type: 2}
-  - {fileID: 9100000, guid: 1cc185d2694b1f04e867c754fc5b2292, type: 2}
-  - {fileID: 9100000, guid: d732f392c9a80134782a0087ec579830, type: 2}
+  VisualsInfo:
+  - animController: {fileID: 9100000, guid: 259203548d940964a950da62411f763b, type: 2}
+    dashParticulePrefab: {fileID: 9086533193961667989, guid: 3c2691eb280f9e743833988f761c7c2a,
+      type: 3}
+  - animController: {fileID: 9100000, guid: 1cc185d2694b1f04e867c754fc5b2292, type: 2}
+    dashParticulePrefab: {fileID: 9086533193961667989, guid: 4319cba63911b484c801cb12c1831616,
+      type: 3}
+  - animController: {fileID: 9100000, guid: d732f392c9a80134782a0087ec579830, type: 2}
+    dashParticulePrefab: {fileID: 9086533193961667989, guid: 2bcf645fc12c8aa45a164723fe12ce6d,
+      type: 3}
 --- !u!1 &7298287732574270740
 GameObject:
   m_ObjectHideFlags: 0

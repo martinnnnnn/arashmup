@@ -6,17 +6,64 @@ namespace Arashmup
 {
     public class CharacterAnimation : MonoBehaviour
     {
-        public List<RuntimeAnimatorController> AnimControllers;
+        [Serializable]
+        public struct VisualInfo
+        {
+            public RuntimeAnimatorController animController;
+            public GameObject dashParticulePrefab;
+        }
+
+        public List<VisualInfo> VisualsInfo;
+
+        SpriteRenderer sprite;
+        Animator animator;
+        GameObject dashParticule;
+
+        void Awake()
+        {
+            sprite = GetComponent<SpriteRenderer>();
+            animator = GetComponent<Animator>();
+        }
 
         public void SetAnim(string animatorName)
         {
-            foreach (RuntimeAnimatorController animController in AnimControllers)
+            if (sprite == null)
+            { 
+                sprite = GetComponent<SpriteRenderer>();
+            }
+
+            if (animator == null)
             {
-                if (animController.name == animatorName)
+                animator = GetComponent<Animator>(); 
+            }
+
+            foreach (VisualInfo visualInfo in VisualsInfo)
+            {
+                if (visualInfo.animController.name == animatorName)
                 {
-                    GetComponent<Animator>().runtimeAnimatorController = animController;
+                    animator.runtimeAnimatorController = visualInfo.animController;
+                    dashParticule = visualInfo.dashParticulePrefab;
                     break;
                 }
+            }
+        }
+
+        internal void Animate(Vector2 direction, bool isDashing)
+        {
+
+            if (isDashing)
+            {
+                ParticleSystemRenderer particuleRenderer = Instantiate(dashParticule, transform.position, transform.rotation).GetComponent<ParticleSystemRenderer>();
+                particuleRenderer.flip = direction.x < 0 ? new Vector3(1, 0, 0) : new Vector3(-1, 0, 0);
+            }
+            else
+            {
+                animator.SetBool("IsRunning", direction != Vector2.zero);
+            }
+
+            if (direction.x != 0.0f)
+            {
+                sprite.flipX = direction.x < 0;
             }
         }
     }
