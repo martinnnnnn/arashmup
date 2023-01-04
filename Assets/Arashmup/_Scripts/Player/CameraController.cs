@@ -8,15 +8,15 @@ namespace Arashmup
         public GenericReference<Vector3> PlayerPosition;
         public GameInputs Inputs;
 
-        Camera cam;
-
-        void Start()
-        {
-            cam = GetComponent<Camera>();
-        }
+        private Camera cam;
 
         public Vector2 GetWorldPoint()
         {
+            if (cam == null)
+            {
+                cam = GetComponent<Camera>();
+            }
+
             return cam.ScreenToWorldPoint(Inputs.Actions.Gameplay.FireGoal.ReadValue<Vector2>());
         }
 
